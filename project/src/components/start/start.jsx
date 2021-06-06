@@ -3,9 +3,8 @@ import FilmCard from '../filmCard/filmCard';
 import PropTypes from 'prop-types';
 
 function Start({title, genre, releaseDate}) {
-  //const {errorsCount} = props;
   const url = '#';
-  const cards = [...Array(19).keys()].map((index) => ++index);
+  const cards = [...Array(20).keys()].map((index) => ++index);
 
   return (
     <>
@@ -108,9 +107,6 @@ function Start({title, genre, releaseDate}) {
 
           <div className="catalog__films-list">
             {cards.map((item) => <FilmCard key={item} />)}
-            <FilmCard />
-
-
           </div>
 
           <div className="catalog__more">
