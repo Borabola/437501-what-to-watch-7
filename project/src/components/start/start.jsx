@@ -2,9 +2,8 @@ import React from 'react';
 import FilmCard from '../filmCard/filmCard';
 import PropTypes from 'prop-types';
 
-function Start({title, genre, releaseDate}) {
+function Start({title, genre, releaseDate, filmList}) {
   const url = '#';
-  const cards = [...Array(20).keys()].map((index) => ++index);
 
   return (
     <>
@@ -106,7 +105,8 @@ function Start({title, genre, releaseDate}) {
           </ul>
 
           <div className="catalog__films-list">
-            {cards.map((item) => <FilmCard key={item} />)}
+            {/* {cards.map((item) => <FilmCard key={item} />)} */}
+            {filmList.map((item) => <FilmCard key={item.index} imgName={item.imgName} filmTitle={item.filmTitle}/>)}
           </div>
 
           <div className="catalog__more">
@@ -136,6 +136,11 @@ Start.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
+  filmList: PropTypes.objectOf({
+    id: PropTypes.number.isRequired,
+    imgName: PropTypes.string.isRequired,
+    filmTitle: PropTypes.string.isRequired,
+  }),
 };
 
 export default Start;
