@@ -136,7 +136,7 @@ Start.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
-  filmList: PropTypes.objectOf({
+  filmList: PropTypes.shape({
     id: PropTypes.number.isRequired,
     imgName: PropTypes.string.isRequired,
     filmTitle: PropTypes.string.isRequired,
