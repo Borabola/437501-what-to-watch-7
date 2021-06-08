@@ -2,21 +2,21 @@ import React from 'react';
 import Start from '../start/start';
 import PropTypes from 'prop-types';
 
-function App({title, genre, releaseDate, filmList}) {
+function App({filmList, genre, releaseDate, title}) {
   return (
-    <Start title={title} genre={genre} releaseDate={releaseDate} filmList={filmList}/>
+    <Start filmList={filmList} genre={genre} releaseDate={releaseDate} title={title} />
   );
 }
 
 App.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  releaseDate: PropTypes.string.isRequired,
-  filmList: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+  filmList: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
     imgName: PropTypes.string.isRequired,
     filmTitle: PropTypes.string.isRequired,
-  }),
+  })),
+  genre: PropTypes.string.isRequired,
+  releaseDate: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default App;

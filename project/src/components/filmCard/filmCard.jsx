@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function FilmCard({imgName, filmTitle}) {
+function FilmCard({filmTitle, imgName}) {
   const imgLink = `img/${imgName}`;
 
   return (
@@ -17,8 +17,8 @@ function FilmCard({imgName, filmTitle}) {
 }
 
 FilmCard.propTypes = {
-  imgName: PropTypes.string.isRequired,
   filmTitle: PropTypes.string.isRequired,
+  imgName: PropTypes.string.isRequired,
 };
 
 export default FilmCard;
