@@ -2,6 +2,8 @@ import React from 'react';
 
 
 function MyList() {
+  const url = '#';
+
   return (
     <>
       <section className="film-card film-card--full">
@@ -28,7 +30,7 @@ function MyList() {
                 </div>
               </li>
               <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
+                <a className="user-block__link" href={url}>Sign out</a>
               </li>
             </ul>
           </header>
@@ -70,13 +72,13 @@ function MyList() {
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
                   <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Overview</a>
+                    <a href={url} className="film-nav__link">Overview</a>
                   </li>
                   <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
+                    <a href={url} className="film-nav__link">Details</a>
                   </li>
                   <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Reviews</a>
+                    <a href={url} className="film-nav__link">Reviews</a>
                   </li>
                 </ul>
               </nav>
@@ -89,7 +91,7 @@ function MyList() {
 
                       <footer className="review__details">
                         <cite className="review__author">Kate Muir</cite>
-                        <time className="review__date" datetime="2016-12-24">December 24, 2016</time>
+                        <time className="review__date" dateTime="2016-12-24">December 24, 2016</time>
                       </footer>
                     </blockquote>
 
@@ -98,11 +100,11 @@ function MyList() {
 
                   <div className="review">
                     <blockquote className="review__quote">
-                      <p className="review__text">Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.</p>
+                      <p className="review__text">Anderson’s films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.</p>
 
                       <footer className="review__details">
                         <cite className="review__author">Bill Goodykoontz</cite>
-                        <time className="review__date" datetime="2015-11-18">November 18, 2015</time>
+                        <time className="review__date" dateTime="2015-11-18">November 18, 2015</time>
                       </footer>
                     </blockquote>
 
@@ -111,11 +113,11 @@ function MyList() {
 
                   <div className="review">
                     <blockquote className="review__quote">
-                      <p className="review__text">I didn't find it amusing, and while I can appreciate the creativity, it's an hour and 40 minutes I wish I could take back.</p>
+                      <p className="review__text">I didn’t find it amusing, and while I can appreciate the creativity, it's an hour and 40 minutes I wish I could take back.</p>
 
                       <footer className="review__details">
                         <cite className="review__author">Amanda Greever</cite>
-                        <time className="review__date" datetime="2015-11-18">November 18, 2015</time>
+                        <time className="review__date" dateTime="2015-11-18">November 18, 2015</time>
                       </footer>
                     </blockquote>
 
@@ -129,7 +131,7 @@ function MyList() {
 
                       <footer className="review__details">
                         <cite className="review__author">Matthew Lickona</cite>
-                        <time className="review__date" datetime="2016-12-20">December 20, 2016</time>
+                        <time className="review__date" dateTime="2016-12-20">December 20, 2016</time>
                       </footer>
                     </blockquote>
 
@@ -142,7 +144,7 @@ function MyList() {
 
                       <footer className="review__details">
                         <cite className="review__author">Paula Fleri-Soler</cite>
-                        <time className="review__date" datetime="2016-12-20">December 20, 2016</time>
+                        <time className="review__date" dateTime="2016-12-20">December 20, 2016</time>
                       </footer>
                     </blockquote>
 
@@ -155,7 +157,7 @@ function MyList() {
 
                       <footer className="review__details">
                         <cite className="review__author">Paula Fleri-Soler</cite>
-                        <time className="review__date" datetime="2016-12-20">December 20, 2016</time>
+                        <time className="review__date" dateTime="2016-12-20">December 20, 2016</time>
                       </footer>
                     </blockquote>
 

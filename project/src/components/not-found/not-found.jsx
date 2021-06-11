@@ -1,6 +1,8 @@
 import React from 'react';
 
 function NotFound() {
+  const url = '#';
+
   return (
 
     <section className="film-card">
@@ -39,8 +41,6 @@ function NotFound() {
 
           <div className="film-card__desc">
             <h2 className="film-card__title">Page Not Found</h2>
-
-
 
           </div>
         </div>
