@@ -1,10 +1,46 @@
 import React from 'react';
-import Start from '../start/start';
+import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {AppRoute} from '../../const';
+import Main from '../main/main';
+import SingIn from '../sing-in/sing-in';
+import MyList from '../my-list/my-list';
+import Film from '../film/film';
+import AddReview from '../addReview/addReview';
+import Player from '../player/player';
 import PropTypes from 'prop-types';
+import NotFound from '../not-found/not-found';
 
 function App({filmList, genre, releaseDate, title}) {
   return (
-    <Start filmList={filmList} genre={genre} releaseDate={releaseDate} title={title} />
+    <BrowserRouter>
+      <Switch>
+        <Route exact path={AppRoute.ROOT}>
+          <Main filmList={filmList}
+            genre={genre}
+            releaseDate={releaseDate}
+            title={title}
+          />
+        </Route>
+        <Route exact path={AppRoute.SING_IN}>
+          <SingIn/>
+        </Route>
+        <Route exact path={AppRoute.MY_LIST}>
+          <MyList />
+        </Route>
+        <Route exact path={AppRoute.FILM}>
+          <Film />
+        </Route>
+        <Route exact path={AppRoute.ADD_REWIEW}>
+          <AddReview />
+        </Route>
+        <Route exact path={AppRoute.PLAYER}>
+          <Player />
+        </Route>
+        <Route>
+          <NotFound />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
