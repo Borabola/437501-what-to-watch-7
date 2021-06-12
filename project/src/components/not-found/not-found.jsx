@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function NotFound() {
   const url = '#';
@@ -40,7 +41,8 @@ function NotFound() {
           </div>
 
           <div className="film-card__desc">
-            <h2 className="film-card__title">Page Not Found</h2>
+            <h2 className="film-card__title">404 Not Found</h2>
+            <Link className="film-card__title" to="/">Link to Main Page</Link>
 
           </div>
         </div>

@@ -1,9 +1,9 @@
 export const AppRoute = {
-  SING_IN: '/login',
+  SIGN_IN: '/login',
   MY_LIST: '/mylist',
   FILM: '/films/:id',
   ROOT: '/',
-  ADD_REWIEW: '/films/:id/review',
+  ADD_REVIEW: '/films/:id/review',
   PLAYER: '/player/:id',
 };
 

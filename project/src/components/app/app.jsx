@@ -5,7 +5,7 @@ import Main from '../main/main';
 import SingIn from '../sing-in/sing-in';
 import MyList from '../my-list/my-list';
 import Film from '../film/film';
-import AddReview from '../addReview/addReview';
+import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import PropTypes from 'prop-types';
 import NotFound from '../not-found/not-found';
@@ -21,7 +21,7 @@ function App({filmList, genre, releaseDate, title}) {
             title={title}
           />
         </Route>
-        <Route exact path={AppRoute.SING_IN}>
+        <Route exact path={AppRoute.SIGN_IN}>
           <SingIn/>
         </Route>
         <Route exact path={AppRoute.MY_LIST}>
@@ -30,7 +30,7 @@ function App({filmList, genre, releaseDate, title}) {
         <Route exact path={AppRoute.FILM}>
           <Film />
         </Route>
-        <Route exact path={AppRoute.ADD_REWIEW}>
+        <Route exact path={AppRoute.ADD_REVIEW}>
           <AddReview />
         </Route>
         <Route exact path={AppRoute.PLAYER}>
