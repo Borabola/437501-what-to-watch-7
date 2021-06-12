@@ -1,8 +1,8 @@
 import React from 'react';
-import FilmCard from '../filmCard/filmCard';
+import FilmCard from '../film-card/film-card';
 import PropTypes from 'prop-types';
 
-function Start({filmList, genre, releaseDate, title}) {
+function Main({filmList, genre, releaseDate, title}) {
   const url = '#';
 
   return (
@@ -105,7 +105,7 @@ function Start({filmList, genre, releaseDate, title}) {
           </ul>
 
           <div className="catalog__films-list">
-            {filmList.map((item) => <FilmCard filmTitle={item.filmTitle} imgName={item.imgName} key={item.filmTitle + item.id}/>)}
+            {filmList.map((item) => <FilmCard filmTitle={item.filmTitle} imgName={item.imgName} key={item.id}/>)}
           </div>
 
           <div className="catalog__more">
@@ -131,7 +131,7 @@ function Start({filmList, genre, releaseDate, title}) {
   );
 }
 
-Start.propTypes = {
+Main.propTypes = {
   filmList: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     imgName: PropTypes.string.isRequired,
@@ -142,4 +142,4 @@ Start.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default Start;
+export default Main;
