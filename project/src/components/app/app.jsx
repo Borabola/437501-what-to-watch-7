@@ -25,13 +25,13 @@ function App({filmList, genre, releaseDate, title}) {
           <SingIn/>
         </Route>
         <Route exact path={AppRoute.MY_LIST}>
-          <MyList />
+          <MyList filmList={filmList} />
         </Route>
         <Route exact path={AppRoute.FILM}>
           <Film />
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
-          <AddReview />
+          <AddReview filmList={filmList} />
         </Route>
         <Route exact path={AppRoute.PLAYER}>
           <Player />

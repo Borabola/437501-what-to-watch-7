@@ -1,6 +1,7 @@
 import React from 'react';
-import FilmCard from '../film-card/film-card';
+import FilmList from '../film-list/film-list';
 import PropTypes from 'prop-types';
+import filmListProp from '../film-list/film-list.prop';
 
 function Main({filmList, genre, releaseDate, title}) {
   const url = '#';
@@ -104,9 +105,7 @@ function Main({filmList, genre, releaseDate, title}) {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {filmList.map((item) => <FilmCard filmTitle={item.filmTitle} imgName={item.imgName} key={item.id}/>)}
-          </div>
+          <FilmList filmList={filmList} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -132,11 +131,7 @@ function Main({filmList, genre, releaseDate, title}) {
 }
 
 Main.propTypes = {
-  filmList: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    imgName: PropTypes.string.isRequired,
-    filmTitle: PropTypes.string.isRequired,
-  })),
+  filmList: filmListProp,
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
