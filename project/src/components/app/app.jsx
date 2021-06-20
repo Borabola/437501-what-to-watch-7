@@ -7,6 +7,7 @@ import MyList from '../my-list/my-list';
 import Film from '../film/film';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
+import ReviewForm from '../review-form/review-form';
 import PropTypes from 'prop-types';
 import NotFound from '../not-found/not-found';
 import filmListProp from '../film-list/film-list.prop';
@@ -36,6 +37,9 @@ function App({filmList, genre, releaseDate, title}) {
         </Route>
         <Route exact path={AppRoute.PLAYER}>
           <Player filmVideo={filmList[0].filmVideo} filmPoster={filmList[0].filmPoster} />
+        </Route>
+        <Route exact path={AppRoute.REVIEW_FORM}>
+          <ReviewForm filmVideo={filmList[0].filmVideo} filmPoster={filmList[0].filmPoster} />
         </Route>
         <Route>
           <NotFound />

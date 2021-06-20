@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import FilmList from '../film-list/film-list';
 import filmListProp from '../film-list/film-list.prop';
 
@@ -58,7 +59,8 @@ function AddReview({filmList}) {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+
+                <Link to="/add-review" className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
