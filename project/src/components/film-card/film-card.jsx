@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import {AppRoute} from '../../const';
 import EmbeddedVideo from '../embedded-video/embedded-video';
 import PropTypes from 'prop-types';
 
@@ -12,7 +14,7 @@ function FilmCard({filmTitle, imgName, filmVideo, filmPoster}) {
         <EmbeddedVideo filmVideo={filmVideo} filmPoster={filmPoster} />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">{filmTitle}</a>
+        <Link to={AppRoute.FILM} className="small-film-card__link">{filmTitle}</Link>
       </h3>
     </article>
   );
