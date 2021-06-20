@@ -11,7 +11,7 @@ function FilmList({filmList}) {
 
   return (
     <div className="catalog__films-list">
-      {filmList.map((item) => <FilmCard filmTitle={item.filmTitle} imgName={item.imgName} key={item.id} onMouseOver={changeActiveFilmHandler}/>)}
+      {filmList.map((item) => <FilmCard filmTitle={item.filmTitle} imgName={item.imgName} key={item.id}  filmVideo={item.filmVideo} filmPoster={item.filmPoster}  onMouseOver={changeActiveFilmHandler}/>)}
     </div>
   );
 }

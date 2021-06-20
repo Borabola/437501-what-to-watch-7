@@ -6,5 +6,7 @@ export default PropTypes.arrayOf(
     id: PropTypes.string.isRequired,
     imgName: PropTypes.string.isRequired,
     filmTitle: PropTypes.string.isRequired,
+    filmPoster: PropTypes.string,
+    filmVideo: PropTypes.string,
   }));
 

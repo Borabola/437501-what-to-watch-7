@@ -9,6 +9,7 @@ import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import PropTypes from 'prop-types';
 import NotFound from '../not-found/not-found';
+import filmListProp from '../film-list/film-list.prop';
 
 function App({filmList, genre, releaseDate, title}) {
   return (
@@ -34,7 +35,7 @@ function App({filmList, genre, releaseDate, title}) {
           <AddReview filmList={filmList} />
         </Route>
         <Route exact path={AppRoute.PLAYER}>
-          <Player />
+          <Player filmVideo={filmList[0].filmVideo} filmPoster={filmList[0].filmPoster} />
         </Route>
         <Route>
           <NotFound />
@@ -45,11 +46,7 @@ function App({filmList, genre, releaseDate, title}) {
 }
 
 App.propTypes = {
-  filmList: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    imgName: PropTypes.string.isRequired,
-    filmTitle: PropTypes.string.isRequired,
-  })),
+  filmList: filmListProp,
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
