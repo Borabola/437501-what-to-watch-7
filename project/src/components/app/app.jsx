@@ -7,10 +7,10 @@ import MyList from '../pages/my-list/my-list';
 import Film from '../pages/film/film';
 import AddReview from '../pages/add-review/add-review';
 import Player from '../pages/player/player';
-import ReviewFormPage from '../review-form-page/review-form-page';
 import PropTypes from 'prop-types';
 import NotFound from '../pages/not-found/not-found';
 import filmListProp from '../film-list/film-list.prop';
+import reviewsList from '../../mocks/reviews';
 
 function App({filmList, genre, releaseDate, title}) {
   return (
@@ -30,16 +30,13 @@ function App({filmList, genre, releaseDate, title}) {
           <MyList filmList={filmList} />
         </Route>
         <Route exact path={AppRoute.FILM}>
-          <Film />
+          <Film filmList={filmList} />
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
-          <AddReview filmList={filmList} />
+          <AddReview filmList={filmList} reviewsList={reviewsList} />
         </Route>
         <Route exact path={AppRoute.PLAYER}>
           <Player filmVideo={filmList[0].filmVideo} filmPoster={filmList[0].filmPoster} />
-        </Route>
-        <Route exact path={AppRoute.REVIEW_FORM_PAGE}>
-          <ReviewFormPage filmVideo={filmList[0].filmVideo} filmPoster={filmList[0].filmPoster} />
         </Route>
         <Route>
           <NotFound />

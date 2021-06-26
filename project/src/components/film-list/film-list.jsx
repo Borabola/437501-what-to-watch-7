@@ -5,13 +5,14 @@ import filmListProp from './film-list.prop';
 function FilmList({filmList}) {
   const [activeFilm, setActiveFilm] = useState({id: null});
 
-  const changeActiveFilmHandler = (filmId) => {
-    setActiveFilm({...activeFilm, id: filmId});
+  const changeActiveFilmHandler = (evt) => {
+    console.log(evt.currentTarget.dataset.id);
+    setActiveFilm({...activeFilm, id: evt.currentTarget.dataset.id});
   };
 
   return (
     <div className="catalog__films-list">
-      {filmList.map((item) => <FilmCard filmTitle={item.filmTitle} imgName={item.imgName} key={item.id}  filmVideo={item.filmVideo} filmPoster={item.filmPoster}  onMouseOver={changeActiveFilmHandler}/>)}
+      {filmList.map((item) => <FilmCard filmId={item.id} filmTitle={item.filmTitle} imgName={item.imgName} key={item.id} filmVideo={item.filmVideo} filmPoster={item.filmPoster}  onCardHover={changeActiveFilmHandler}/>)}
     </div>
   );
 }

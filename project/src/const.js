@@ -5,6 +5,5 @@ export const AppRoute = {
   ROOT: '/',
   ADD_REVIEW: '/films/:id/review',
   PLAYER: '/player/:id',
-  REVIEW_FORM_PAGE: '/add-review',
 };
 
