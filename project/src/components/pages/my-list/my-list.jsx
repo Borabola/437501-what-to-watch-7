@@ -5,7 +5,7 @@ import FilmList from '../../film-list/film-list';
 import filmListProp from '../../film-list/film-list.prop';
 
 
-function MyList({filmList}) {
+function MyList({films}) {
   const url = '#';
 
   return (
@@ -30,7 +30,7 @@ function MyList({filmList}) {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmList filmList={filmList} />
+        <FilmList films={films} />
       </section>
 
       <PageFooter />
@@ -39,7 +39,7 @@ function MyList({filmList}) {
 }
 
 MyList.propTypes = {
-  filmList: filmListProp,
+  films: filmListProp,
 };
 
 

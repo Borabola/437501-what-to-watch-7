@@ -1,60 +1,68 @@
-const filmList = [
+const films = [
   {
     id: '1',
     imgName: 'fantastic-beasts-the-crimes-of-grindelwald.jpg',
-    filmTitle: 'Fantastic Beasts: The Crimes of Grindelwald',
+    name: 'Fantastic Beasts: The Crimes of Grindelwald',
     filmVideo: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
     filmPoster: 'img/player-poster.jpg',
+    genre: 'Adventure',
   },
   {
     id: '2',
     imgName: 'bohemian-rhapsody.jpg',
-    filmTitle: 'Bohemian Rhapsody',
+    name: 'Bohemian Rhapsody',
     filmVideo: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
     filmPoster: 'img/player-poster.jpg',
+    genre: 'Drama',
   },
   {
     id: '3',
     imgName: 'macbeth.jpg',
-    filmTitle: 'Macbeth',
+    name: 'Macbeth',
     filmVideo: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
     filmPoster: 'img/player-poster.jpg',
+    genre: 'Drama',
   },
   {
     id: '4',
     imgName: 'aviator.jpg',
-    filmTitle: 'Aviator',
+    name: 'Aviator',
     filmVideo: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
     filmPoster: 'img/player-poster.jpg',
+    genre: 'Drama',
   },
   {
     id: '5',
     imgName: 'we-need-to-talk-about-kevin.jpg',
-    filmTitle: 'We need to talk about Kevin',
+    name: 'We need to talk about Kevin',
     filmVideo: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
     filmPoster: 'img/player-poster.jpg',
+    genre: 'Drama',
   },
   {
     id: '6',
     imgName: 'what-we-do-in-the-shadows.jpg',
-    filmTitle: 'What We Do in the Shadows',
+    name: 'What We Do in the Shadows',
     filmVideo: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
     filmPoster: 'img/player-poster.jpg',
+    genre: 'Comedy',
   },
   {
     id: '7',
     imgName: 'revenant.jpg',
-    filmTitle: 'Revenant',
+    name: 'Revenant',
     filmVideo: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
     filmPoster: 'img/player-poster.jpg',
+    genre: 'Western',
   },
   {
     id: '8',
     imgName: 'johnny-english.jpg',
-    filmTitle: 'Johnny English',
+    name: 'Johnny English',
     filmVideo: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
     filmPoster: 'img/player-poster.jpg',
+    genre: 'Comedy',
   },
 ];
 
-export default filmList;
+export default films;

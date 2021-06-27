@@ -5,7 +5,7 @@ import FilmList from '../../film-list/film-list';
 import PropTypes from 'prop-types';
 import filmListProp from '../../film-list/film-list.prop';
 
-function Main({filmList, genre, releaseDate, title}) {
+function Main({films, genre, releaseDate, title}) {
   const url = '#';
 
   return (
@@ -101,7 +101,7 @@ function Main({filmList, genre, releaseDate, title}) {
             </li>
           </ul>
 
-          <FilmList filmList={filmList} />
+          <FilmList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -115,7 +115,7 @@ function Main({filmList, genre, releaseDate, title}) {
 }
 
 Main.propTypes = {
-  filmList: filmListProp,
+  films: filmListProp,
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,

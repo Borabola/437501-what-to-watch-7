@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import EmbeddedVideo from '../embedded-video/embedded-video';
 import PropTypes from 'prop-types';
@@ -31,4 +31,4 @@ FilmCard.propTypes = {
 
 };
 
-export default FilmCard;
+export default withRouter(FilmCard);

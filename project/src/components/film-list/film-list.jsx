@@ -2,23 +2,22 @@ import React, { useState } from 'react';
 import FilmCard from '../film-card/film-card';
 import filmListProp from './film-list.prop';
 
-function FilmList({filmList}) {
+function FilmList({films}) {
   const [activeFilm, setActiveFilm] = useState({id: null});
 
   const changeActiveFilmHandler = (evt) => {
-    console.log(evt.currentTarget.dataset.id);
     setActiveFilm({...activeFilm, id: evt.currentTarget.dataset.id});
   };
 
   return (
     <div className="catalog__films-list">
-      {filmList.map((item) => <FilmCard filmId={item.id} filmTitle={item.filmTitle} imgName={item.imgName} key={item.id} filmVideo={item.filmVideo} filmPoster={item.filmPoster}  onCardHover={changeActiveFilmHandler}/>)}
+      {films.map((item) => <FilmCard filmId={item.id} filmTitle={item.name} imgName={item.imgName} key={item.id} filmVideo={item.filmVideo} filmPoster={item.filmPoster}  onCardHover={changeActiveFilmHandler}/>)}
     </div>
   );
 }
 
 FilmList.propTypes = {
-  filmList: filmListProp,
+  films: filmListProp,
 };
 
 export default FilmList;

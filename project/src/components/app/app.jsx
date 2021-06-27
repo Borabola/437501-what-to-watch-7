@@ -12,12 +12,12 @@ import NotFound from '../pages/not-found/not-found';
 import filmListProp from '../film-list/film-list.prop';
 import reviewsList from '../../mocks/reviews';
 
-function App({filmList, genre, releaseDate, title}) {
+function App({films, genre, releaseDate, title}) {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <Main filmList={filmList}
+          <Main films={films}
             genre={genre}
             releaseDate={releaseDate}
             title={title}
@@ -27,16 +27,16 @@ function App({filmList, genre, releaseDate, title}) {
           <SingIn/>
         </Route>
         <Route exact path={AppRoute.MY_LIST}>
-          <MyList filmList={filmList} />
+          <MyList films={films} />
         </Route>
         <Route exact path={AppRoute.FILM}>
-          <Film filmList={filmList} />
+          <Film films={films} />
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
-          <AddReview filmList={filmList} reviewsList={reviewsList} />
+          <AddReview films={films} reviewsList={reviewsList} />
         </Route>
         <Route exact path={AppRoute.PLAYER}>
-          <Player filmVideo={filmList[0].filmVideo} filmPoster={filmList[0].filmPoster} />
+          <Player filmVideo={films[0].filmVideo} filmPoster={films[0].filmPoster} />
         </Route>
         <Route>
           <NotFound />
@@ -47,7 +47,7 @@ function App({filmList, genre, releaseDate, title}) {
 }
 
 App.propTypes = {
-  filmList: filmListProp,
+  films: filmListProp,
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
