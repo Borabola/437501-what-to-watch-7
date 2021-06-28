@@ -1,21 +1,23 @@
 import React from 'react';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import Main from '../main/main';
-import SingIn from '../sing-in/sing-in';
-import MyList from '../my-list/my-list';
-import Film from '../film/film';
-import AddReview from '../add-review/add-review';
-import Player from '../player/player';
+import Main from '../pages/main/main';
+import SingIn from '../pages/sign-in/sign-in';
+import MyList from '../pages/my-list/my-list';
+import Film from '../pages/film/film';
+import AddReview from '../pages/add-review/add-review';
+import Player from '../pages/player/player';
 import PropTypes from 'prop-types';
-import NotFound from '../not-found/not-found';
+import NotFound from '../pages/not-found/not-found';
+import {filmListProp} from '../film-list/film-list.prop';
+import reviewsList from '../../mocks/reviews';
 
-function App({filmList, genre, releaseDate, title}) {
+function App({films, genre, releaseDate, title}) {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <Main filmList={filmList}
+          <Main films={films}
             genre={genre}
             releaseDate={releaseDate}
             title={title}
@@ -25,16 +27,16 @@ function App({filmList, genre, releaseDate, title}) {
           <SingIn/>
         </Route>
         <Route exact path={AppRoute.MY_LIST}>
-          <MyList />
+          <MyList films={films} />
         </Route>
         <Route exact path={AppRoute.FILM}>
-          <Film />
+          <Film films={films} />
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
-          <AddReview />
+          <AddReview films={films} reviewsList={reviewsList} />
         </Route>
         <Route exact path={AppRoute.PLAYER}>
-          <Player />
+          <Player filmVideo={films[0].filmVideo} filmPoster={films[0].filmPoster} />
         </Route>
         <Route>
           <NotFound />
@@ -45,11 +47,7 @@ function App({filmList, genre, releaseDate, title}) {
 }
 
 App.propTypes = {
-  filmList: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    imgName: PropTypes.string.isRequired,
-    filmTitle: PropTypes.string.isRequired,
-  })),
+  films: filmListProp,
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,

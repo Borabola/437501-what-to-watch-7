@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {AppRoute} from '../../../const';
+import Logo from '../../logo/logo';
 
 function NotFound() {
   const url = '#';
@@ -14,13 +16,7 @@ function NotFound() {
       <h1 className="visually-hidden">WTW</h1>
 
       <header className="page-header film-card__head">
-        <div className="logo">
-          <a href={url} className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
+        <Logo />
 
         <ul className="user-block">
           <li className="user-block__item">
@@ -42,7 +38,7 @@ function NotFound() {
 
           <div className="film-card__desc">
             <h2 className="film-card__title">404 Not Found</h2>
-            <Link className="film-card__title" to="/">Link to Main Page</Link>
+            <Link className="film-card__title" to={AppRoute.ROOT} >Link to Main Page</Link>
 
           </div>
         </div>

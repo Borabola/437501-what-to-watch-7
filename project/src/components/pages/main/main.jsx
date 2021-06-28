@@ -1,8 +1,11 @@
 import React from 'react';
-import FilmCard from '../film-card/film-card';
+import Logo from '../../logo/logo';
+import PageFooter from '../../page-footer/page-footer';
+import FilmList from '../../film-list/film-list';
 import PropTypes from 'prop-types';
+import {filmListProp} from '../../film-list/film-list.prop';
 
-function Main({filmList, genre, releaseDate, title}) {
+function Main({films, genre, releaseDate, title}) {
   const url = '#';
 
   return (
@@ -15,13 +18,7 @@ function Main({filmList, genre, releaseDate, title}) {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header film-card__head">
-          <div className="logo">
-            <a href={url} className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo />
 
           <ul className="user-block">
             <li className="user-block__item">
@@ -104,39 +101,21 @@ function Main({filmList, genre, releaseDate, title}) {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {filmList.map((item) => <FilmCard filmTitle={item.filmTitle} imgName={item.imgName} key={item.id}/>)}
-          </div>
+          <FilmList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a href={url} className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <PageFooter />
       </div>
     </>
   );
 }
 
 Main.propTypes = {
-  filmList: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    imgName: PropTypes.string.isRequired,
-    filmTitle: PropTypes.string.isRequired,
-  })),
+  films: filmListProp,
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,

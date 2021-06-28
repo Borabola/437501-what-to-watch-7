@@ -1,24 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
 
-function FilmCard({filmTitle, imgName}) {
-  const imgLink = `img/${imgName}`;
+import EmbeddedVideo from '../embedded-video/embedded-video';
+import PropTypes from 'prop-types';
+import {filmProp} from '../film-list/film-list.prop';
+
+function FilmCard(props) {
+  const {film, onCardHover} = props;
+  const imgLink = `${film.imgName}`;
 
   return (
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card" data-id={film.id} onMouseOver={onCardHover} >
       <div className="small-film-card__image">
-        <img src={imgLink} alt={filmTitle} width="280" height="175" />
+        <img src={imgLink} alt={film.name} width="280" height="175" />
+        <EmbeddedVideo filmVideo={film.filmVideo} filmPoster={film.filmPoster} />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">{filmTitle}</a>
+        <Link to={`/films/${film.id}`} className="small-film-card__link">{film.name}</Link>
       </h3>
     </article>
   );
 }
 
 FilmCard.propTypes = {
-  filmTitle: PropTypes.string.isRequired,
-  imgName: PropTypes.string.isRequired,
+  onCardHover: PropTypes.func,
+  film: filmProp,
 };
 
-export default FilmCard;
+export default withRouter(FilmCard);
