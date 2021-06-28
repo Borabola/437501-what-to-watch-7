@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FilmCard from '../film-card/film-card';
-import filmListProp from './film-list.prop';
+import {filmListProp} from './film-list.prop';
 
 function FilmList({films}) {
   const [activeFilm, setActiveFilm] = useState({id: null});
@@ -11,7 +11,7 @@ function FilmList({films}) {
 
   return (
     <div className="catalog__films-list">
-      {films.map((item) => <FilmCard filmId={item.id} filmTitle={item.name} imgName={item.imgName} key={item.id} filmVideo={item.filmVideo} filmPoster={item.filmPoster}  onCardHover={changeActiveFilmHandler}/>)}
+      {films.map((item) => <FilmCard film={item}  key={item.id}  onCardHover={changeActiveFilmHandler}/>)}
     </div>
   );
 }

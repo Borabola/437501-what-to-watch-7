@@ -3,7 +3,7 @@ import Logo from '../../logo/logo';
 import PageFooter from '../../page-footer/page-footer';
 
 
-function SingIn() {
+function SignIn() {
 
   return (
     <div className="user-page">
@@ -39,4 +39,4 @@ function SingIn() {
 }
 
 
-export default SingIn;
+export default SignIn;

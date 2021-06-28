@@ -3,7 +3,7 @@ import Logo from '../../logo/logo';
 import PageFooter from '../../page-footer/page-footer';
 import FilmList from '../../film-list/film-list';
 import PropTypes from 'prop-types';
-import filmListProp from '../../film-list/film-list.prop';
+import {filmListProp} from '../../film-list/film-list.prop';
 
 function Main({films, genre, releaseDate, title}) {
   const url = '#';

@@ -3,19 +3,20 @@ import { Link, withRouter } from 'react-router-dom';
 
 import EmbeddedVideo from '../embedded-video/embedded-video';
 import PropTypes from 'prop-types';
+import {filmProp} from '../film-list/film-list.prop';
 
 function FilmCard(props) {
-  const {filmId, filmTitle, imgName, filmVideo, filmPoster, onCardHover} = props;
-  const imgLink = `img/${imgName}`;
+  const {film, onCardHover} = props;
+  const imgLink = `${film.imgName}`;
 
   return (
-    <article className="small-film-card catalog__films-card" data-id={filmId} onMouseOver={onCardHover} >
+    <article className="small-film-card catalog__films-card" data-id={film.id} onMouseOver={onCardHover} >
       <div className="small-film-card__image">
-        <img src={imgLink} alt={filmTitle} width="280" height="175" />
-        <EmbeddedVideo filmVideo={filmVideo} filmPoster={filmPoster} />
+        <img src={imgLink} alt={film.name} width="280" height="175" />
+        <EmbeddedVideo filmVideo={film.filmVideo} filmPoster={film.filmPoster} />
       </div>
       <h3 className="small-film-card__title">
-        <Link to={`/films/${filmId}`} className="small-film-card__link">{filmTitle}</Link>
+        <Link to={`/films/${film.id}`} className="small-film-card__link">{film.name}</Link>
       </h3>
     </article>
   );
@@ -23,12 +24,7 @@ function FilmCard(props) {
 
 FilmCard.propTypes = {
   onCardHover: PropTypes.func,
-  filmId: PropTypes.string.isRequired,
-  filmTitle: PropTypes.string.isRequired,
-  filmVideo: PropTypes.string.isRequired,
-  filmPoster: PropTypes.string.isRequired,
-  imgName: PropTypes.string.isRequired,
-
+  film: filmProp,
 };
 
 export default withRouter(FilmCard);

@@ -1,15 +1,20 @@
 import React from 'react';
+import { Link, useParams } from 'react-router-dom';
 import Logo from '../../logo/logo';
 import ReviewForm from '../../review-form/review-form';
+import {filmListProp} from '../../film-list/film-list.prop';
 
-function AddReview() {
+
+function AddReview({films}) {
   const url = '#';
+  const filmId = useParams();
+  const currentFilm = films.find((film) => film.id === filmId.id);
 
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -20,7 +25,7 @@ function AddReview() {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <Link to={`/films/${filmId.id}/`}  className="breadcrumbs__link">{currentFilm.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a href={url} className="breadcrumbs__link">Add review</a>
@@ -41,7 +46,7 @@ function AddReview() {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={currentFilm.posterImage} alt={`${currentFilm.name} poster`} width="218" height="327" />
         </div>
       </div>
 
@@ -52,5 +57,9 @@ function AddReview() {
     </section>
   );
 }
+
+AddReview.propTypes = {
+  films: filmListProp,
+};
 
 export default AddReview;

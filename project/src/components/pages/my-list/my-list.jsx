@@ -2,7 +2,7 @@ import React from 'react';
 import Logo from '../../logo/logo';
 import PageFooter from '../../page-footer/page-footer';
 import FilmList from '../../film-list/film-list';
-import filmListProp from '../../film-list/film-list.prop';
+import {filmListProp} from '../../film-list/film-list.prop';
 
 
 function MyList({films}) {
