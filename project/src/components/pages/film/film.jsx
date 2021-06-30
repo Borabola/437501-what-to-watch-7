@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+
 import Logo from '../../logo/logo';
 import PageFooter from '../../page-footer/page-footer';
 import FilmList from '../../film-list/film-list';
+import {RatingToText} from '../../../utils';
 import {filmListProp} from '../../film-list/film-list.prop';
 
 function Film({films}) {
   const url = '#';
-  const filmId = useParams();
-  const currentFilm = films.find((film) => film.id === filmId.id);
+  const filmParam = useParams();
+  const currentFilm = films.find((film) => film.id === filmParam.id);
 
   return (
     <>
@@ -56,7 +58,7 @@ function Film({films}) {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/films/${filmId.id}/review`} className="btn film-card__button">Add review</Link>
+                <Link to={`/films/${filmParam.id}/review`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -86,7 +88,7 @@ function Film({films}) {
               <div className="film-rating">
                 <div className="film-rating__score">{currentFilm.rating}</div>
                 <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
+                  <span className="film-rating__level">{RatingToText(currentFilm.rating)}</span>
                   <span className="film-rating__count">{currentFilm.scoresCount} ratings</span>
                 </p>
               </div>
@@ -98,7 +100,7 @@ function Film({films}) {
 
                 <p className="film-card__director"><strong>Director: {currentFilm.director}</strong></p>
 
-                <p className="film-card__starring"><strong>Starring: {currentFilm.starring.map((item) => `${item}, `)}and other</strong></p>
+                <p className="film-card__starring"><strong>Starring: {currentFilm.starring.map((item, index) => (index ? ', ': '') + item)}</strong></p>
               </div>
             </div>
           </div>

@@ -7,8 +7,8 @@ import {filmListProp} from '../../film-list/film-list.prop';
 
 function AddReview({films}) {
   const url = '#';
-  const filmId = useParams();
-  const currentFilm = films.find((film) => film.id === filmId.id);
+  const filmParam = useParams();
+  const currentFilm = films.find((film) => film.id === filmParam.id);
 
   return (
     <section className="film-card film-card--full">
@@ -25,10 +25,10 @@ function AddReview({films}) {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${filmId.id}/`}  className="breadcrumbs__link">{currentFilm.name}</Link>
+                <Link to={`/films/${filmParam.id}`}  className="breadcrumbs__link">{currentFilm.name}</Link>
               </li>
               <li className="breadcrumbs__item">
-                <a href={url} className="breadcrumbs__link">Add review</a>
+                <div className="breadcrumbs__link">Add review</div>
               </li>
             </ul>
           </nav>
