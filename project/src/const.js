@@ -15,5 +15,7 @@ const Ratings = {
   AWESOME: 'Awesome',
 };
 
-export {AppRoute, Ratings};
+const MAX_RATING = 10;
+
+export {AppRoute, Ratings, MAX_RATING};
 

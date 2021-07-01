@@ -95,11 +95,7 @@ function Film({films}) {
 
               <div className="film-card__text">
                 <p>{currentFilm.description}</p>
-
-                <p>Gustave prides himself on providing first-className service to the hotel’s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave&rsquo;s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
-
                 <p className="film-card__director"><strong>Director: {currentFilm.director}</strong></p>
-
                 <p className="film-card__starring"><strong>Starring: {currentFilm.starring.map((item, index) => (index ? ', ': '') + item)}</strong></p>
               </div>
             </div>
