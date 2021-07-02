@@ -21,7 +21,7 @@ function EmbeddedVideo({filmVideo, filmPoster, isPlaying}) {
 
   useEffect(() => {
     const hoverTimer = setTimeout(() => {
-      if (isPlaying && videoRef) {
+      if (isPlaying && videoRef.current) {
         videoRef.current.play();
       }
     }, VIDEO_DELAY);
@@ -29,6 +29,9 @@ function EmbeddedVideo({filmVideo, filmPoster, isPlaying}) {
     return () => {
       if (videoRef.current) {
         videoRef.current.pause();
+        //videoRef.current.currentTime = 0;
+
+        videoRef.current.src=filmVideo;
       }
       clearTimeout(hoverTimer);
       
