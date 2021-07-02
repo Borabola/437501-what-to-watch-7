@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {VIDEO_DELAY} from '../../const';
 import PropTypes from 'prop-types';
 
 function EmbeddedVideo({filmVideo, filmPoster, isPlaying}) {
@@ -20,23 +19,12 @@ function EmbeddedVideo({filmVideo, filmPoster, isPlaying}) {
   }, [filmVideo]);
 
   useEffect(() => {
-    const hoverTimer = setTimeout(() => {
-      if (isPlaying && videoRef.current) {
-        videoRef.current.play();
-      }
-    }, VIDEO_DELAY);
-
-    return () => {
-      if (videoRef.current) {
-        videoRef.current.pause();
-        //videoRef.current.currentTime = 0;
-
-        videoRef.current.src=filmVideo;
-      }
-      clearTimeout(hoverTimer);
-      
-    } 
-  }, [isPlaying]);
+    if (!isLoading && isPlaying) {
+      videoRef.current.play();
+      return;
+    }
+    videoRef.current.load();
+  }, [isPlaying, isLoading]);
 
 
   return (

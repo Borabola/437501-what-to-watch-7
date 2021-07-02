@@ -4,11 +4,9 @@ import Logo from '../../logo/logo';
 import ReviewForm from '../../review-form/review-form';
 import UserBlock from '../../user-block/user-block';
 import {filmListProp} from '../../film-list/film-list.prop';
-import {AppRoute} from '../../../const';
 
 
 function AddReview({films}) {
-  const url = '#';
   const filmParam = useParams();
   const currentFilm = films.find((film) => film.id === filmParam.id);
 

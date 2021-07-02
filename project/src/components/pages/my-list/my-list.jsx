@@ -7,7 +7,6 @@ import {filmListProp} from '../../film-list/film-list.prop';
 
 
 function MyList({films}) {
-  const url = '#';
 
   return (
     <div className="user-page">

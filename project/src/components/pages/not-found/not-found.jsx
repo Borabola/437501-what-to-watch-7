@@ -5,7 +5,6 @@ import Logo from '../../logo/logo';
 import UserBlock from '../../user-block/user-block';
 
 function NotFound() {
-  const url = '#';
 
   return (
 
