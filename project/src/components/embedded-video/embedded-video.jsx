@@ -3,20 +3,36 @@ import {VIDEO_DELAY} from '../../const';
 import PropTypes from 'prop-types';
 
 function EmbeddedVideo({filmVideo, filmPoster, isPlaying}) {
-
+  const [isLoading, setIsLoading] = useState(true);
   const videoRef = useRef();
 
   useEffect(() => {
+    videoRef.current.onloadeddata = () => setIsLoading(false);
+
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.onloadeddata = null;
+        videoRef.current.onplay = null;
+        videoRef.current.onpause = null;
+        videoRef.current = null;
+      }
+    };
+  }, [filmVideo]);
+
+  useEffect(() => {
     const hoverTimer = setTimeout(() => {
-      if (isPlaying) {
+      if (isPlaying && videoRef) {
         videoRef.current.play();
       }
     }, VIDEO_DELAY);
 
     return () => {
-      videoRef.current.pause();
+      if (videoRef.current) {
+        videoRef.current.pause();
+      }
       clearTimeout(hoverTimer);
-    };
+      
+    } 
   }, [isPlaying]);
 
 
