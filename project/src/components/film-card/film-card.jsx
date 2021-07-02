@@ -9,7 +9,7 @@ import {VIDEO_DELAY} from '../../const';
 
 function FilmCard(props) {
 
-  const {film, isPlaying, onCardHover} = props;
+  const {film, isPlaying, onCardHover, onCardLeave} = props;
   const [isFilmCardPlaying, setIsFilmCardPlaying] = useState(isPlaying);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function FilmCard(props) {
   }, [isPlaying]);
 
   return (
-    <article className="small-film-card catalog__films-card" data-id={film.id} onMouseOver={onCardHover} >
+    <article className="small-film-card catalog__films-card" data-id={film.id} onMouseOver={onCardHover} onMouseLeave={onCardLeave}>
       <div className="small-film-card__image">
         <EmbeddedVideo filmVideo={film.filmVideo} filmPoster={film.imgName} isPlaying={isFilmCardPlaying}/>
       </div>
@@ -42,6 +42,7 @@ function FilmCard(props) {
 FilmCard.propTypes = {
   isPlaying: PropTypes.bool,
   onCardHover: PropTypes.func,
+  onCardLeave: PropTypes.func,
   film: filmProp,
 };
 
