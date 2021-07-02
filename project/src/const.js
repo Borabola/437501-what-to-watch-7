@@ -17,5 +17,7 @@ const Ratings = {
 
 const MAX_RATING = 10;
 
-export {AppRoute, Ratings, MAX_RATING};
+const VIDEO_DELAY = 1000;
+
+export {AppRoute, Ratings, MAX_RATING, VIDEO_DELAY};
 

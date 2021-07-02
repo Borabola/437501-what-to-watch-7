@@ -6,14 +6,14 @@ import PropTypes from 'prop-types';
 import {filmProp} from '../film-list/film-list.prop';
 
 function FilmCard(props) {
-  const {film, onCardHover} = props;
-  const imgLink = `${film.imgName}`;
+  const {film, isPlaying, onCardHover} = props;
 
   return (
     <article className="small-film-card catalog__films-card" data-id={film.id} onMouseOver={onCardHover} >
       <div className="small-film-card__image">
-        <img src={imgLink} alt={film.name} width="280" height="175" />
-        <EmbeddedVideo filmVideo={film.filmVideo} filmPoster={film.filmPoster} />
+
+        <EmbeddedVideo filmVideo={film.filmVideo} filmPoster={film.imgName} isPlaying={isPlaying}/>
+        {/*<img src={film.imgName} alt={film.name} width="280" height="175" />*/}
       </div>
       <h3 className="small-film-card__title">
         <Link to={`/films/${film.id}`} className="small-film-card__link">{film.name}</Link>
@@ -23,6 +23,7 @@ function FilmCard(props) {
 }
 
 FilmCard.propTypes = {
+  isPlaying: PropTypes.bool,
   onCardHover: PropTypes.func,
   film: filmProp,
 };
