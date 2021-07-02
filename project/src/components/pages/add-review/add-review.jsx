@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Logo from '../../logo/logo';
 import ReviewForm from '../../review-form/review-form';
+import UserBlock from '../../user-block/user-block';
 import {filmListProp} from '../../film-list/film-list.prop';
 import {AppRoute} from '../../../const';
 
@@ -34,16 +35,7 @@ function AddReview({films}) {
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <Link to={AppRoute.MY_LIST} className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </Link>
-            </li>
-            <li className="user-block__item">
-              <a href={url} className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserBlock />
         </header>
 
         <div className="film-card__poster film-card__poster--small">

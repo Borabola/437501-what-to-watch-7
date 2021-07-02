@@ -1,5 +1,6 @@
 import React from 'react';
 import Logo from '../../logo/logo';
+import UserBlock from '../../user-block/user-block';
 import PageFooter from '../../page-footer/page-footer';
 import FilmList from '../../film-list/film-list';
 import {filmListProp} from '../../film-list/film-list.prop';
@@ -15,16 +16,7 @@ function MyList({films}) {
 
         <h1 className="page-title user-page__title">My list</h1>
 
-        <ul className="user-block">
-          <li className="user-block__item">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
-          </li>
-          <li className="user-block__item">
-            <a className="user-block__link" href={url}>Sign out</a>
-          </li>
-        </ul>
+        <UserBlock />
       </header>
 
       <section className="catalog">
