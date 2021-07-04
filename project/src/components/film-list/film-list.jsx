@@ -9,9 +9,13 @@ function FilmList({films}) {
     setActiveFilm({...activeFilm, id: evt.currentTarget.dataset.id});
   };
 
+  const removeActiveFilmHandler = () => {
+    setActiveFilm({id: null});
+  };
+
   return (
     <div className="catalog__films-list">
-      {films.map((item) => <FilmCard film={item}  key={item.id}  onCardHover={changeActiveFilmHandler}/>)}
+      {films.map((item) => <FilmCard film={item}  key={item.id} isPlaying={(activeFilm.id === item.id)} onCardHover={changeActiveFilmHandler} onCardLeave={removeActiveFilmHandler}/>)}
     </div>
   );
 }

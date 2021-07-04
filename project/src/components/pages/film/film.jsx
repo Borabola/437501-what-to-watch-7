@@ -1,15 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+
 import Logo from '../../logo/logo';
+import UserBlock from '../../user-block/user-block';
 import PageFooter from '../../page-footer/page-footer';
 import FilmList from '../../film-list/film-list';
+import {RatingToText} from '../../../utils';
 import {filmListProp} from '../../film-list/film-list.prop';
 
 function Film({films}) {
   const url = '#';
-  const filmId = useParams();
-  const currentFilm = films.find((film) => film.id === filmId.id);
+  const filmParam = useParams();
+  const currentFilm = films.find((film) => film.id === filmParam.id);
 
   return (
     <>
@@ -23,16 +26,7 @@ function Film({films}) {
 
           <header className="page-header film-card__head">
             <Logo />
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link" href={url}>Sign out</a>
-              </li>
-            </ul>
+            <UserBlock />
           </header>
 
           <div className="film-card__wrap">
@@ -56,7 +50,7 @@ function Film({films}) {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/films/${filmId.id}/review`} className="btn film-card__button">Add review</Link>
+                <Link to={`/films/${filmParam.id}/review`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -86,19 +80,15 @@ function Film({films}) {
               <div className="film-rating">
                 <div className="film-rating__score">{currentFilm.rating}</div>
                 <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
+                  <span className="film-rating__level">{RatingToText(currentFilm.rating)}</span>
                   <span className="film-rating__count">{currentFilm.scoresCount} ratings</span>
                 </p>
               </div>
 
               <div className="film-card__text">
                 <p>{currentFilm.description}</p>
-
-                <p>Gustave prides himself on providing first-className service to the hotel’s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave&rsquo;s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
-
                 <p className="film-card__director"><strong>Director: {currentFilm.director}</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: {currentFilm.starring.map((item) => `${item}, `)}and other</strong></p>
+                <p className="film-card__starring"><strong>Starring: {currentFilm.starring.map((item, index) => (index ? ', ': '') + item)}</strong></p>
               </div>
             </div>
           </div>

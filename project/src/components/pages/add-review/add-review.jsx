@@ -2,13 +2,13 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Logo from '../../logo/logo';
 import ReviewForm from '../../review-form/review-form';
+import UserBlock from '../../user-block/user-block';
 import {filmListProp} from '../../film-list/film-list.prop';
 
 
 function AddReview({films}) {
-  const url = '#';
-  const filmId = useParams();
-  const currentFilm = films.find((film) => film.id === filmId.id);
+  const filmParam = useParams();
+  const currentFilm = films.find((film) => film.id === filmParam.id);
 
   return (
     <section className="film-card film-card--full">
@@ -25,24 +25,15 @@ function AddReview({films}) {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${filmId.id}/`}  className="breadcrumbs__link">{currentFilm.name}</Link>
+                <Link to={`/films/${filmParam.id}`}  className="breadcrumbs__link">{currentFilm.name}</Link>
               </li>
               <li className="breadcrumbs__item">
-                <a href={url} className="breadcrumbs__link">Add review</a>
+                <div className="breadcrumbs__link">Add review</div>
               </li>
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a href={url} className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserBlock />
         </header>
 
         <div className="film-card__poster film-card__poster--small">

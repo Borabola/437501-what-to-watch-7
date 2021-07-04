@@ -1,19 +1,36 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
 import EmbeddedVideo from '../embedded-video/embedded-video';
 import PropTypes from 'prop-types';
 import {filmProp} from '../film-list/film-list.prop';
+import {VIDEO_DELAY} from '../../const';
+
 
 function FilmCard(props) {
-  const {film, onCardHover} = props;
-  const imgLink = `${film.imgName}`;
+
+  const {film, isPlaying, onCardHover, onCardLeave} = props;
+  const [isFilmCardPlaying, setIsFilmCardPlaying] = useState(isPlaying);
+
+  useEffect(() => {
+    let hoverTimer = 0;
+    if (isPlaying) {
+      hoverTimer = setTimeout(() => {
+        setIsFilmCardPlaying(isPlaying);
+      }, VIDEO_DELAY);
+    } else {
+      setIsFilmCardPlaying(isPlaying);
+    }
+
+    return () => {
+      clearTimeout(hoverTimer);
+    };
+  }, [isPlaying]);
 
   return (
-    <article className="small-film-card catalog__films-card" data-id={film.id} onMouseOver={onCardHover} >
+    <article className="small-film-card catalog__films-card" data-id={film.id} onMouseOver={onCardHover} onMouseLeave={onCardLeave}>
       <div className="small-film-card__image">
-        <img src={imgLink} alt={film.name} width="280" height="175" />
-        <EmbeddedVideo filmVideo={film.filmVideo} filmPoster={film.filmPoster} />
+        <EmbeddedVideo filmVideo={film.filmVideo} filmPoster={film.imgName} isPlaying={isFilmCardPlaying}/>
       </div>
       <h3 className="small-film-card__title">
         <Link to={`/films/${film.id}`} className="small-film-card__link">{film.name}</Link>
@@ -23,7 +40,9 @@ function FilmCard(props) {
 }
 
 FilmCard.propTypes = {
+  isPlaying: PropTypes.bool,
   onCardHover: PropTypes.func,
+  onCardLeave: PropTypes.func,
   film: filmProp,
 };
 
