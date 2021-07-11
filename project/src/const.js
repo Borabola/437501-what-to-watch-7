@@ -18,6 +18,7 @@ const Ratings = {
 const MAX_RATING = 10;
 
 const VIDEO_DELAY = 1000;
+const ALL_GENRES = 'All genres';
 
-export {AppRoute, Ratings, MAX_RATING, VIDEO_DELAY};
+export {ALL_GENRES, AppRoute, MAX_RATING, Ratings, VIDEO_DELAY};
 

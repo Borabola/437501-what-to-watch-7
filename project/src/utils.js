@@ -1,4 +1,4 @@
-import {Ratings} from './const.js';
+import {Ratings, ALL_GENRES} from './const.js';
 
 const RatingToText = (rating) =>{
   if(rating > 0 && rating < 3){
@@ -14,4 +14,12 @@ const RatingToText = (rating) =>{
   }
 };
 
-export {RatingToText};
+const getFilteredFilms = (films, genre) => {
+  if (genre === ALL_GENRES) {
+    return films;
+  }
+
+  return films.filter((film) => film.genre === genre);
+};
+
+export {RatingToText, getFilteredFilms};
