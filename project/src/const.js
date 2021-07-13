@@ -20,5 +20,11 @@ const MAX_RATING = 10;
 const VIDEO_DELAY = 1000;
 const ALL_GENRES = 'All genres';
 
-export {ALL_GENRES, AppRoute, MAX_RATING, Ratings, VIDEO_DELAY};
+const TabsLabels= {
+  tab1: 'Overview',
+  tab2: 'Details',
+  tab3: 'Reviews',
+};
+
+export {ALL_GENRES, AppRoute, MAX_RATING, Ratings, TabsLabels, VIDEO_DELAY};
 

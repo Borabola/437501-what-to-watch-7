@@ -6,11 +6,16 @@ import Logo from '../../logo/logo';
 import UserBlock from '../../user-block/user-block';
 import PageFooter from '../../page-footer/page-footer';
 import FilmList from '../../film-list/film-list';
-import {RatingToText} from '../../../utils';
+import Tabs from '../../tabs/tabs';
+import OverviewTab from '../../tabs/overview';
+import ReviewsTab from '../../tabs/reviews';
+import DetailsTab from '../../tabs/details';
+//import {RatingToText} from '../../../utils';
 import {filmListProp} from '../../film-list/film-list.prop';
+import {reviewListProp} from '../../tabs/review.prop';
 
-function Film({films}) {
-  const url = '#';
+function Film({films, comments}) {
+  //const url = '#';
   const filmParam = useParams();
   const currentFilm = films.find((film) => film.id === filmParam.id);
 
@@ -61,8 +66,14 @@ function Film({films}) {
             <div className="film-card__poster film-card__poster--big">
               <img src={currentFilm.posterImage} alt={`${currentFilm.name} poster`} width="218" height="327" />
             </div>
+            <Tabs >
+              <OverviewTab label="tab1" currentFilm={currentFilm} />
+              <DetailsTab label="tab2" />
+              <ReviewsTab label="tab3" comments={comments}  />
+            </Tabs>
 
-            <div className="film-card__desc">
+
+            {/*<div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
                   <li className="film-nav__item film-nav__item--active">
@@ -90,7 +101,8 @@ function Film({films}) {
                 <p className="film-card__director"><strong>Director: {currentFilm.director}</strong></p>
                 <p className="film-card__starring"><strong>Starring: {currentFilm.starring.map((item, index) => (index ? ', ': '') + item)}</strong></p>
               </div>
-            </div>
+
+            </div>*/}
           </div>
         </div>
       </section>
@@ -109,6 +121,7 @@ function Film({films}) {
 }
 
 Film.propTypes = {
+  comments: reviewListProp,
   films: filmListProp,
 };
 

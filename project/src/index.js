@@ -6,6 +6,7 @@ import {reducer} from './store/reducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
 import films from './mocks/films';
+import comments from './mocks/comments';
 
 const store = createStore(
   reducer,
@@ -15,7 +16,7 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App films={films} genre={'Drama'} releaseDate={'2014'} title={'The Grand Budapest Hotel'} />
+      <App films={films} genre={'Drama'} releaseDate={'2014'} title={'The Grand Budapest Hotel'} comments={comments} />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

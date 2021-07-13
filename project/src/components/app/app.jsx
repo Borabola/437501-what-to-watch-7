@@ -10,9 +10,10 @@ import Player from '../pages/player/player';
 import PropTypes from 'prop-types';
 import NotFound from '../pages/not-found/not-found';
 import {filmListProp} from '../film-list/film-list.prop';
-import reviewsList from '../../mocks/reviews';
+import reviewsList from '../../mocks/comments';
+import {reviewListProp} from '../tabs/review.prop';
 
-function App({films, genre, releaseDate, title}) {
+function App({films, genre, releaseDate, title, comments}) {
   return (
     <BrowserRouter>
       <Switch>
@@ -30,7 +31,7 @@ function App({films, genre, releaseDate, title}) {
           <MyList films={films} />
         </Route>
         <Route exact path={AppRoute.FILM}>
-          <Film films={films} />
+          <Film films={films} comments={comments} />
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
           <AddReview films={films} reviewsList={reviewsList} />
@@ -47,10 +48,12 @@ function App({films, genre, releaseDate, title}) {
 }
 
 App.propTypes = {
+  comments: reviewListProp,
   films: filmListProp,
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+
 };
 
 export default App;
