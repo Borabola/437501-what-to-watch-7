@@ -16,6 +16,7 @@ const Ratings = {
 };
 
 const MAX_RATING = 10;
+const MINUTE = 60;
 
 const VIDEO_DELAY = 1000;
 const ALL_GENRES = 'All genres';
@@ -26,5 +27,5 @@ const TabsLabels= {
   tab3: 'Reviews',
 };
 
-export {ALL_GENRES, AppRoute, MAX_RATING, Ratings, TabsLabels, VIDEO_DELAY};
+export {ALL_GENRES, AppRoute, MAX_RATING, MINUTE, Ratings, TabsLabels, VIDEO_DELAY};
 

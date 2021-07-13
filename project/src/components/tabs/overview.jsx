@@ -1,11 +1,8 @@
 import React from 'react';
 import {RatingToText} from '../../utils';
-//import PropTypes from 'prop-types';
+import {filmProp} from '../film-list/film-list.prop';
 
-function OverviewTab(currentFilm) {
-  //const {index, ratingValue, onRatingChange} = props;
-
-
+function OverviewTab({currentFilm}) {
   return (
     <>
       <div className="film-rating">
@@ -26,7 +23,7 @@ function OverviewTab(currentFilm) {
 }
 
 OverviewTab.propTypes = {
-
+  currentFilm: filmProp,
 };
 
 export default OverviewTab;
