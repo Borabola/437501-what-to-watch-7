@@ -7,15 +7,12 @@ import UserBlock from '../../user-block/user-block';
 import PageFooter from '../../page-footer/page-footer';
 import FilmList from '../../film-list/film-list';
 import Tabs from '../../tabs/tabs';
-import OverviewTab from '../../tabs/overview';
-import ReviewsTab from '../../tabs/reviews';
-import DetailsTab from '../../tabs/details';
-//import {RatingToText} from '../../../utils';
 import {filmListProp} from '../../film-list/film-list.prop';
 import {reviewListProp} from '../../tabs/review.prop';
 
+const sortSimilarFilms = (films, currentFilm) => films.filter((film) => currentFilm.genre === film.genre).filter((film) => film !== currentFilm);
+
 function Film({films, comments}) {
-  //const url = '#';
   const filmParam = useParams();
   const currentFilm = films.find((film) => film.id === filmParam.id);
 
@@ -66,43 +63,7 @@ function Film({films, comments}) {
             <div className="film-card__poster film-card__poster--big">
               <img src={currentFilm.posterImage} alt={`${currentFilm.name} poster`} width="218" height="327" />
             </div>
-            <Tabs >
-              <OverviewTab label="tab1" currentFilm={currentFilm} />
-              <DetailsTab label="tab2" />
-              <ReviewsTab label="tab3" comments={comments}  />
-            </Tabs>
-
-
-            {/*<div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href={url} className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href={url} className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href={url} className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{currentFilm.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">{RatingToText(currentFilm.rating)}</span>
-                  <span className="film-rating__count">{currentFilm.scoresCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{currentFilm.description}</p>
-                <p className="film-card__director"><strong>Director: {currentFilm.director}</strong></p>
-                <p className="film-card__starring"><strong>Starring: {currentFilm.starring.map((item, index) => (index ? ', ': '') + item)}</strong></p>
-              </div>
-
-            </div>*/}
+            <Tabs currentFilm={currentFilm}  comments={comments} />
           </div>
         </div>
       </section>
@@ -111,7 +72,7 @@ function Film({films, comments}) {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={films} />
+          <FilmList films={sortSimilarFilms(films, currentFilm)} />
         </section>
 
         <PageFooter />

@@ -21,11 +21,11 @@ const MINUTE = 60;
 const VIDEO_DELAY = 1000;
 const ALL_GENRES = 'All genres';
 
-const TabsLabels= {
-  tab1: 'Overview',
-  tab2: 'Details',
-  tab3: 'Reviews',
+const TabLabels = {
+  OVERVIEW: 'Overview',
+  DETAILS: 'Details',
+  REVIEWS: 'Reviews',
 };
 
-export {ALL_GENRES, AppRoute, MAX_RATING, MINUTE, Ratings, TabsLabels, VIDEO_DELAY};
+export {ALL_GENRES, AppRoute, MAX_RATING, MINUTE, Ratings, TabLabels, VIDEO_DELAY};
 
