@@ -1,4 +1,4 @@
-import {Ratings} from './const.js';
+import {ALL_GENRES, MINUTE, Ratings} from './const.js';
 
 const RatingToText = (rating) =>{
   if(rating > 0 && rating < 3){
@@ -13,5 +13,27 @@ const RatingToText = (rating) =>{
     return Ratings.AWESOME;
   }
 };
+const getTimeFormate = (num) => {
+  const minutes = num % MINUTE;
+  const hours = (num - minutes) / MINUTE;
 
-export {RatingToText};
+  let result = 0;
+  if (hours > 0) {
+    result = `${hours}h`;
+  }
+  if (minutes > 0) {
+    result += (minutes <= 9) ? ` 0${minutes}m` : ` ${minutes}m`;
+  }
+
+  return result.trim();
+};
+
+const getFilteredFilms = (films, genre) => {
+  if (genre === ALL_GENRES) {
+    return films;
+  }
+
+  return films.filter((film) => film.genre === genre);
+};
+
+export {getFilteredFilms, getTimeFormate, RatingToText};

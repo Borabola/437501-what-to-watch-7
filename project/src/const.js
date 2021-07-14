@@ -16,8 +16,16 @@ const Ratings = {
 };
 
 const MAX_RATING = 10;
+const MINUTE = 60;
 
 const VIDEO_DELAY = 1000;
+const ALL_GENRES = 'All genres';
 
-export {AppRoute, Ratings, MAX_RATING, VIDEO_DELAY};
+const TabLabels = {
+  OVERVIEW: 'Overview',
+  DETAILS: 'Details',
+  REVIEWS: 'Reviews',
+};
+
+export {ALL_GENRES, AppRoute, MAX_RATING, MINUTE, Ratings, TabLabels, VIDEO_DELAY};
 
