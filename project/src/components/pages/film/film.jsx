@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
@@ -7,6 +7,8 @@ import UserBlock from '../../user-block/user-block';
 import PageFooter from '../../page-footer/page-footer';
 import FilmList from '../../film-list/film-list';
 import Tabs from '../../tabs/tabs';
+import BtnShowMore from '../../btnShowMore/btnShowMore';
+import {FilmsQnt} from '../../../const';
 import {filmListProp} from '../../film-list/film-list.prop';
 import {reviewListProp} from '../../tabs/review.prop';
 
@@ -15,8 +17,16 @@ const sortSimilarFilms = (films, currentFilm) => films.filter((film) => currentF
 function Film({films, comments}) {
   const filmParam = useParams();
   const currentFilm = films.find((film) => film.id === filmParam.id);
+  const [showenfilmsQnt, setShowenfilmsQnt] = useState(FilmsQnt.SIMILAR);
+
+  const showMoreFilmsHandler = () => {
+    setShowenfilmsQnt(showenfilmsQnt + FilmsQnt.SIMILAR);
+  };
+
+  const sortedFilms = sortSimilarFilms(films, currentFilm);
 
   return (
+
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
@@ -72,7 +82,8 @@ function Film({films, comments}) {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={sortSimilarFilms(films, currentFilm)} />
+          <FilmList films={sortedFilms}  filmsNumber={showenfilmsQnt} />
+          {showenfilmsQnt < sortedFilms.length && <BtnShowMore onBtnClick={showMoreFilmsHandler}/>}
         </section>
 
         <PageFooter />

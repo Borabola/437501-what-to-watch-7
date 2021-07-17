@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {connect} from 'react-redux';
 import Logo from '../../logo/logo';
 import UserBlock from '../../user-block/user-block';
 import PageFooter from '../../page-footer/page-footer';
 import FilmList from '../../film-list/film-list';
 import GenreList from '../../genre-list/genre-list';
+import BtnShowMore from '../../btnShowMore/btnShowMore';
 import {getFilteredFilms} from '../../../utils';
+import {FilmsQnt} from '../../../const';
 import PropTypes from 'prop-types';
 import {filmListProp} from '../../film-list/film-list.prop';
 
 function Main({films, genre, releaseDate, title, currentGenre}) {
+  const [showenfilmsQnt, setShowenfilmsQnt] = useState(FilmsQnt.MAIN);
   const filteredFilms = getFilteredFilms(films, currentGenre);
+
+  const showMoreFilmsHandler = () => {
+    setShowenfilmsQnt(showenfilmsQnt + FilmsQnt.MAIN);
+  };
+
+  const onChangeGenreClick = () => {
+    setShowenfilmsQnt(FilmsQnt.MAIN);
+  };
+
   return (
     <>
       <section className="film-card">
@@ -61,11 +73,9 @@ function Main({films, genre, releaseDate, title, currentGenre}) {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenreList films={films}/>
-          <FilmList films={filteredFilms} />
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <GenreList films={films} onChangeGenreClick={onChangeGenreClick}/>
+          <FilmList films={filteredFilms} filmsNumber={showenfilmsQnt} />
+          {showenfilmsQnt < filteredFilms.length && <BtnShowMore onBtnClick={showMoreFilmsHandler}/>}
         </section>
 
         <PageFooter />

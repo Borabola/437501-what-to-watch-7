@@ -1,3 +1,5 @@
+const ALL_GENRES = 'All genres';
+
 const AppRoute = {
   SIGN_IN: '/login',
   MY_LIST: '/mylist',
@@ -7,6 +9,14 @@ const AppRoute = {
   PLAYER: '/player/:id',
 };
 
+const FilmsQnt = {
+  MAIN: 8,
+  SIMILAR: 4,
+};
+
+const MAX_RATING = 10;
+const MINUTE = 60;
+
 const Ratings = {
   BAD: 'Bad',
   NORMAL: 'Normal',
@@ -15,17 +25,13 @@ const Ratings = {
   AWESOME: 'Awesome',
 };
 
-const MAX_RATING = 10;
-const MINUTE = 60;
-
-const VIDEO_DELAY = 1000;
-const ALL_GENRES = 'All genres';
-
 const TabLabels = {
   OVERVIEW: 'Overview',
   DETAILS: 'Details',
   REVIEWS: 'Reviews',
 };
 
-export {ALL_GENRES, AppRoute, MAX_RATING, MINUTE, Ratings, TabLabels, VIDEO_DELAY};
+const VIDEO_DELAY = 1000;
+
+export {ALL_GENRES, AppRoute, FilmsQnt, MAX_RATING, MINUTE, Ratings, TabLabels, VIDEO_DELAY};
 
