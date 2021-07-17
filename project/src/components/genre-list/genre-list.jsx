@@ -8,7 +8,7 @@ import {filmListProp} from '../film-list/film-list.prop';
 
 function GenreList(props) {
   const url = '#';
-  const {films, genreFilm, onGenreClick} = props;
+  const {films, genreFilm, onGenreClick, onChangeGenreClick} = props;
 
   const genresFromFilms = Array.from(new Set(films.map(({genre}) => genre)));
 
@@ -23,6 +23,7 @@ function GenreList(props) {
             <a href={url} className="catalog__genres-link" onClick={(evt) => {
               evt.preventDefault();
               onGenreClick(item);
+              onChangeGenreClick();
             }}
             >
               {item}
@@ -38,6 +39,7 @@ GenreList.propTypes = {
   films: filmListProp,
   genreFilm: PropTypes.string.isRequired,
   onGenreClick: PropTypes.func.isRequired,
+  onChangeGenreClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

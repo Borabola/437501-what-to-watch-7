@@ -13,9 +13,9 @@ const RatingToText = (rating) =>{
     return Ratings.AWESOME;
   }
 };
-const getTimeFormate = (num) => {
-  const minutes = num % MINUTE;
-  const hours = (num - minutes) / MINUTE;
+const getTimeFormate = (number) => {
+  const minutes = number % MINUTE;
+  const hours = (number - minutes) / MINUTE;
 
   let result = 0;
   if (hours > 0) {
