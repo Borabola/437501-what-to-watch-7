@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import {connect} from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 
 import Logo from '../../logo/logo';
 import UserBlock from '../../user-block/user-block';
@@ -97,5 +97,10 @@ Film.propTypes = {
   films: filmListProp,
 };
 
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
 
-export default Film;
+
+export  {Film};
+export default connect(mapStateToProps)(Film);
