@@ -12,8 +12,6 @@ import PropTypes from 'prop-types';
 import {filmProp, filmListProp} from '../../film-list/film-list.prop';
 
 function Main({films, currentGenre, promoFilm}) {
-  console.log(promoFilm)
-
   const [showenfilmsQnt, setShowenfilmsQnt] = useState(FilmsQnt.MAIN);
   const filteredFilms = getFilteredFilms(films, currentGenre);
   const showMoreFilmsHandler = () => {

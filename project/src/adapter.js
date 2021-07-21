@@ -1,5 +1,5 @@
 export const adaptFilm = (incomingfilm) => ({
-  id: incomingfilm.id,
+  id: incomingfilm.id.toString(),
   imgName: incomingfilm.preview_image,
   backgroundImage: incomingfilm.background_image,
   name: incomingfilm.name,
