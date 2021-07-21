@@ -1,6 +1,4 @@
 import React from 'react';
-import Logo from '../../components/logo/logo';
-import UserBlock from '../../components/user-block/user-block';
 
 function LoadingScreen() {
   return (
@@ -13,9 +11,8 @@ function LoadingScreen() {
       <h1 className="visually-hidden">WTW</h1>
 
       <header className="page-header film-card__head">
-        <Logo />
 
-        <UserBlock />
+
       </header>
 
       <div className="film-card__wrap">

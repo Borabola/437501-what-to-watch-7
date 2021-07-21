@@ -6,6 +6,7 @@ const initialState = {
   films: [],
   promoFilm: {},
   isDataLoaded: false,
+  isPromoLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -30,6 +31,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         promoFilm: action.payload,
+        isPromoLoaded: true,
       };
 
     default:

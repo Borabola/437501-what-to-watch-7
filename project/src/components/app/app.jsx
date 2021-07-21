@@ -14,8 +14,8 @@ import {reviewListProp} from '../tabs/review.prop';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { connect } from 'react-redux';
 
-function App({comments, isDataLoaded, promoFilm}) {
-  if(!isDataLoaded || (Object.keys(promoFilm).length = 0)) {
+function App({comments, isDataLoaded, isPromoLoaded}) {
+  if(!isDataLoaded && !isPromoLoaded) {
     return (
       <LoadingScreen />
     );
@@ -52,27 +52,12 @@ function App({comments, isDataLoaded, promoFilm}) {
 App.propTypes = {
   comments: reviewListProp,
   isDataLoaded: PropTypes.bool.isRequired,
-  promoFilm: PropTypes.shape({
-    id: PropTypes.string,
-    imgName: PropTypes.string,
-    name: PropTypes.string,
-    posterImage: PropTypes.string,
-    filmVideo: PropTypes.string,
-    filmPoster: PropTypes.string,
-    description:  PropTypes.string,
-    genre: PropTypes.string,
-    released: PropTypes.number,
-    rating: PropTypes.number,
-    scoresCount: PropTypes.number,
-    director: PropTypes.string,
-    starring: PropTypes.arrayOf(PropTypes.string),
-    runTime: PropTypes.number,
-    isFavorite: PropTypes.bool,
-  }),
+  isPromoLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isDataLoaded: state.isDataLoaded,
+  isPromoLoaded: state.isPromoLoaded,
   promoFilm: state.promoFilm,
 });
 

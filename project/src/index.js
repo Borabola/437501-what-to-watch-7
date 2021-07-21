@@ -19,7 +19,6 @@ const store = createStore(
   ),
 );
 
-
 store.dispatch(fetchFilmList(api));
 store.dispatch(fetchPromoFilm(api));
 
