@@ -15,7 +15,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import { connect } from 'react-redux';
 
 function App({comments, isDataLoaded, isPromoLoaded}) {
-  if(!isDataLoaded && !isPromoLoaded) {
+  if(!isDataLoaded || !isPromoLoaded) {
     return (
       <LoadingScreen />
     );

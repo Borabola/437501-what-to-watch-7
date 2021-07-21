@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import {filmProp, filmListProp} from '../../film-list/film-list.prop';
 
 function Main({films, currentGenre, promoFilm}) {
+  console.log(promoFilm)
 
   const [showenfilmsQnt, setShowenfilmsQnt] = useState(FilmsQnt.MAIN);
   const filteredFilms = getFilteredFilms(films, currentGenre);
@@ -28,7 +29,7 @@ function Main({films, currentGenre, promoFilm}) {
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -42,7 +43,7 @@ function Main({films, currentGenre, promoFilm}) {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={promoFilm.posterImage} alt={promoFilm.name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
