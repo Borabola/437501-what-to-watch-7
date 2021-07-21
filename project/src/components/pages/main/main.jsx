@@ -9,9 +9,9 @@ import BtnShowMore from '../../btnShowMore/btnShowMore';
 import {getFilteredFilms} from '../../../utils';
 import {FilmsQnt} from '../../../const';
 import PropTypes from 'prop-types';
-import {filmListProp} from '../../film-list/film-list.prop';
+import {filmProp, filmListProp} from '../../film-list/film-list.prop';
 
-function Main({films, currentGenre}) {
+function Main({films, currentGenre, promoFilm}) {
 
   const [showenfilmsQnt, setShowenfilmsQnt] = useState(FilmsQnt.MAIN);
   const filteredFilms = getFilteredFilms(films, currentGenre);
@@ -46,10 +46,10 @@ function Main({films, currentGenre}) {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{films[0].name}</h2>
+              <h2 className="film-card__title">{promoFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{films[0].genre}</span>
-                <span className="film-card__year">{films[0].releaseDate}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.releaseDate}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -88,11 +88,13 @@ function Main({films, currentGenre}) {
 Main.propTypes = {
   currentGenre: PropTypes.string.isRequired,
   films: filmListProp,
+  promoFilm: filmProp,
 };
 
 const mapStateToProps = (state) => ({
   currentGenre: state.genre,
   films: state.films,
+  promoFilm: state.promoFilm,
 });
 
 export {Main};

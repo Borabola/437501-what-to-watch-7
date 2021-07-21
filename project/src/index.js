@@ -8,7 +8,7 @@ import {reducer} from './store/reducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
 import comments from './mocks/comments';
-import { fetchFilmList } from './store/api-actions';
+import { fetchFilmList, fetchPromoFilm } from './store/api-actions';
 
 const api = createAPI();
 
@@ -19,7 +19,10 @@ const store = createStore(
   ),
 );
 
+
 store.dispatch(fetchFilmList(api));
+store.dispatch(fetchPromoFilm(api));
+
 
 ReactDOM.render(
   <React.StrictMode>

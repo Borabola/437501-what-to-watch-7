@@ -1,5 +1,5 @@
 export const filmAdapter = (incomingfilm) =>  {
-  const  adaptedFilm = {
+  const adaptedFilm = {
     id: incomingfilm.id.toString(),
     imgName: incomingfilm.preview_image,
     backgroundImage: incomingfilm.background_image,
@@ -17,6 +17,7 @@ export const filmAdapter = (incomingfilm) =>  {
     runTime: incomingfilm.run_time,
     isFavorite: incomingfilm.is_favorite,
   };
+
   return adaptedFilm;
 
 };
