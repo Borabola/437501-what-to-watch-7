@@ -9,12 +9,11 @@ import BtnShowMore from '../../btnShowMore/btnShowMore';
 import {getFilteredFilms} from '../../../utils';
 import {FilmsQnt} from '../../../const';
 import PropTypes from 'prop-types';
-import {filmListProp} from '../../film-list/film-list.prop';
+import {filmProp, filmListProp} from '../../film-list/film-list.prop';
 
-function Main({films, genre, releaseDate, title, currentGenre}) {
+function Main({films, currentGenre, promoFilm}) {
   const [showenfilmsQnt, setShowenfilmsQnt] = useState(FilmsQnt.MAIN);
   const filteredFilms = getFilteredFilms(films, currentGenre);
-
   const showMoreFilmsHandler = () => {
     setShowenfilmsQnt(showenfilmsQnt + FilmsQnt.MAIN);
   };
@@ -23,11 +22,12 @@ function Main({films, genre, releaseDate, title, currentGenre}) {
     setShowenfilmsQnt(FilmsQnt.MAIN);
   };
 
+
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -41,14 +41,14 @@ function Main({films, genre, releaseDate, title, currentGenre}) {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={promoFilm.posterImage} alt={promoFilm.name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{title}</h2>
+              <h2 className="film-card__title">{promoFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{releaseDate}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.releaseDate}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -87,13 +87,13 @@ function Main({films, genre, releaseDate, title, currentGenre}) {
 Main.propTypes = {
   currentGenre: PropTypes.string.isRequired,
   films: filmListProp,
-  genre: PropTypes.string.isRequired,
-  releaseDate: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  promoFilm: filmProp,
 };
 
 const mapStateToProps = (state) => ({
   currentGenre: state.genre,
+  films: state.films,
+  promoFilm: state.promoFilm,
 });
 
 export {Main};

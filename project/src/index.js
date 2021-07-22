@@ -1,22 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
+import {createStore,  applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import {createAPI} from './services/api';
 import {Provider} from 'react-redux';
 import {reducer} from './store/reducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
-import films from './mocks/films';
 import comments from './mocks/comments';
+import { fetchFilmList, fetchPromoFilm } from './store/api-actions';
+
+const api = createAPI();
 
 const store = createStore(
   reducer,
-  composeWithDevTools(),
+  composeWithDevTools(
+    applyMiddleware(thunk.withExtraArgument(api)),
+  ),
 );
+
+store.dispatch(fetchFilmList(api));
+store.dispatch(fetchPromoFilm(api));
+
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App films={films} genre={'Drama'} releaseDate={'2014'} title={'The Grand Budapest Hotel'} comments={comments} />
+      <App comments={comments} />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

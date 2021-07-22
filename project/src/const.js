@@ -1,5 +1,16 @@
 const ALL_GENRES = 'All genres';
 
+const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
+export const APIRoute = {
+  FILMS: '/films',
+  PROMO_FILM: '/promo',
+};
+
 const AppRoute = {
   SIGN_IN: '/login',
   MY_LIST: '/mylist',
@@ -33,5 +44,5 @@ const TabLabels = {
 
 const VIDEO_DELAY = 1000;
 
-export {ALL_GENRES, AppRoute, FilmsQnt, MAX_RATING, MINUTE, Ratings, TabLabels, VIDEO_DELAY};
+export {ALL_GENRES, AuthorizationStatus, AppRoute, FilmsQnt, MAX_RATING, MINUTE, Ratings, TabLabels, VIDEO_DELAY};
 

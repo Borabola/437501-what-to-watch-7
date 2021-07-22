@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Logo from '../../logo/logo';
 import ReviewForm from '../../review-form/review-form';
@@ -53,4 +54,9 @@ AddReview.propTypes = {
   films: filmListProp,
 };
 
-export default AddReview;
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+export {AddReview};
+export default connect(mapStateToProps)(AddReview);

@@ -1,12 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import { useParams } from 'react-router-dom';
+import {filmListProp} from '../../film-list/film-list.prop';
 
 
-function Player({filmVideo, filmPoster}) {
+function Player({films}) {
+  const filmParam = useParams();
+  const currentFilm = films.find((film) => film.id === filmParam.id);
 
   return (
     <div className="player">
-      <video src={filmVideo} className="player__video" poster={filmPoster}></video>
+      <video src={currentFilm.filmVideo} className="player__video" poster={currentFilm.filmPoster}></video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -42,8 +46,12 @@ function Player({filmVideo, filmPoster}) {
 }
 
 Player.propTypes = {
-  filmVideo: PropTypes.string.isRequired,
-  filmPoster: PropTypes.string.isRequired,
+  films: filmListProp,
 };
 
-export default Player;
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+export {Player};
+export default connect(mapStateToProps)(Player);

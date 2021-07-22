@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Logo from '../../logo/logo';
 import UserBlock from '../../user-block/user-block';
 import PageFooter from '../../page-footer/page-footer';
@@ -33,5 +34,10 @@ MyList.propTypes = {
   films: filmListProp,
 };
 
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
 
-export default MyList;
+
+export {MyList};
+export default connect(mapStateToProps)(MyList);

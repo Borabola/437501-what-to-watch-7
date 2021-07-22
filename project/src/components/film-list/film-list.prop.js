@@ -15,6 +15,7 @@ const filmProp = PropTypes.shape({
   director: PropTypes.string,
   starring: PropTypes.arrayOf(PropTypes.string),
   runTime: PropTypes.number,
+  isFavorite: PropTypes.bool,
 });
 
 const filmListProp = PropTypes.arrayOf(filmProp);
