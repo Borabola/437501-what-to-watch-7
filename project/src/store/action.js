@@ -2,6 +2,8 @@ export const ActionType = {
   CHANGE_GENRE: 'film/changeGenre',
   LOAD_FILMS: 'data/loadFilms',
   LOAD_PROMO: 'data/loadPromo',
+  REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  LOGOUT: 'user/logout',
 };
 
 export const ActionCreator = {
@@ -16,6 +18,17 @@ export const ActionCreator = {
   loadPromo: (promoFilm) => ({
     type: ActionType.LOAD_PROMO,
     payload: promoFilm,
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+  logout: () => ({
+    type: ActionType.LOGOUT,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
   }),
 
 };

@@ -1,7 +1,8 @@
 import {ActionType} from './action';
-import {ALL_GENRES} from '../const';
+import {ALL_GENRES, AuthorizationStatus} from '../const';
 
 const initialState = {
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
   genre: ALL_GENRES,
   films: [],
   promoFilm: {},
@@ -32,6 +33,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         promoFilm: action.payload,
         isPromoLoaded: true,
+      };
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
+      };
+    case ActionType.LOGOUT:
+      return {
+        ...state,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
       };
 
     default:

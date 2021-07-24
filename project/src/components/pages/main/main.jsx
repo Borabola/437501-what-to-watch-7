@@ -22,7 +22,6 @@ function Main({films, currentGenre, promoFilm}) {
     setShowenfilmsQnt(FilmsQnt.MAIN);
   };
 
-
   return (
     <>
       <section className="film-card">
