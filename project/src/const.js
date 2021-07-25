@@ -8,6 +8,8 @@ const AuthorizationStatus = {
 
 export const APIRoute = {
   FILMS: '/films',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
   PROMO_FILM: '/promo',
 };
 
