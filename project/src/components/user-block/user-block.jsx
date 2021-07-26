@@ -30,7 +30,7 @@ function UserBlock({authorizationStatus, onLogout}) {
                 onLogout();
               }}
             >
-              Sign out
+              <span>{localStorage.getItem('login')}</span>
             </Link>
           </li>
         </>
