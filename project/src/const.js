@@ -20,6 +20,7 @@ const AppRoute = {
   ROOT: '/',
   ADD_REVIEW: '/films/:id/review',
   PLAYER: '/player/:id',
+  PAGE_NOT_FOUND: '/page-not-found',
 };
 
 const FilmsQnt = {

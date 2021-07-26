@@ -6,8 +6,14 @@ const initialState = {
   genre: ALL_GENRES,
   films: [],
   promoFilm: {},
+  currentFilm: {},
+  currentComments: [],
+  similarFilms: [],
   isDataLoaded: false,
   isPromoLoaded: false,
+  isCurrentLoaded: false,
+  isCurrentCommentsLoaded: false,
+  isSimilarFilmsLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -33,6 +39,45 @@ const reducer = (state = initialState, action) => {
         ...state,
         promoFilm: action.payload,
         isPromoLoaded: true,
+      };
+    case ActionType.LOAD_CURRENT:
+      return {
+        ...state,
+        currentFilm: action.payload,
+        isCurrentLoaded: true,
+      };
+    case ActionType.RESET_CURRENT:
+      return {
+        ...state,
+        currentFilm: {},
+        isCurrentLoaded: false,
+      };
+    case ActionType.LOAD_SIMILAR_FILMS:
+      return {
+        ...state,
+        similarFilms: action.payload,
+        isSimilarFilmsLoaded: true,
+      };
+
+    case ActionType.RESET_SIMILAR_FILMS:
+      return {
+        ...state,
+        similarFilms: [],
+        isSimilarFilmsLoaded: false,
+      };
+
+    case ActionType.LOAD_CURRENT_COMMENTS:
+      return {
+        ...state,
+        currentComments: action.payload,
+        isCurrentCommentsLoaded: true,
+      };
+
+    case ActionType.RESET_CURRENT_COMMENTS:
+      return {
+        ...state,
+        currentComments: [],
+        isCurrentCommentsLoaded: false,
       };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {

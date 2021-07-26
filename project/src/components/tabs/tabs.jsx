@@ -4,7 +4,7 @@ import ReviewsTab from '../../components/tabs/reviews';
 import DetailsTab from '../../components/tabs/details';
 import {TabLabels} from '../../const';
 import {filmProp} from '../../components/film-list/film-list.prop';
-import {reviewListProp} from '../../components/tabs/review.prop';
+//import {reviewListProp} from '../../components/tabs/review.prop';
 
 const TabNames = [
   { key: TabLabels.OVERVIEW,
@@ -18,7 +18,7 @@ const TabNames = [
   },
 ];
 
-function Tabs({currentFilm, comments}) {
+function Tabs({currentFilm}) {
   const [activeTab, setActiveTab]= useState(TabLabels.OVERVIEW);
   let tabContent = '';
 
@@ -29,7 +29,7 @@ function Tabs({currentFilm, comments}) {
     tabContent = <DetailsTab label="tab2" currentFilm={currentFilm} />;
   }
   if (activeTab === TabLabels.REVIEWS) {
-    tabContent = <ReviewsTab label="tab3" comments={comments}  />;
+    tabContent = <ReviewsTab label="tab3" />;
   }
 
   const handleTabClick = (evt, newActiveTab) => {
@@ -60,7 +60,7 @@ function Tabs({currentFilm, comments}) {
 
 Tabs.propTypes = {
   currentFilm: filmProp,
-  comments: reviewListProp,
+  //comments: reviewListProp,
 };
 
 export default Tabs;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {connect} from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
@@ -8,25 +8,42 @@ import PageFooter from '../../page-footer/page-footer';
 import FilmList from '../../film-list/film-list';
 import Tabs from '../../tabs/tabs';
 import BtnShowMore from '../../btnShowMore/btnShowMore';
-import {FilmsQnt} from '../../../const';
-import {filmListProp} from '../../film-list/film-list.prop';
-import {reviewListProp} from '../../tabs/review.prop';
+import LoadingScreen from '../../loading-screen/loading-screen';
+import {AuthorizationStatus, FilmsQnt} from '../../../const';
+import {filmProp, filmListProp} from '../../film-list/film-list.prop';
+import {ActionCreator} from '../../../store/action';
+import {fetchCurrentFilm, fetchSimilarFilmList} from '../../../store/api-actions';
+import PropTypes from 'prop-types';
 
-const sortSimilarFilms = (films, currentFilm) => films.filter((film) => currentFilm.genre === film.genre).filter((film) => film !== currentFilm);
 
-function Film({films, comments}) {
+function Film({authorizationStatus, currentFilm, dispatch, isCurrentLoaded, isSimilarFilmsLoaded, similarFilms,}) {
   const filmParam = useParams();
-  const currentFilm = films.find((film) => film.id === filmParam.id);
   const [showenfilmsQnt, setShowenfilmsQnt] = useState(FilmsQnt.SIMILAR);
+
+  useEffect(() => {
+    const resetFilmState = () => {
+      dispatch(ActionCreator.resetCurrentFilm());
+      dispatch(ActionCreator.resetSimilarFilms());
+    };
+    resetFilmState();
+
+    dispatch(fetchCurrentFilm(filmParam.id));
+    dispatch(fetchSimilarFilmList(filmParam.id));
+
+  }, [ dispatch, filmParam.id]);
+
 
   const showMoreFilmsHandler = () => {
     setShowenfilmsQnt(showenfilmsQnt + FilmsQnt.SIMILAR);
   };
 
-  const sortedFilms = sortSimilarFilms(films, currentFilm);
+  if (!isCurrentLoaded && !isSimilarFilmsLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
-
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
@@ -62,7 +79,13 @@ function Film({films, comments}) {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/films/${filmParam.id}/review`} className="btn film-card__button">Add review</Link>
+                {authorizationStatus === AuthorizationStatus.AUTH &&
+                <Link
+                  to={`/films/${filmParam.id}/review`}
+                  href="add-review.html"
+                  className="btn film-card__button"
+                >Add review
+                </Link>}
               </div>
             </div>
           </div>
@@ -73,7 +96,7 @@ function Film({films, comments}) {
             <div className="film-card__poster film-card__poster--big">
               <img src={currentFilm.posterImage} alt={`${currentFilm.name} poster`} width="218" height="327" />
             </div>
-            <Tabs currentFilm={currentFilm}  comments={comments} />
+            <Tabs currentFilm={currentFilm}  />
           </div>
         </div>
       </section>
@@ -82,8 +105,8 @@ function Film({films, comments}) {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={sortedFilms}  filmsNumber={showenfilmsQnt} />
-          {showenfilmsQnt < sortedFilms.length && <BtnShowMore onBtnClick={showMoreFilmsHandler}/>}
+          <FilmList films={similarFilms}  filmsNumber={showenfilmsQnt} />
+          {showenfilmsQnt < similarFilms.length && <BtnShowMore onBtnClick={showMoreFilmsHandler}/>}
         </section>
 
         <PageFooter />
@@ -92,13 +115,43 @@ function Film({films, comments}) {
   );
 }
 
+Film.defaultProps = {
+  currentFilm: null,
+};
+
 Film.propTypes = {
-  comments: reviewListProp,
-  films: filmListProp,
+  currentFilm: PropTypes.shape({
+    id: PropTypes.string,
+    imgName: PropTypes.string,
+    backgroundImage: PropTypes.string,
+    name: PropTypes.string,
+    posterImage: PropTypes.string,
+    filmVideo: PropTypes.string,
+    filmPoster: PropTypes.string,
+    description:  PropTypes.string,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+    rating: PropTypes.number,
+    scoresCount: PropTypes.number,
+    director: PropTypes.string,
+    starring: PropTypes.arrayOf(PropTypes.string),
+    runTime: PropTypes.number,
+    isFavorite: PropTypes.bool,
+  }),
+  authorizationStatus: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  isCurrentLoaded: PropTypes.bool.isRequired,
+  isSimilarFilmsLoaded: PropTypes.bool.isRequired,
+  similarFilms: PropTypes.arrayOf(filmProp),
 };
 
 const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
   films: state.films,
+  currentFilm: state.currentFilm,
+  isCurrentLoaded: state.isCurrentLoaded,
+  isSimilarFilmsLoaded: state.isSimilarFilmsLoaded,
+  similarFilms: state.similarFilms,
 });
 
 

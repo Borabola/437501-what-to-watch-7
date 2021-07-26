@@ -1,6 +1,6 @@
 import { ActionCreator } from './action';
 import {AuthorizationStatus, APIRoute, AppRoute} from './../const';
-import {adaptFilm} from './../adapter';
+import {adaptFilm, adaptComment} from './../adapter';
 
 export const fetchFilmList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.FILMS)
@@ -10,6 +10,24 @@ export const fetchFilmList = () => (dispatch, _getState, api) => (
 export const fetchPromoFilm = () => (dispatch, _getState, api) => (
   api.get(APIRoute.PROMO_FILM)
     .then(({data}) => dispatch(ActionCreator.loadPromo((adaptFilm(data)))))
+);
+
+export const fetchCurrentFilm = (id) => (dispatch, _getState, api) => (
+  api.get(`/films/${id}` )
+    .then(({data}) => dispatch(ActionCreator.loadCurrentFilm((adaptFilm(data)))))
+    .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.PAGE_NOT_FOUND))) ///!!!!
+);
+
+export const fetchCurrentComments = (id) => (dispatch, _getState, api) => (
+  api.get(`/comments/${id}` )
+    .then(({data}) => dispatch(ActionCreator.loadCurrentComments(data.map((item) => adaptComment(item)))))
+    //.catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.PAGE_NOT_FOUND))) ///!!!!
+);
+
+export const fetchSimilarFilmList = (id) => (dispatch, _getState, api) => (
+  api.get(`/films/${id}/similar`)
+    .then(({data}) => dispatch(ActionCreator.loadSimilarFilms(data.map((item) => adaptFilm(item)))))
+    .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.PAGE_NOT_FOUND)))
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (

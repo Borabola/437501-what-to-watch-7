@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useEffect }from 'react';
 import {connect} from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Logo from '../../logo/logo';
 import ReviewForm from '../../review-form/review-form';
 import UserBlock from '../../user-block/user-block';
-import {filmListProp} from '../../film-list/film-list.prop';
+import {ActionCreator} from '../../../store/action';
+import LoadingScreen from '../../loading-screen/loading-screen';
+import {fetchCurrentFilm} from '../../../store/api-actions';
+import PropTypes from 'prop-types';
 
 
-function AddReview({films}) {
+function AddReview({currentFilm, dispatch, isCurrentLoaded}) {
   const filmParam = useParams();
-  const currentFilm = films.find((film) => film.id === filmParam.id);
+
+  useEffect(() => {
+    const resetFilmState = () => {
+      dispatch(ActionCreator.resetCurrentFilm());
+    };
+    resetFilmState();
+
+    dispatch(fetchCurrentFilm(filmParam.id));
+
+  }, [ dispatch, filmParam.id]);
+
+  if (!isCurrentLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <section className="film-card film-card--full">
@@ -50,12 +68,38 @@ function AddReview({films}) {
   );
 }
 
+
+
+AddReview.defaultProps = {
+  currentFilm: null,
+};
+
 AddReview.propTypes = {
-  films: filmListProp,
+  currentFilm: PropTypes.shape({
+    id: PropTypes.string,
+    imgName: PropTypes.string,
+    backgroundImage: PropTypes.string,
+    name: PropTypes.string,
+    posterImage: PropTypes.string,
+    filmVideo: PropTypes.string,
+    filmPoster: PropTypes.string,
+    description:  PropTypes.string,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+    rating: PropTypes.number,
+    scoresCount: PropTypes.number,
+    director: PropTypes.string,
+    starring: PropTypes.arrayOf(PropTypes.string),
+    runTime: PropTypes.number,
+    isFavorite: PropTypes.bool,
+  }),
+  dispatch: PropTypes.func.isRequired,
+  isCurrentLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  currentFilm: state.currentFilm,
+  isCurrentLoaded: state.isCurrentLoaded,
 });
 
 export {AddReview};

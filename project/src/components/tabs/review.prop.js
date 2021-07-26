@@ -5,7 +5,7 @@ const reviewProp = PropTypes.shape({
   date: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  rating: PropTypes.number.isRequired,
+  rating: PropTypes.string.isRequired,
 });
 
 const reviewListProp = PropTypes.arrayOf(reviewProp);
