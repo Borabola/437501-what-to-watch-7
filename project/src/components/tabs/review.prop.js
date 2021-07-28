@@ -8,7 +8,7 @@ const reviewProp = PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   }),
-  rating: PropTypes.string.isRequired,
+  rating: PropTypes.number.isRequired,
 });
 
 const reviewListProp = PropTypes.arrayOf(reviewProp);

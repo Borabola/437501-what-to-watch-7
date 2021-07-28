@@ -3,6 +3,7 @@ import {ALL_GENRES, AuthorizationStatus} from '../const';
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.UNKNOWN,
+  error: null,
   genre: ALL_GENRES,
   films: [],
   promoFilm: {},

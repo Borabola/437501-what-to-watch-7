@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
@@ -14,6 +14,7 @@ const ValidComment = {
   MAX_LENGTH: 400,
 };
 const errorMessage = 'Please mark the rating of the movie and write a comment from 40 to 400 letters';
+const errorServerMessage = 'Please try sent your comment again';
 
 function ReviewForm({onSendFormComment}) {
   const filmParam = useParams();
@@ -21,13 +22,25 @@ function ReviewForm({onSendFormComment}) {
 
   const [formData, setFormDate] = useState({
     comment: '',
-    isFormValide: false,
+    isFormValide: true,
     isCommentValide: false,
     isRating: false,
+    isSending: false,
     rating: DEFAULT_RATING,
+    serverError: false,
   });
 
-  const {rating, comment, isCommentValide, isRating, isFormValide} = formData;
+  const {rating, comment, isCommentValide, isRating, isFormValide, isSending, serverError} = formData;
+
+  useEffect(() => {
+    if (serverError) {
+      setFormDate({
+        ...formData,
+        serverError: true,
+        isSending: false,
+      });
+    }
+  }, [serverError]);
 
   const validateComment = () => {
     if ((comment.length > ValidComment.MIN_LENGHT) && (comment.length < ValidComment.MAX_LENGTH)) {
@@ -50,6 +63,7 @@ function ReviewForm({onSendFormComment}) {
 
     setFormDate({
       ...formData,
+      isSending: true,
     });
 
     if (isFormValide) {
@@ -84,17 +98,18 @@ function ReviewForm({onSendFormComment}) {
     <form action="#" className="add-review__form" onSubmit={onFormSubmit}>
       <div className="rating">
         <div className="rating__stars" data-rating = {rating} >
-          {[...Array(MAX_RATING).keys()].map((i) => ++i).map((number, index) => <RatingField key={`${MAX_RATING}-${number}`}  index={MAX_RATING - index} ratingValue={+rating} onRatingChange={onRatingChange}/> )}
+          {[...Array(MAX_RATING).keys()].map((i) => ++i).map((number, index) => <RatingField key={`${MAX_RATING}-${number}`}  index={MAX_RATING - index} ratingValue={+rating} onRatingChange={onRatingChange} isDisabled={isSending}/> )}
         </div>
       </div>
 
       {!isFormValide && <div style={{ fontSize: '14px', color: 'tomato', marginBottom: '15px' }}>{errorMessage}</div>}
+      {serverError && <div style={{ fontSize: '14px', color: 'tomato', marginBottom: '15px' }}>{errorServerMessage}</div>}
 
 
       <div className="add-review__text">
-        <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" value={comment} onChange={onCommentChange} maxLength="400" minLength="50" ></textarea>
+        <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" value={comment} onChange={onCommentChange} maxLength="400" minLength="50" disabled={isSending}></textarea>
         <div className="add-review__submit">
-          <button disabled={!isFormValide} className="add-review__btn" type="submit">Post</button>
+          <button disabled={!isFormValide || isSending} className="add-review__btn" type="submit">Post</button>
         </div>
 
       </div>
@@ -108,6 +123,7 @@ ReviewForm.propTypes = {
 const mapStateToProps = (state) => ({
   currentFilm: state.currentFilm,
   isCurrentLoaded: state.isCurrentLoaded,
+  serverError: !!state.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
