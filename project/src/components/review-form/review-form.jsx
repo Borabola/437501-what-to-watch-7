@@ -1,25 +1,85 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import { useHistory } from 'react-router';
+import { useParams } from 'react-router-dom';
 import {MAX_RATING} from '../../const';
 import RatingField from '../rating-field/rating-field';
-const DEFAULT_RATING = 0;
+import {sendComments} from '../../store/api-actions';
+import PropTypes from 'prop-types';
 
-function ReviewForm() {
-  const [rating, setRating] = useState(DEFAULT_RATING);
-  const [comment, setComment] = useState('');
+
+const DEFAULT_RATING = 0;
+const ValidComment = {
+  MIN_LENGHT: 50,
+  MAX_LENGTH: 400,
+};
+const errorMessage = 'Please mark the rating of the movie and write a comment from 40 to 400 letters';
+
+function ReviewForm({dispatch}) {
+  const filmParam = useParams();
+  const history = useHistory();
+
+  const [formData, setFormDate] = useState({
+    comment: '',
+    isFormValide: false,
+    isCommentValide: false,
+    isRating: false,
+    rating: DEFAULT_RATING,
+  });
+
+  const {rating, comment, isCommentValide, isRating, isFormValide} = formData;
+
+  const validateComment = () => {
+    if ((comment.length > ValidComment.MIN_LENGHT) && (comment.length < ValidComment.MAX_LENGTH)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  const validateForm = () => {
+    if (isCommentValide && isRating) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
+
+    setFormDate({
+      ...formData,
+    });
+
+    if (isFormValide) {
+      dispatch(sendComments(comment, filmParam.id, rating, history));
+    }
   };
 
   const onRatingChange = (evt) => {
     if (evt.target.checked) {
-      setRating(evt.target.value);
+      setFormDate({
+        ...formData,
+        isRating: true,
+        rating: (evt.target.value),
+        isFormValide: validateForm(),
+
+      });
     }
 
   };
 
   const onCommentChange = (evt) => {
-    setComment(evt.target.value);
+    const currentComment = evt.target.value;
+
+    setFormDate({
+      ...formData,
+      comment: currentComment,
+      isCommentValide: validateComment(),
+      isFormValide: validateForm(),
+    });
+
   };
 
   return (
@@ -30,10 +90,13 @@ function ReviewForm() {
         </div>
       </div>
 
+      {!isFormValide && <div style={{ fontSize: '14px', color: 'tomato', marginBottom: '15px' }}>{errorMessage}</div>}
+
+
       <div className="add-review__text">
-        <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" value={comment} onChange={onCommentChange}></textarea>
+        <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" value={comment} onChange={onCommentChange} maxLength="400" minLength="50" ></textarea>
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">Post</button>
+          <button disabled={!isFormValide} className="add-review__btn" type="submit">Post</button>
         </div>
 
       </div>
@@ -42,7 +105,14 @@ function ReviewForm() {
 }
 
 ReviewForm.propTypes = {
-
+  dispatch: PropTypes.func.isRequired,
 };
 
-export default ReviewForm;
+const mapStateToProps = (state) => ({
+  currentFilm: state.currentFilm,
+  isCurrentLoaded: state.isCurrentLoaded,
+});
+
+
+export {ReviewForm};
+export default connect(mapStateToProps)(ReviewForm);

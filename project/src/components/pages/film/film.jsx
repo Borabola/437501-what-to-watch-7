@@ -10,13 +10,13 @@ import Tabs from '../../tabs/tabs';
 import BtnShowMore from '../../btnShowMore/btnShowMore';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import {AuthorizationStatus, FilmsQnt} from '../../../const';
-import {filmProp, filmListProp} from '../../film-list/film-list.prop';
+import {filmProp} from '../../film-list/film-list.prop';
 import {ActionCreator} from '../../../store/action';
 import {fetchCurrentFilm, fetchSimilarFilmList} from '../../../store/api-actions';
 import PropTypes from 'prop-types';
 
 
-function Film({authorizationStatus, currentFilm, dispatch, isCurrentLoaded, isSimilarFilmsLoaded, similarFilms,}) {
+function Film({authorizationStatus, currentFilm, dispatch, isCurrentLoaded, isSimilarFilmsLoaded, similarFilms}) {
   const filmParam = useParams();
   const [showenfilmsQnt, setShowenfilmsQnt] = useState(FilmsQnt.SIMILAR);
 

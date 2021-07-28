@@ -1,4 +1,4 @@
-import React, { useEffect }from 'react';
+import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Logo from '../../logo/logo';
@@ -67,8 +67,6 @@ function AddReview({currentFilm, dispatch, isCurrentLoaded}) {
     </section>
   );
 }
-
-
 
 AddReview.defaultProps = {
   currentFilm: null,

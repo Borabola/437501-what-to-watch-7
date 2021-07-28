@@ -10,6 +10,7 @@ export const ActionType = {
   RESET_CURRENT_COMMENTS: 'comments/resetCurrentComments',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
+  ERROR: 'data/error',
 };
 
 export const ActionCreator = {
@@ -56,6 +57,10 @@ export const ActionCreator = {
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url,
+  }),
+  error: (err) => ({
+    type: ActionType.ERROR,
+    payload: err,
   }),
 
 };

@@ -89,6 +89,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         authorizationStatus: AuthorizationStatus.NO_AUTH,
       };
+    case ActionType.ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
 
     default:
       return state;

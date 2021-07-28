@@ -21,13 +21,19 @@ export const fetchCurrentFilm = (id) => (dispatch, _getState, api) => (
 export const fetchCurrentComments = (id) => (dispatch, _getState, api) => (
   api.get(`/comments/${id}` )
     .then(({data}) => dispatch(ActionCreator.loadCurrentComments(data.map((item) => adaptComment(item)))))
-    //.catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.PAGE_NOT_FOUND))) ///!!!!
+    .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.PAGE_NOT_FOUND))) ///!!!!
 );
 
 export const fetchSimilarFilmList = (id) => (dispatch, _getState, api) => (
   api.get(`/films/${id}/similar`)
     .then(({data}) => dispatch(ActionCreator.loadSimilarFilms(data.map((item) => adaptFilm(item)))))
     .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.PAGE_NOT_FOUND)))
+);
+
+export const sendComments = (comment, id, rating, history) => (dispatch, _getState, api) => (
+  api.post(`/comments/${id}`, {comment, rating})
+    .then(() => history.goBack())
+    .catch((err) => dispatch(ActionCreator.error(err.message)))
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
