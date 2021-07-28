@@ -17,7 +17,7 @@ function AddReview({currentFilm, onLoadCurrentFilm, isCurrentFilmLoaded}) {
 
   useEffect(() => {
     onLoadCurrentFilm(filmParam.id);
-  }, [filmParam.id]);
+  }, [filmParam.id, onLoadCurrentFilm]);
 
   if (!isCurrentFilmLoaded) {
     return (

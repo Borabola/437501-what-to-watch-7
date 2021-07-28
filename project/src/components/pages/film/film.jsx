@@ -22,7 +22,7 @@ function Film({authorizationStatus, currentFilm, comments, onLoad, isCurrentFilm
 
   useEffect(() => {
     onLoad(filmParam.id);
-  }, [ filmParam.id ]);
+  }, [ filmParam.id, onLoad ]);
 
   const showMoreFilmsHandler = () => {
     setShowenFilmsQnt(showenFilmsQnt + FilmsQnt.SIMILAR);
