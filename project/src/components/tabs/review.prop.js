@@ -4,7 +4,10 @@ const reviewProp = PropTypes.shape({
   comment: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
   rating: PropTypes.string.isRequired,
 });
 

@@ -64,10 +64,8 @@ function ReviewForm() {
         isRating: true,
         rating: (evt.target.value),
         isFormValide: validateForm(),
-
       });
     }
-
   };
 
   const onCommentChange = (evt) => {

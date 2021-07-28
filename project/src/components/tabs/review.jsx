@@ -3,7 +3,7 @@ import {format} from 'date-fns';
 import {reviewProp} from './review.prop';
 
 function Review({review}) {
-  const {comment, name, rating, date} = review;
+  const {comment, user, rating, date} = review;
   const innerDateTime = format(new Date(date), 'yyyy-MM-dd');
   const textDateTime = format(new Date(date), 'MMMM dd, yyyy');
 
@@ -13,7 +13,7 @@ function Review({review}) {
         <p className="review__text">{comment}</p>
 
         <footer className="review__details">
-          <cite className="review__author">{name}</cite>
+          <cite className="review__author">{user.name}</cite>
           <time className="review__date" dateTime={innerDateTime}>{textDateTime}</time>
         </footer>
       </blockquote>

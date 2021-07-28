@@ -1,6 +1,6 @@
 import { ActionCreator } from './action';
 import {AuthorizationStatus, APIRoute, AppRoute} from './../const';
-import {adaptFilm, adaptComment} from './../adapter';
+import {adaptFilm} from './../adapter';
 
 export const fetchFilmList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.FILMS)
@@ -20,7 +20,7 @@ export const fetchCurrentFilm = (id) => (dispatch, _getState, api) => (
 
 export const fetchCurrentComments = (id) => (dispatch, _getState, api) => (
   api.get(`/comments/${id}` )
-    .then(({data}) => dispatch(ActionCreator.loadCurrentComments(data.map((item) => adaptComment(item)))))
+    .then(({data}) => dispatch(ActionCreator.loadCurrentComments(data)))
     .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.PAGE_NOT_FOUND))) ///!!!!
 );
 

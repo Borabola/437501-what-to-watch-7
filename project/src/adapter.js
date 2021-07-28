@@ -17,11 +17,3 @@ export const adaptFilm = (incomingfilm) => ({
   isFavorite: incomingfilm.is_favorite,
 });
 
-export const adaptComment = (incomingComment) => ({
-  id: incomingComment.id,
-  comment: incomingComment.comment,
-  name: incomingComment.user.name,
-  rating: incomingComment.rating.toFixed(1).toString(),
-  date: incomingComment.date,
-});
-

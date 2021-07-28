@@ -5,6 +5,7 @@ export const ActionType = {
   LOAD_CURRENT: 'film/loadCurrent',
   LOAD_CURRENT_COMMENTS: 'comments/loadCurrent',
   LOAD_SIMILAR_FILMS: 'data/loadSimilarFilms',
+  REDIRECT_TO_ROUTE: 'film/redirectToRoute',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
   ERROR: 'data/error',

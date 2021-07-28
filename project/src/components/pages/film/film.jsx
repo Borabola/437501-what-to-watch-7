@@ -11,11 +11,12 @@ import BtnShowMore from '../../btnShowMore/btnShowMore';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import {AuthorizationStatus, FilmsQnt} from '../../../const';
 import {filmPropDefault} from '../../film-list/film-list.prop';
-import {fetchCurrentFilm, fetchSimilarFilmList} from '../../../store/api-actions';
+import {fetchCurrentFilm, fetchSimilarFilmList, fetchCurrentComments} from '../../../store/api-actions';
+import {reviewListProp} from '../../tabs/review.prop';
 import PropTypes from 'prop-types';
 
 
-function Film({authorizationStatus, currentFilm, onLoad, isCurrentFilmLoaded, isSimilarFilmsLoaded, similarFilms}) {
+function Film({authorizationStatus, currentFilm, comments, onLoad, isCurrentFilmLoaded, isCurrentCommentsLoaded, isSimilarFilmsLoaded, similarFilms}) {
   const filmParam = useParams();
   const [showenFilmsQnt, setShowenFilmsQnt] = useState(FilmsQnt.SIMILAR);
 
@@ -27,7 +28,7 @@ function Film({authorizationStatus, currentFilm, onLoad, isCurrentFilmLoaded, is
     setShowenFilmsQnt(showenFilmsQnt + FilmsQnt.SIMILAR);
   };
 
-  if (!isCurrentFilmLoaded && !isSimilarFilmsLoaded) {
+  if (!isCurrentFilmLoaded && !isSimilarFilmsLoaded && !isCurrentCommentsLoaded) {
     return (
       <LoadingScreen />
     );
@@ -86,7 +87,7 @@ function Film({authorizationStatus, currentFilm, onLoad, isCurrentFilmLoaded, is
             <div className="film-card__poster film-card__poster--big">
               <img src={currentFilm.posterImage} alt={`${currentFilm.name} poster`} width="218" height="327" />
             </div>
-            <Tabs currentFilm={currentFilm}  />
+            <Tabs currentFilm={currentFilm} comments={comments}  />
           </div>
         </div>
       </section>
@@ -111,8 +112,10 @@ Film.defaultProps = {
 
 Film.propTypes = {
   currentFilm: filmPropDefault,
+  comments: reviewListProp,
   authorizationStatus: PropTypes.string.isRequired,
   isCurrentFilmLoaded: PropTypes.bool.isRequired,
+  isCurrentCommentsLoaded: PropTypes.bool.isRequired,
   isSimilarFilmsLoaded: PropTypes.bool.isRequired,
   onLoad: PropTypes.func.isRequired,
   similarFilms: PropTypes.arrayOf(filmPropDefault),
@@ -122,7 +125,9 @@ const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
   films: state.films,
   currentFilm: state.currentFilm,
+  comments: state.currentComments,
   isCurrentFilmLoaded: state.isCurrentFilmLoaded,
+  isCurrentCommentsLoaded: state.isCurrentCommentsLoaded,
   isSimilarFilmsLoaded: state.isSimilarFilmsLoaded,
   similarFilms: state.similarFilms,
 });
@@ -131,6 +136,7 @@ const mapDispatchToProps = (dispatch) => ({
   onLoad(id) {
     dispatch(fetchCurrentFilm(id));
     dispatch(fetchSimilarFilmList(id));
+    dispatch(fetchCurrentComments(id));
   },
 });
 
