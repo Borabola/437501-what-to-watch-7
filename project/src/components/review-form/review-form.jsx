@@ -15,7 +15,7 @@ const ValidComment = {
 };
 const errorMessage = 'Please mark the rating of the movie and write a comment from 40 to 400 letters';
 
-function ReviewForm({dispatch}) {
+function ReviewForm() {
   const filmParam = useParams();
   const history = useHistory();
 
@@ -27,7 +27,7 @@ function ReviewForm({dispatch}) {
     rating: DEFAULT_RATING,
   });
 
-  const {rating, comment, isCommentValide, isRating, isFormValide} = formData;
+  const {rating, comment, isCommentValide, isRating, isFormValide, onSendFormComment} = formData;
 
   const validateComment = () => {
     if ((comment.length > ValidComment.MIN_LENGHT) && (comment.length < ValidComment.MAX_LENGTH)) {
@@ -53,7 +53,7 @@ function ReviewForm({dispatch}) {
     });
 
     if (isFormValide) {
-      dispatch(sendComments(comment, filmParam.id, rating, history));
+      onSendFormComment(comment, filmParam.id, rating, history);
     }
   };
 
@@ -104,15 +104,18 @@ function ReviewForm({dispatch}) {
   );
 }
 
-ReviewForm.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = (state) => ({
   currentFilm: state.currentFilm,
   isCurrentLoaded: state.isCurrentLoaded,
+  onSendFormComment: PropTypes.func.isRequired,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSendFormComment(comment, id, rating, history){
+    dispatch(sendComments(comment, id, rating, history));
+  },
 });
 
 
 export {ReviewForm};
-export default connect(mapStateToProps)(ReviewForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);

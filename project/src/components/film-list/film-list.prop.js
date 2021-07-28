@@ -19,7 +19,26 @@ const filmProp = PropTypes.shape({
   isFavorite: PropTypes.bool,
 });
 
+const filmPropDefault = PropTypes.shape({
+  id: PropTypes.string,
+  imgName: PropTypes.string,
+  name: PropTypes.string,
+  backgroundImage:  PropTypes.string,
+  posterImage: PropTypes.string,
+  filmVideo: PropTypes.string,
+  filmPoster: PropTypes.string,
+  description:  PropTypes.string,
+  genre: PropTypes.string,
+  released: PropTypes.number,
+  rating: PropTypes.number,
+  scoresCount: PropTypes.number,
+  director: PropTypes.string,
+  starring: PropTypes.arrayOf(PropTypes.string),
+  runTime: PropTypes.number,
+  isFavorite: PropTypes.bool,
+});
+
 const filmListProp = PropTypes.arrayOf(filmProp);
 
-export {filmListProp, filmProp};
+export {filmListProp, filmProp, filmPropDefault};
 

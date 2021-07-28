@@ -4,7 +4,6 @@ import ReviewsTab from '../../components/tabs/reviews';
 import DetailsTab from '../../components/tabs/details';
 import {TabLabels} from '../../const';
 import {filmProp} from '../../components/film-list/film-list.prop';
-//import {reviewListProp} from '../../components/tabs/review.prop';
 
 const TabNames = [
   { key: TabLabels.OVERVIEW,
@@ -60,7 +59,6 @@ function Tabs({currentFilm}) {
 
 Tabs.propTypes = {
   currentFilm: filmProp,
-  //comments: reviewListProp,
 };
 
 export default Tabs;

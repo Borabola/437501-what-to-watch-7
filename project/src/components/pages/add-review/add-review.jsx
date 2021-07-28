@@ -4,26 +4,22 @@ import { Link, useParams } from 'react-router-dom';
 import Logo from '../../logo/logo';
 import ReviewForm from '../../review-form/review-form';
 import UserBlock from '../../user-block/user-block';
-import {ActionCreator} from '../../../store/action';
+//import {ActionCreator} from '../../../store/action';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import {fetchCurrentFilm} from '../../../store/api-actions';
+import {filmPropDefault} from '../../film-list/film-list.prop';
+
 import PropTypes from 'prop-types';
 
 
-function AddReview({currentFilm, dispatch, isCurrentLoaded}) {
+function AddReview({currentFilm, onLoadCurrentFilm, isCurrentFilmLoaded}) {
   const filmParam = useParams();
 
   useEffect(() => {
-    const resetFilmState = () => {
-      dispatch(ActionCreator.resetCurrentFilm());
-    };
-    resetFilmState();
+    onLoadCurrentFilm(filmParam.id);
+  }, [filmParam.id]);
 
-    dispatch(fetchCurrentFilm(filmParam.id));
-
-  }, [ dispatch, filmParam.id]);
-
-  if (!isCurrentLoaded) {
+  if (!isCurrentFilmLoaded) {
     return (
       <LoadingScreen />
     );
@@ -73,32 +69,21 @@ AddReview.defaultProps = {
 };
 
 AddReview.propTypes = {
-  currentFilm: PropTypes.shape({
-    id: PropTypes.string,
-    imgName: PropTypes.string,
-    backgroundImage: PropTypes.string,
-    name: PropTypes.string,
-    posterImage: PropTypes.string,
-    filmVideo: PropTypes.string,
-    filmPoster: PropTypes.string,
-    description:  PropTypes.string,
-    genre: PropTypes.string,
-    released: PropTypes.number,
-    rating: PropTypes.number,
-    scoresCount: PropTypes.number,
-    director: PropTypes.string,
-    starring: PropTypes.arrayOf(PropTypes.string),
-    runTime: PropTypes.number,
-    isFavorite: PropTypes.bool,
-  }),
-  dispatch: PropTypes.func.isRequired,
-  isCurrentLoaded: PropTypes.bool.isRequired,
+  currentFilm: filmPropDefault,
+  isCurrentFilmLoaded: PropTypes.bool.isRequired,
+  onLoadCurrentFilm: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currentFilm: state.currentFilm,
-  isCurrentLoaded: state.isCurrentLoaded,
+  isCurrentFilmLoaded: state.isCurrentFilmLoaded,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadCurrentFilm(id){
+    dispatch(fetchCurrentFilm(id));
+  },
 });
 
 export {AddReview};
-export default connect(mapStateToProps)(AddReview);
+export default connect(mapStateToProps, mapDispatchToProps)(AddReview);

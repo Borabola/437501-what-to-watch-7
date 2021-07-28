@@ -11,7 +11,7 @@ const initialState = {
   similarFilms: [],
   isDataLoaded: false,
   isPromoLoaded: false,
-  isCurrentLoaded: false,
+  isCurrentFilmLoaded: false,
   isCurrentCommentsLoaded: false,
   isSimilarFilmsLoaded: false,
 };
@@ -44,13 +44,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentFilm: action.payload,
-        isCurrentLoaded: true,
+        isCurrentFilmLoaded: true,
       };
     case ActionType.RESET_CURRENT:
       return {
         ...state,
         currentFilm: {},
-        isCurrentLoaded: false,
+        isCurrentFilmLoaded: false,
       };
     case ActionType.LOAD_SIMILAR_FILMS:
       return {

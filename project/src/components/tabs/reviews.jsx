@@ -2,23 +2,16 @@ import React, { useEffect} from 'react';
 import {connect} from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {reviewListProp} from './review.prop';
-import {ActionCreator} from '../../store/action';
 import {fetchCurrentComments} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import Review from './review';
 import PropTypes from 'prop-types';
 
-function ReviewsTab({comments, dispatch, isCurrentCommentsLoaded}) {
+function ReviewsTab({comments,isCurrentCommentsLoaded, onLoadCurrentComments}) {
   const filmParam = useParams();
   useEffect(() => {
-    const resetCommentState = () => {
-      dispatch(ActionCreator.resetCurrentComments());
-    };
-    resetCommentState();
-
-    dispatch(fetchCurrentComments(filmParam.id));
-
-  }, [ dispatch, filmParam.id]);
+    onLoadCurrentComments(filmParam.id);
+  }, [filmParam.id]);
   const renderNumber = Math.ceil(comments.length / 2);
 
   if (!isCurrentCommentsLoaded) {
@@ -43,15 +36,20 @@ function ReviewsTab({comments, dispatch, isCurrentCommentsLoaded}) {
 
 ReviewsTab.propTypes = {
   comments: reviewListProp,
-  dispatch: PropTypes.func.isRequired,
+  onLoadCurrentComments: PropTypes.func.isRequired,
   isCurrentCommentsLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   comments: state.currentComments,
-  //currentFilm: state.currentFilm,
   isCurrentCommentsLoaded: state.isCurrentCommentsLoaded,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onLoadCurrentComments(id){
+    dispatch(fetchCurrentComments(id));
+  },
+});
+
 export  {ReviewsTab};
-export default connect(mapStateToProps)(ReviewsTab);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewsTab);

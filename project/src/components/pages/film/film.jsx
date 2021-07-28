@@ -10,34 +10,24 @@ import Tabs from '../../tabs/tabs';
 import BtnShowMore from '../../btnShowMore/btnShowMore';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import {AuthorizationStatus, FilmsQnt} from '../../../const';
-import {filmProp} from '../../film-list/film-list.prop';
-import {ActionCreator} from '../../../store/action';
+import {filmPropDefault} from '../../film-list/film-list.prop';
 import {fetchCurrentFilm, fetchSimilarFilmList} from '../../../store/api-actions';
 import PropTypes from 'prop-types';
 
 
-function Film({authorizationStatus, currentFilm, dispatch, isCurrentLoaded, isSimilarFilmsLoaded, similarFilms}) {
+function Film({authorizationStatus, currentFilm, onLoad, isCurrentFilmLoaded, isSimilarFilmsLoaded, similarFilms}) {
   const filmParam = useParams();
-  const [showenfilmsQnt, setShowenfilmsQnt] = useState(FilmsQnt.SIMILAR);
+  const [showenFilmsQnt, setShowenFilmsQnt] = useState(FilmsQnt.SIMILAR);
 
   useEffect(() => {
-    const resetFilmState = () => {
-      dispatch(ActionCreator.resetCurrentFilm());
-      dispatch(ActionCreator.resetSimilarFilms());
-    };
-    resetFilmState();
-
-    dispatch(fetchCurrentFilm(filmParam.id));
-    dispatch(fetchSimilarFilmList(filmParam.id));
-
-  }, [ dispatch, filmParam.id]);
-
+    onLoad(filmParam.id);
+  }, [ filmParam.id ]);
 
   const showMoreFilmsHandler = () => {
-    setShowenfilmsQnt(showenfilmsQnt + FilmsQnt.SIMILAR);
+    setShowenFilmsQnt(showenFilmsQnt + FilmsQnt.SIMILAR);
   };
 
-  if (!isCurrentLoaded && !isSimilarFilmsLoaded) {
+  if (!isCurrentFilmLoaded && !isSimilarFilmsLoaded) {
     return (
       <LoadingScreen />
     );
@@ -105,8 +95,8 @@ function Film({authorizationStatus, currentFilm, dispatch, isCurrentLoaded, isSi
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={similarFilms}  filmsNumber={showenfilmsQnt} />
-          {showenfilmsQnt < similarFilms.length && <BtnShowMore onBtnClick={showMoreFilmsHandler}/>}
+          <FilmList films={similarFilms}  filmsNumber={showenFilmsQnt} />
+          {showenFilmsQnt < similarFilms.length && <BtnShowMore onBtnClick={showMoreFilmsHandler}/>}
         </section>
 
         <PageFooter />
@@ -120,40 +110,30 @@ Film.defaultProps = {
 };
 
 Film.propTypes = {
-  currentFilm: PropTypes.shape({
-    id: PropTypes.string,
-    imgName: PropTypes.string,
-    backgroundImage: PropTypes.string,
-    name: PropTypes.string,
-    posterImage: PropTypes.string,
-    filmVideo: PropTypes.string,
-    filmPoster: PropTypes.string,
-    description:  PropTypes.string,
-    genre: PropTypes.string,
-    released: PropTypes.number,
-    rating: PropTypes.number,
-    scoresCount: PropTypes.number,
-    director: PropTypes.string,
-    starring: PropTypes.arrayOf(PropTypes.string),
-    runTime: PropTypes.number,
-    isFavorite: PropTypes.bool,
-  }),
+  currentFilm: filmPropDefault,
   authorizationStatus: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  isCurrentLoaded: PropTypes.bool.isRequired,
+  isCurrentFilmLoaded: PropTypes.bool.isRequired,
   isSimilarFilmsLoaded: PropTypes.bool.isRequired,
-  similarFilms: PropTypes.arrayOf(filmProp),
+  onLoad: PropTypes.func.isRequired,
+  similarFilms: PropTypes.arrayOf(filmPropDefault),
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
   films: state.films,
   currentFilm: state.currentFilm,
-  isCurrentLoaded: state.isCurrentLoaded,
+  isCurrentFilmLoaded: state.isCurrentFilmLoaded,
   isSimilarFilmsLoaded: state.isSimilarFilmsLoaded,
   similarFilms: state.similarFilms,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onLoad(id) {
+    dispatch(fetchCurrentFilm(id));
+    dispatch(fetchSimilarFilmList(id));
+  },
+});
+
 
 export  {Film};
-export default connect(mapStateToProps)(Film);
+export default connect(mapStateToProps, mapDispatchToProps)(Film);
