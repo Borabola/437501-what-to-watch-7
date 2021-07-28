@@ -15,7 +15,7 @@ const ValidComment = {
 };
 const errorMessage = 'Please mark the rating of the movie and write a comment from 40 to 400 letters';
 
-function ReviewForm() {
+function ReviewForm({onSendFormComment}) {
   const filmParam = useParams();
   const history = useHistory();
 
@@ -27,7 +27,7 @@ function ReviewForm() {
     rating: DEFAULT_RATING,
   });
 
-  const {rating, comment, isCommentValide, isRating, isFormValide, onSendFormComment} = formData;
+  const {rating, comment, isCommentValide, isRating, isFormValide} = formData;
 
   const validateComment = () => {
     if ((comment.length > ValidComment.MIN_LENGHT) && (comment.length < ValidComment.MAX_LENGTH)) {
@@ -101,11 +101,13 @@ function ReviewForm() {
     </form>
   );
 }
+ReviewForm.propTypes = {
+  onSendFormComment: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   currentFilm: state.currentFilm,
   isCurrentLoaded: state.isCurrentLoaded,
-  onSendFormComment: PropTypes.func.isRequired,
 });
 
 const mapDispatchToProps = (dispatch) => ({
