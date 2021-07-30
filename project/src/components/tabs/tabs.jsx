@@ -3,7 +3,7 @@ import OverviewTab from '../../components/tabs/overview';
 import ReviewsTab from '../../components/tabs/reviews';
 import DetailsTab from '../../components/tabs/details';
 import {TabLabels} from '../../const';
-import {filmProp} from '../../components/film-list/film-list.prop';
+import {filmPropDefault} from '../../components/film-list/film-list.prop';
 import {reviewListProp} from '../tabs/review.prop';
 
 const TabNames = [
@@ -64,7 +64,7 @@ Tabs.defaultProps = {
 };
 
 Tabs.propTypes = {
-  currentFilm: filmProp,
+  currentFilm: filmPropDefault,
   comments: reviewListProp,
 };
 

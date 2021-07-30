@@ -23,7 +23,7 @@ const AppRoute = {
   PAGE_NOT_FOUND: '/page-not-found',
 };
 
-const FilmsQnt = {
+const FilmsCount = {
   MAIN: 8,
   SIMILAR: 4,
 };
@@ -47,5 +47,5 @@ const TabLabels = {
 
 const VIDEO_DELAY = 1000;
 
-export {ALL_GENRES, AuthorizationStatus, AppRoute, FilmsQnt, MAX_RATING, MINUTE, Ratings, TabLabels, VIDEO_DELAY};
+export {ALL_GENRES, AuthorizationStatus, AppRoute, FilmsCount, MAX_RATING, MINUTE, Ratings, TabLabels, VIDEO_DELAY};
 

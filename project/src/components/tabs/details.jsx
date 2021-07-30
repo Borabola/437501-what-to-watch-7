@@ -1,6 +1,6 @@
 import React from 'react';
 import {getTimeFormate} from '../../utils';
-import {filmProp} from '../film-list/film-list.prop';
+import {filmPropDefault} from '../film-list/film-list.prop';
 
 function DetailsTab({currentFilm}) {
   return (
@@ -12,7 +12,7 @@ function DetailsTab({currentFilm}) {
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
-          <span className="film-card__details-value">{currentFilm.starring.map((item) => <span key={item}>{item}<br/></span>)}
+          <span className="film-card__details-value">{Array.isArray(currentFilm.starring) ? currentFilm.starring.map((item) => <span key={item}>{item}<br/></span>) : ''}
           </span>
         </p>
       </div>
@@ -36,7 +36,7 @@ function DetailsTab({currentFilm}) {
 }
 
 DetailsTab.propTypes = {
-  currentFilm: filmProp,
+  currentFilm: filmPropDefault,
 };
 
 export default DetailsTab;

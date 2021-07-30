@@ -4,7 +4,6 @@ import { Link, useParams } from 'react-router-dom';
 import Logo from '../../logo/logo';
 import ReviewForm from '../../review-form/review-form';
 import UserBlock from '../../user-block/user-block';
-//import {ActionCreator} from '../../../store/action';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import {fetchCurrentFilm} from '../../../store/api-actions';
 import {filmPropDefault} from '../../film-list/film-list.prop';

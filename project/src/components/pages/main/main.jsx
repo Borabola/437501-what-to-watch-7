@@ -7,19 +7,19 @@ import FilmList from '../../film-list/film-list';
 import GenreList from '../../genre-list/genre-list';
 import BtnShowMore from '../../btnShowMore/btnShowMore';
 import {getFilteredFilms} from '../../../utils';
-import {FilmsQnt} from '../../../const';
+import {FilmsCount} from '../../../const';
 import PropTypes from 'prop-types';
 import {filmProp, filmListProp} from '../../film-list/film-list.prop';
 
 function Main({films, currentGenre, promoFilm}) {
-  const [showenfilmsQnt, setShowenfilmsQnt] = useState(FilmsQnt.MAIN);
+  const [showenFilmsCount, setShowenFilmsCount] = useState(FilmsCount.MAIN);
   const filteredFilms = getFilteredFilms(films, currentGenre);
   const showMoreFilmsHandler = () => {
-    setShowenfilmsQnt(showenfilmsQnt + FilmsQnt.MAIN);
+    setShowenFilmsCount(showenFilmsCount + FilmsCount.MAIN);
   };
 
   const onChangeGenreClick = () => {
-    setShowenfilmsQnt(FilmsQnt.MAIN);
+    setShowenFilmsCount(FilmsCount.MAIN);
   };
 
   return (
@@ -73,8 +73,8 @@ function Main({films, currentGenre, promoFilm}) {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenreList films={films} onChangeGenreClick={onChangeGenreClick}/>
-          <FilmList films={filteredFilms} filmsNumber={showenfilmsQnt} />
-          {showenfilmsQnt < filteredFilms.length && <BtnShowMore onBtnClick={showMoreFilmsHandler}/>}
+          <FilmList films={filteredFilms} filmsNumber={showenFilmsCount} />
+          {showenFilmsCount < filteredFilms.length && <BtnShowMore onBtnClick={showMoreFilmsHandler}/>}
         </section>
 
         <PageFooter />

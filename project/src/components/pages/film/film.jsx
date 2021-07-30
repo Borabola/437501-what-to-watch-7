@@ -9,7 +9,7 @@ import FilmList from '../../film-list/film-list';
 import Tabs from '../../tabs/tabs';
 import BtnShowMore from '../../btnShowMore/btnShowMore';
 import LoadingScreen from '../../loading-screen/loading-screen';
-import {AuthorizationStatus, FilmsQnt} from '../../../const';
+import {AuthorizationStatus, FilmsCount} from '../../../const';
 import {filmPropDefault} from '../../film-list/film-list.prop';
 import {fetchCurrentFilm, fetchSimilarFilmList, fetchCurrentComments} from '../../../store/api-actions';
 import {reviewListProp} from '../../tabs/review.prop';
@@ -18,14 +18,14 @@ import PropTypes from 'prop-types';
 
 function Film({authorizationStatus, currentFilm, comments, onLoad, isCurrentFilmLoaded, isCurrentCommentsLoaded, isSimilarFilmsLoaded, similarFilms}) {
   const filmParam = useParams();
-  const [showenFilmsQnt, setShowenFilmsQnt] = useState(FilmsQnt.SIMILAR);
+  const [showenFilmsCount, setshowenFilmsCount] = useState(FilmsCount.SIMILAR);
 
   useEffect(() => {
     onLoad(filmParam.id);
   }, [ filmParam.id, onLoad ]);
 
   const showMoreFilmsHandler = () => {
-    setShowenFilmsQnt(showenFilmsQnt + FilmsQnt.SIMILAR);
+    setshowenFilmsCount(showenFilmsCount + FilmsCount.SIMILAR);
   };
 
   if (!isCurrentFilmLoaded && !isSimilarFilmsLoaded && !isCurrentCommentsLoaded) {
@@ -96,8 +96,8 @@ function Film({authorizationStatus, currentFilm, comments, onLoad, isCurrentFilm
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={similarFilms}  filmsNumber={showenFilmsQnt} />
-          {showenFilmsQnt < similarFilms.length && <BtnShowMore onBtnClick={showMoreFilmsHandler}/>}
+          <FilmList films={similarFilms}  filmsNumber={showenFilmsCount} />
+          {showenFilmsCount < similarFilms.length && <BtnShowMore onBtnClick={showMoreFilmsHandler}/>}
         </section>
 
         <PageFooter />

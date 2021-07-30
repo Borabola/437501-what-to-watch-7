@@ -51,8 +51,11 @@ function ReviewForm({onSendFormComment}) {
   };
   const validateForm = () => {
     if (isCommentValide && isRating) {
+
       return true;
     } else {
+      console.log(isCommentValide ? 'isCommentValide true' : 'isCommentValide false');
+      console.log(isRating ? 'isRating true' : 'isRating false');
       return false;
     }
   };
@@ -75,9 +78,9 @@ function ReviewForm({onSendFormComment}) {
     if (evt.target.checked) {
       setFormDate({
         ...formData,
-        isRating: true,
         rating: (evt.target.value),
-        isFormValide: validateForm(),
+        isRating: true,
+        isFormValide: setTimeout(()=> validateForm(), 100),
       });
     }
   };
