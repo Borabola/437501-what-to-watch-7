@@ -7,7 +7,6 @@ import RatingField from '../rating-field/rating-field';
 import {sendComments} from '../../store/api-actions';
 import PropTypes from 'prop-types';
 
-
 const DEFAULT_RATING = 0;
 const ValidComment = {
   MIN_LENGHT: 50,
@@ -16,6 +15,7 @@ const ValidComment = {
 const errorMessage = 'Please mark the rating of the movie and write a comment from 40 to 400 letters';
 const errorServerMessage = 'Please try sent your comment again';
 
+
 function ReviewForm({onSendFormComment}) {
   const filmParam = useParams();
   const history = useHistory();
@@ -23,6 +23,7 @@ function ReviewForm({onSendFormComment}) {
   const [formData, setFormDate] = useState({
     comment: '',
     isFormValide: true,
+    isCommentDirty: false,
     isCommentValide: false,
     isRating: false,
     isSending: false,
@@ -30,7 +31,20 @@ function ReviewForm({onSendFormComment}) {
     serverError: false,
   });
 
-  const {rating, comment, isCommentValide, isRating, isFormValide, isSending, serverError} = formData;
+  const {rating, comment, isCommentDirty, isCommentValide, isRating, isFormValide, isSending, serverError} = formData;
+
+  useEffect(() => {
+    if (!isCommentDirty && !isRating) {
+      setFormDate({
+        ...formData,
+        isFormValide: false,
+      });
+    }
+    setFormDate({
+      ...formData,
+      isFormValide: validateForm(),
+    });
+  }, [isRating, isCommentValide, isCommentDirty]);
 
   useEffect(() => {
     if (serverError) {
@@ -51,15 +65,11 @@ function ReviewForm({onSendFormComment}) {
   };
   const validateForm = () => {
     if (isCommentValide && isRating) {
-
       return true;
     } else {
-      console.log(isCommentValide ? 'isCommentValide true' : 'isCommentValide false');
-      console.log(isRating ? 'isRating true' : 'isRating false');
       return false;
     }
   };
-
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
@@ -80,7 +90,6 @@ function ReviewForm({onSendFormComment}) {
         ...formData,
         rating: (evt.target.value),
         isRating: true,
-        isFormValide: setTimeout(()=> validateForm(), 100),
       });
     }
   };
@@ -91,8 +100,8 @@ function ReviewForm({onSendFormComment}) {
     setFormDate({
       ...formData,
       comment: currentComment,
+      isCommentDirty: true,
       isCommentValide: validateComment(),
-      isFormValide: validateForm(),
     });
 
   };
@@ -105,7 +114,7 @@ function ReviewForm({onSendFormComment}) {
         </div>
       </div>
 
-      {!isFormValide && <div style={{ fontSize: '14px', color: 'tomato', marginBottom: '15px' }}>{errorMessage}</div>}
+      {(isCommentDirty || (isRating && !isCommentDirty)) && <div style={{ fontSize: '14px', color: 'tomato', marginBottom: '15px' }}>{errorMessage}</div>}
       {serverError && <div style={{ fontSize: '14px', color: 'tomato', marginBottom: '15px' }}>{errorServerMessage}</div>}
 
 
@@ -134,7 +143,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(sendComments(comment, id, rating, history));
   },
 });
-
 
 export {ReviewForm};
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);
