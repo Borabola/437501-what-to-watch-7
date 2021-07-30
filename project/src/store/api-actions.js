@@ -15,13 +15,13 @@ export const fetchPromoFilm = () => (dispatch, _getState, api) => (
 export const fetchCurrentFilm = (id) => (dispatch, _getState, api) => (
   api.get(`/films/${id}` )
     .then(({data}) => dispatch(ActionCreator.loadCurrentFilm((adaptFilm(data)))))
-    .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.PAGE_NOT_FOUND))) ///!!!!
+    .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.PAGE_NOT_FOUND)))
 );
 
 export const fetchCurrentComments = (id) => (dispatch, _getState, api) => (
   api.get(`/comments/${id}` )
     .then(({data}) => dispatch(ActionCreator.loadCurrentComments(data)))
-    .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.PAGE_NOT_FOUND))) ///!!!!
+    .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.PAGE_NOT_FOUND)))
 );
 
 export const fetchSimilarFilmList = (id) => (dispatch, _getState, api) => (
@@ -30,9 +30,9 @@ export const fetchSimilarFilmList = (id) => (dispatch, _getState, api) => (
     .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.PAGE_NOT_FOUND)))
 );
 
-export const sendComments = (comment, id, rating, history) => (dispatch, _getState, api) => (
+export const sendComments = (comment, id, rating) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, {comment, rating})
-    .then(() => history.goBack())
+    .then(() => dispatch(ActionCreator.redirectToRoute(`/films/${id}`)))
     .catch((err) => dispatch(ActionCreator.error(err.message)))
 );
 

@@ -139,8 +139,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSendFormComment(comment, id, rating, history){
-    dispatch(sendComments(comment, id, rating, history));
+  onSendFormComment(comment, id, rating){
+    dispatch(sendComments(comment, id, rating));
   },
 });
 
