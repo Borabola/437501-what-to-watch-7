@@ -3,8 +3,8 @@ import OverviewTab from '../../components/tabs/overview';
 import ReviewsTab from '../../components/tabs/reviews';
 import DetailsTab from '../../components/tabs/details';
 import {TabLabels} from '../../const';
-import {filmProp} from '../../components/film-list/film-list.prop';
-import {reviewListProp} from '../../components/tabs/review.prop';
+import {filmPropDefault} from '../../components/film-list/film-list.prop';
+import {reviewListProp} from '../tabs/review.prop';
 
 const TabNames = [
   { key: TabLabels.OVERVIEW,
@@ -29,7 +29,7 @@ function Tabs({currentFilm, comments}) {
     tabContent = <DetailsTab label="tab2" currentFilm={currentFilm} />;
   }
   if (activeTab === TabLabels.REVIEWS) {
-    tabContent = <ReviewsTab label="tab3" comments={comments}  />;
+    tabContent = <ReviewsTab label="tab3" comments={comments}/>;
   }
 
   const handleTabClick = (evt, newActiveTab) => {
@@ -58,8 +58,13 @@ function Tabs({currentFilm, comments}) {
   );
 }
 
+Tabs.defaultProps = {
+  currentFilm: null,
+  comments: null,
+};
+
 Tabs.propTypes = {
-  currentFilm: filmProp,
+  currentFilm: filmPropDefault,
   comments: reviewListProp,
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import {reviewListProp} from './review.prop';
+import {reviewListProp} from '../tabs/review.prop';
+
 import Review from './review';
 
 function ReviewsTab({comments}) {
@@ -21,7 +22,7 @@ function ReviewsTab({comments}) {
 
 ReviewsTab.propTypes = {
   comments: reviewListProp,
-
 };
+
 
 export default ReviewsTab;

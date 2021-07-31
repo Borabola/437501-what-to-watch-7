@@ -23,10 +23,9 @@ export const createAPI = (onUnauthorized) => {
   const onFail = (err) => {
     const {response} = err;
 
-    if (response.status === HttpCode.UNAUTHORIZED) {
+    if (response !== undefined && response.status === HttpCode.UNAUTHORIZED) {
       onUnauthorized();
     }
-
     throw err;
   };
 
@@ -34,3 +33,18 @@ export const createAPI = (onUnauthorized) => {
 
   return api;
 };
+
+
+/**axios.post(url, data)
+  .then(res => {
+    // do good things
+  })
+  .catch(err => {
+    if (err.response) {
+      // client received an error response (5xx, 4xx)
+    } else if (err.request) {
+      // client never received a response, or request never left
+    } else {
+      // anything else
+    }
+  }) */

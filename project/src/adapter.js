@@ -16,3 +16,4 @@ export const adaptFilm = (incomingfilm) => ({
   runTime: incomingfilm.run_time,
   isFavorite: incomingfilm.is_favorite,
 });
+

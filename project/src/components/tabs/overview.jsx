@@ -1,6 +1,6 @@
 import React from 'react';
 import {RatingToText} from '../../utils';
-import {filmProp} from '../film-list/film-list.prop';
+import {filmPropDefault} from '../film-list/film-list.prop';
 
 function OverviewTab({currentFilm}) {
   return (
@@ -16,14 +16,14 @@ function OverviewTab({currentFilm}) {
       <div className="film-card__text">
         <p>{currentFilm.description}</p>
         <p className="film-card__director"><strong>Director: {currentFilm.director}</strong></p>
-        <p className="film-card__starring"><strong>Starring: {currentFilm.starring.map((item, index) => (index ? ', ': '') + item)}</strong></p>
+        <p className="film-card__starring"><strong>Starring: {Array.isArray(currentFilm.starring) ? currentFilm.starring.map((item, index) => (index ? ', ': '') + item) : ''}</strong></p>
       </div>
     </>
   );
 }
 
 OverviewTab.propTypes = {
-  currentFilm: filmProp,
+  currentFilm: filmPropDefault,
 };
 
 export default OverviewTab;
