@@ -95,6 +95,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       };
+    case ActionType.NET_ERROR:
+      return {
+        ...state,
+        error: 'check your internet connection',
+      };
 
     default:
       return state;

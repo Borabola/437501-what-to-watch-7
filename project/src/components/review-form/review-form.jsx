@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 import {MAX_RATING} from '../../const';
 import RatingField from '../rating-field/rating-field';
@@ -12,13 +11,13 @@ const ValidComment = {
   MIN_LENGHT: 50,
   MAX_LENGTH: 400,
 };
+
 const errorMessage = 'Please mark the rating of the movie and write a comment from 40 to 400 letters';
-const errorServerMessage = 'Please try sent your comment again';
+const errorServerMessage = ': Please try to sent your comment again later';
 
 
-function ReviewForm({onSendFormComment}) {
+function ReviewForm({onSendFormComment, serverSendError}) {
   const filmParam = useParams();
-  const history = useHistory();
 
   const [formData, setFormDate] = useState({
     comment: '',
@@ -28,7 +27,7 @@ function ReviewForm({onSendFormComment}) {
     isRating: false,
     isSending: false,
     rating: DEFAULT_RATING,
-    serverError: false,
+    serverError: null,
   });
 
   const {rating, comment, isCommentDirty, isCommentValide, isRating, isFormValide, isSending, serverError} = formData;
@@ -47,14 +46,15 @@ function ReviewForm({onSendFormComment}) {
   }, [isRating, isCommentValide, isCommentDirty]);
 
   useEffect(() => {
-    if (serverError) {
-      setFormDate({
-        ...formData,
-        serverError: true,
-        isSending: false,
-      });
-    }
-  }, [serverError]);
+
+    setFormDate({
+      ...formData,
+      serverError: serverSendError,
+      isSending: false,
+    });
+
+  }, [serverSendError]);
+
 
   const validateComment = () => {
     if ((comment.length > ValidComment.MIN_LENGHT) && (comment.length < ValidComment.MAX_LENGTH)) {
@@ -77,10 +77,11 @@ function ReviewForm({onSendFormComment}) {
     setFormDate({
       ...formData,
       isSending: true,
+      serverError: null,
     });
 
     if (isFormValide) {
-      onSendFormComment(comment, filmParam.id, rating, history);
+      onSendFormComment(comment, filmParam.id, rating);
     }
   };
 
@@ -114,8 +115,8 @@ function ReviewForm({onSendFormComment}) {
         </div>
       </div>
 
-      {(isCommentDirty || (isRating && !isCommentDirty)) && <div style={{ fontSize: '14px', color: 'tomato', marginBottom: '15px' }}>{errorMessage}</div>}
-      {serverError && <div style={{ fontSize: '14px', color: 'tomato', marginBottom: '15px' }}>{errorServerMessage}</div>}
+      {((isCommentDirty && !isFormValide) || (isRating && !isCommentDirty)) && <div style={{ fontSize: '14px', color: 'tomato', marginBottom: '15px' }}>{errorMessage}</div>}
+      {serverSendError && <div style={{ fontSize: '14px', color: 'tomato', marginBottom: '15px' }}>{`${serverError} ${errorServerMessage}`}</div>}
 
 
       <div className="add-review__text">
@@ -128,14 +129,18 @@ function ReviewForm({onSendFormComment}) {
     </form>
   );
 }
+
+ReviewForm.defaultProps = {
+  serverSendError: null,
+};
+
 ReviewForm.propTypes = {
   onSendFormComment: PropTypes.func.isRequired,
+  serverSendError: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
-  currentFilm: state.currentFilm,
-  isCurrentLoaded: state.isCurrentLoaded,
-  serverError: !!state.error,
+  serverSendError: state.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
