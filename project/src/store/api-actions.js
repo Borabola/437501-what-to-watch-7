@@ -33,13 +33,7 @@ export const fetchSimilarFilmList = (id) => (dispatch, _getState, api) => (
 export const sendComments = (comment, id, rating) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, {comment, rating})
     .then(() => dispatch(ActionCreator.redirectToRoute(`/films/${id}`)))
-    .catch((err) => {
-      if (err === undefined) {
-        dispatch(ActionCreator.netError);
-      } else {
-        dispatch(ActionCreator.error(err.message));
-      }
-    })
+    .catch((err) => dispatch(ActionCreator.error(err.message)))
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (

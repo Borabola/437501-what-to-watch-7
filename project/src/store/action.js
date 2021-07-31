@@ -9,7 +9,6 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
   ERROR: 'data/error',
-  NET_ERROR: 'data/netError',
 };
 
 export const ActionCreator = {
@@ -51,9 +50,6 @@ export const ActionCreator = {
   error: (err) => ({
     type: ActionType.ERROR,
     payload: err,
-  }),
-  netError: () => ({
-    type: ActionType.NET_ERROR,
   }),
 
 };

@@ -116,7 +116,7 @@ function ReviewForm({onSendFormComment, serverSendError}) {
       </div>
 
       {((isCommentDirty && !isFormValide) || (isRating && !isCommentDirty)) && <div style={{ fontSize: '14px', color: 'tomato', marginBottom: '15px' }}>{errorMessage}</div>}
-      {serverSendError && <div style={{ fontSize: '14px', color: 'tomato', marginBottom: '15px' }}>{`${serverError} ${errorServerMessage}`}</div>}
+      {(serverSendError !== null) && <div style={{ fontSize: '14px', color: 'tomato', marginBottom: '15px' }}>{`${serverError} ${errorServerMessage}`}</div>}
 
 
       <div className="add-review__text">
