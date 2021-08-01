@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {changeGenre} from '../../store/action';
 import {ALL_GENRES} from '../../const';
 import {filmListProp} from '../film-list/film-list.prop';
 
@@ -48,7 +48,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onGenreClick(item){
-    dispatch(ActionCreator.changeGenre(item));
+    dispatch(changeGenre(item));
   },
 });
 

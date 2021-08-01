@@ -11,45 +11,52 @@ export const ActionType = {
   ERROR: 'data/error',
 };
 
-export const ActionCreator = {
-  changeGenre: (genre) => ({
-    genre,
-    type: ActionType.CHANGE_GENRE,
-  }),
-  loadFilms: (films) => ({
-    type: ActionType.LOAD_FILMS,
-    payload: films,
-  }),
-  loadPromo: (promoFilm) => ({
-    type: ActionType.LOAD_PROMO,
-    payload: promoFilm,
-  }),
-  loadCurrentFilm: (currentFilm) => ({
-    type: ActionType.LOAD_CURRENT,
-    payload: currentFilm,
-  }),
-  loadCurrentComments: (currentComments) => ({
-    type: ActionType.LOAD_CURRENT_COMMENTS,
-    payload: currentComments,
-  }),
-  loadSimilarFilms: (films) => ({
-    type: ActionType.LOAD_SIMILAR_FILMS,
-    payload: films,
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
-    payload: url,
-  }),
-  error: (err) => ({
-    type: ActionType.ERROR,
-    payload: err,
-  }),
 
-};
+export const  changeGenre = (genre) => ({
+  genre,
+  type: ActionType.CHANGE_GENRE,
+});
+
+export const  loadFilms = (films) => ({
+  type: ActionType.LOAD_FILMS,
+  payload: films,
+});
+
+export const  loadPromo = (promoFilm) => ({
+  type: ActionType.LOAD_PROMO,
+  payload: promoFilm,
+});
+
+export const  loadCurrentFilm = (currentFilm) => ({
+  type: ActionType.LOAD_CURRENT,
+  payload: currentFilm,
+});
+
+export const  loadCurrentComments = (currentComments) => ({
+  type: ActionType.LOAD_CURRENT_COMMENTS,
+  payload: currentComments,
+});
+
+export const  loadSimilarFilms = (films) => ({
+  type: ActionType.LOAD_SIMILAR_FILMS,
+  payload: films,
+});
+
+export const  requireAuthorization = (status) => ({
+  type: ActionType.REQUIRED_AUTHORIZATION,
+  payload: status,
+});
+
+export const  logout = () => ({
+  type: ActionType.LOGOUT,
+});
+
+export const  redirectToRoute = (url) => ({
+  type: ActionType.REDIRECT_TO_ROUTE,
+  payload: url,
+});
+
+export const  error = (err) => ({
+  type: ActionType.ERROR,
+  payload: err,
+});
