@@ -89,10 +89,10 @@ Main.propTypes = {
   promoFilm: filmProp,
 };
 
-const mapStateToProps = (state) => ({
-  currentGenre: state.genre,
-  films: state.films,
-  promoFilm: state.promoFilm,
+const mapStateToProps = ({DATA}) => ({
+  currentGenre: DATA.genre,
+  films: DATA.films,
+  promoFilm: DATA.promoFilm,
 });
 
 export {Main};

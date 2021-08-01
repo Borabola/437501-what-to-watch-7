@@ -49,8 +49,8 @@ Player.propTypes = {
   films: filmListProp,
 };
 
-const mapStateToProps = (state) => ({
-  films: state.films,
+const mapStateToProps = ({DATA}) => ({
+  films: DATA.films,
 });
 
 export {Player};

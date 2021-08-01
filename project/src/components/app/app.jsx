@@ -60,10 +60,10 @@ App.propTypes = {
   isPromoLoaded: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isDataLoaded: state.isDataLoaded,
-  isPromoLoaded: state.isPromoLoaded,
-  promoFilm: state.promoFilm,
+const mapStateToProps = ({DATA}) => ({
+  isDataLoaded: DATA.isDataLoaded,
+  isPromoLoaded: DATA.isPromoLoaded,
+  promoFilm: DATA.promoFilm,
 });
 
 export {App};

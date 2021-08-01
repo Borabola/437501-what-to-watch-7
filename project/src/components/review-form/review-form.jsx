@@ -139,8 +139,8 @@ ReviewForm.propTypes = {
   serverSendError: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-  serverSendError: state.error,
+const mapStateToProps = ({DATA}) => ({
+  serverSendError: DATA.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({

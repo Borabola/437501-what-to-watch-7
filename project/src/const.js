@@ -7,6 +7,7 @@ const AuthorizationStatus = {
 };
 
 export const APIRoute = {
+  FAVORITE_FILMS: '/favorite',
   FILMS: '/films',
   LOGIN: '/login',
   LOGOUT: '/logout',

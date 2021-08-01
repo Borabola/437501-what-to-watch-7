@@ -1,4 +1,4 @@
-import {error, loadCurrentComments, loadCurrentFilm, loadFilms, loadPromo, loadSimilarFilms, logout as closeSession, redirectToRoute, requireAuthorization} from './action';
+import {error, loadCurrentComments, loadCurrentFilm, loadFavoriteFilms, loadFilms, loadPromo, loadSimilarFilms, logout as closeSession, redirectToRoute, requireAuthorization} from './action';
 import {AuthorizationStatus, APIRoute, AppRoute} from './../const';
 import {adaptFilm} from './../adapter';
 
@@ -15,6 +15,12 @@ export const fetchPromoFilm = () => (dispatch, _getState, api) => (
 export const fetchCurrentFilm = (id) => (dispatch, _getState, api) => (
   api.get(`/films/${id}` )
     .then(({data}) => dispatch(loadCurrentFilm((adaptFilm(data)))))
+    .catch(() => dispatch(redirectToRoute(AppRoute.PAGE_NOT_FOUND)))
+);
+
+export const fetchFavoriteFilms = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.FAVORITE_FILMS )
+    .then(({data}) => dispatch(loadFavoriteFilms(data.map((item) => adaptFilm(item)))))
     .catch(() => dispatch(redirectToRoute(AppRoute.PAGE_NOT_FOUND)))
 );
 

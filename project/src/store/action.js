@@ -1,11 +1,12 @@
 export const ActionType = {
   CHANGE_GENRE: 'film/changeGenre',
   LOAD_FILMS: 'data/loadFilms',
-  LOAD_PROMO: 'film/loadPromo',
-  LOAD_CURRENT: 'film/loadCurrent',
-  LOAD_CURRENT_COMMENTS: 'comments/loadCurrent',
+  LOAD_PROMO: 'data/loadPromo',
+  LOAD_FAVORITE_FILMS: 'data/loadFavoriteFilms',
+  LOAD_CURRENT_FILM: 'data/loadCurrentFilm',
+  LOAD_CURRENT_COMMENTS: 'data/loadCurrentComments',
   LOAD_SIMILAR_FILMS: 'data/loadSimilarFilms',
-  REDIRECT_TO_ROUTE: 'film/redirectToRoute',
+  REDIRECT_TO_ROUTE: 'application/redirectToRoute',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
   ERROR: 'data/error',
@@ -28,13 +29,18 @@ export const  loadPromo = (promoFilm) => ({
 });
 
 export const  loadCurrentFilm = (currentFilm) => ({
-  type: ActionType.LOAD_CURRENT,
+  type: ActionType.LOAD_CURRENT_FILM,
   payload: currentFilm,
 });
 
 export const  loadCurrentComments = (currentComments) => ({
   type: ActionType.LOAD_CURRENT_COMMENTS,
   payload: currentComments,
+});
+
+export const  loadFavoriteFilms = (favoriteFilms) => ({
+  type: ActionType.LOAD_FAVORITE_FILMS,
+  payload: favoriteFilms,
 });
 
 export const  loadSimilarFilms = (films) => ({

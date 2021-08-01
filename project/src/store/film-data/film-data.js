@@ -1,33 +1,40 @@
-import {ActionType} from './action';
-import {ALL_GENRES, AuthorizationStatus} from '../const';
+import {ActionType} from '../action';
+import {ALL_GENRES} from '../../const';
 
 const initialState = {
-  authorizationStatus: AuthorizationStatus.UNKNOWN,
   error: null,
-  genre: ALL_GENRES,
   films: [],
+  genre: ALL_GENRES,
   promoFilm: {},
   currentFilm: {},
   currentComments: [],
+  favoriteFilms: [],
   similarFilms: [],
   isDataLoaded: false,
+  isFavoriteLoaded: false,
   isPromoLoaded: false,
   isCurrentFilmLoaded: false,
   isCurrentCommentsLoaded: false,
   isSimilarFilmsLoaded: false,
 };
 
-const reducer = (state = initialState, action) => {
+const filmData = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.GET_FILMS_WITH_GENRE:
+      return {
+        ...state,
+        films: state.films,
+      };
     case ActionType.CHANGE_GENRE:
       return {
         ...state,
         genre: action.genre,
       };
-    case ActionType.GET_FILMS_WITH_GENRE:
+    case ActionType.LOAD_FAVORITE_FILMS:
       return {
         ...state,
-        films: state.films,
+        favoriteFilms: action.payload,
+        isFavoriteLoaded: true,
       };
     case ActionType.LOAD_FILMS:
       return {
@@ -41,7 +48,7 @@ const reducer = (state = initialState, action) => {
         promoFilm: action.payload,
         isPromoLoaded: true,
       };
-    case ActionType.LOAD_CURRENT:
+    case ActionType.LOAD_CURRENT_FILM:
       return {
         ...state,
         currentFilm: action.payload,
@@ -59,36 +66,23 @@ const reducer = (state = initialState, action) => {
         similarFilms: action.payload,
         isSimilarFilmsLoaded: true,
       };
-
     case ActionType.RESET_SIMILAR_FILMS:
       return {
         ...state,
         similarFilms: [],
         isSimilarFilmsLoaded: false,
       };
-
     case ActionType.LOAD_CURRENT_COMMENTS:
       return {
         ...state,
         currentComments: action.payload,
         isCurrentCommentsLoaded: true,
       };
-
     case ActionType.RESET_CURRENT_COMMENTS:
       return {
         ...state,
         currentComments: [],
         isCurrentCommentsLoaded: false,
-      };
-    case ActionType.REQUIRED_AUTHORIZATION:
-      return {
-        ...state,
-        authorizationStatus: action.payload,
-      };
-    case ActionType.LOGOUT:
-      return {
-        ...state,
-        authorizationStatus: AuthorizationStatus.NO_AUTH,
       };
     case ActionType.ERROR:
       return {
@@ -100,5 +94,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-
-export {reducer};
+export {filmData};

@@ -121,22 +121,22 @@ Film.propTypes = {
   similarFilms: PropTypes.arrayOf(filmPropDefault),
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  films: state.films,
-  currentFilm: state.currentFilm,
-  comments: state.currentComments,
-  isCurrentFilmLoaded: state.isCurrentFilmLoaded,
-  isCurrentCommentsLoaded: state.isCurrentCommentsLoaded,
-  isSimilarFilmsLoaded: state.isSimilarFilmsLoaded,
-  similarFilms: state.similarFilms,
+const mapStateToProps = ({DATA, USER}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  films: DATA.films,
+  currentFilm: DATA.currentFilm,
+  comments: DATA.currentComments,
+  isCurrentFilmLoaded: DATA.isCurrentFilmLoaded,
+  isCurrentCommentsLoaded: DATA.isCurrentCommentsLoaded,
+  isSimilarFilmsLoaded: DATA.isSimilarFilmsLoaded,
+  similarFilms: DATA.similarFilms,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoad(id) {
     dispatch(fetchCurrentFilm(id));
-    dispatch(fetchSimilarFilmList(id));
     dispatch(fetchCurrentComments(id));
+    dispatch(fetchSimilarFilmList(id));
   },
 });
 
