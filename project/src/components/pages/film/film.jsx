@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-
 import Logo from '../../logo/logo';
 import UserBlock from '../../user-block/user-block';
 import PageFooter from '../../page-footer/page-footer';
@@ -10,21 +9,35 @@ import Tabs from '../../tabs/tabs';
 import BtnShowMore from '../../btnShowMore/btnShowMore';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import {AuthorizationStatus, FilmsCount} from '../../../const';
-import {filmPropDefault} from '../../film-list/film-list.prop';
 import {fetchCurrentFilm, fetchSimilarFilmList, fetchCurrentComments} from '../../../store/api-actions';
-import {reviewListProp} from '../../tabs/review.prop';
-import PropTypes from 'prop-types';
 import {getAuthorizationStatus} from '../../../store/user/selectors';
-import {getFilms, getCurrentFilm, getCurrentComments, getCurrentFilmLoadedStatus, getCurrentCommentsLoadedStatus, getSimilarFilmsLoadedtatus, getSimilarFilms} from '../../../store/film-data/selectors';
+import {getCurrentFilm, getCurrentComments, getCurrentFilmLoadedStatus, getCurrentCommentsLoadedStatus, getSimilarFilmsLoadedtatus, getSimilarFilms} from '../../../store/film-data/selectors';
 
 
-function Film({authorizationStatus, currentFilm, comments, onLoad, isCurrentFilmLoaded, isCurrentCommentsLoaded, isSimilarFilmsLoaded, similarFilms}) {
+function Film() {
   const filmParam = useParams();
+
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const currentFilm = useSelector(getCurrentFilm);
+  const comments = useSelector(getCurrentComments);
+  const isCurrentFilmLoaded = useSelector(getCurrentFilmLoadedStatus);
+  const isCurrentCommentsLoaded = useSelector(getCurrentCommentsLoadedStatus);
+  const isSimilarFilmsLoaded = useSelector(getSimilarFilmsLoadedtatus);
+  const similarFilms = useSelector(getSimilarFilms);
+
   const [showenFilmsCount, setshowenFilmsCount] = useState(FilmsCount.SIMILAR);
+
+  const dispatch = useDispatch();
+
+  const onLoad = (id) => {
+    dispatch(fetchCurrentFilm(id));
+    dispatch(fetchCurrentComments(id));
+    dispatch(fetchSimilarFilmList(id));
+  };
 
   useEffect(() => {
     onLoad(filmParam.id);
-  }, [ filmParam.id, onLoad ]);
+  }, [ filmParam.id ]);
 
   const showMoreFilmsHandler = () => {
     setshowenFilmsCount(showenFilmsCount + FilmsCount.SIMILAR);
@@ -108,40 +121,4 @@ function Film({authorizationStatus, currentFilm, comments, onLoad, isCurrentFilm
   );
 }
 
-Film.defaultProps = {
-  currentFilm: null,
-};
-
-Film.propTypes = {
-  currentFilm: filmPropDefault,
-  comments: reviewListProp,
-  authorizationStatus: PropTypes.string.isRequired,
-  isCurrentFilmLoaded: PropTypes.bool.isRequired,
-  isCurrentCommentsLoaded: PropTypes.bool.isRequired,
-  isSimilarFilmsLoaded: PropTypes.bool.isRequired,
-  onLoad: PropTypes.func.isRequired,
-  similarFilms: PropTypes.arrayOf(filmPropDefault),
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-  films: getFilms(state),
-  currentFilm: getCurrentFilm(state),
-  comments: getCurrentComments(state),
-  isCurrentFilmLoaded: getCurrentFilmLoadedStatus(state),
-  isCurrentCommentsLoaded: getCurrentCommentsLoadedStatus(state),
-  isSimilarFilmsLoaded: getSimilarFilmsLoadedtatus(state),
-  similarFilms: getSimilarFilms(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoad(id) {
-    dispatch(fetchCurrentFilm(id));
-    dispatch(fetchCurrentComments(id));
-    dispatch(fetchSimilarFilmList(id));
-  },
-});
-
-
-export  {Film};
-export default connect(mapStateToProps, mapDispatchToProps)(Film);
+export default Film;

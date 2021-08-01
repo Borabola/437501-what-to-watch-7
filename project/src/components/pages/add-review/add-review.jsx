@@ -1,23 +1,28 @@
 import React, { useEffect } from 'react';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Logo from '../../logo/logo';
 import ReviewForm from '../../review-form/review-form';
 import UserBlock from '../../user-block/user-block';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import {fetchCurrentFilm} from '../../../store/api-actions';
-import {filmPropDefault} from '../../film-list/film-list.prop';
 import {getCurrentFilm, getCurrentFilmLoadedStatus} from '../../../store/film-data/selectors';
 
-import PropTypes from 'prop-types';
 
-
-function AddReview({currentFilm, onLoadCurrentFilm, isCurrentFilmLoaded}) {
+function AddReview() {
   const filmParam = useParams();
+  const currentFilm = useSelector(getCurrentFilm);
+  const isCurrentFilmLoaded = useSelector(getCurrentFilmLoadedStatus);
+
+  const dispatch = useDispatch();
+
+  const onLoadCurrentFilm = (id) => {
+    dispatch(fetchCurrentFilm(id));
+  };
 
   useEffect(() => {
     onLoadCurrentFilm(filmParam.id);
-  }, [filmParam.id, onLoadCurrentFilm]);
+  }, [filmParam.id]);
 
   if (!isCurrentFilmLoaded) {
     return (
@@ -64,26 +69,4 @@ function AddReview({currentFilm, onLoadCurrentFilm, isCurrentFilmLoaded}) {
   );
 }
 
-AddReview.defaultProps = {
-  currentFilm: null,
-};
-
-AddReview.propTypes = {
-  currentFilm: filmPropDefault,
-  isCurrentFilmLoaded: PropTypes.bool.isRequired,
-  onLoadCurrentFilm: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  currentFilm: getCurrentFilm(state),
-  isCurrentFilmLoaded: getCurrentFilmLoadedStatus(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadCurrentFilm(id){
-    dispatch(fetchCurrentFilm(id));
-  },
-});
-
-export {AddReview};
-export default connect(mapStateToProps, mapDispatchToProps)(AddReview);
+export default AddReview;

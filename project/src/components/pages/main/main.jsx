@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Logo from '../../logo/logo';
 import UserBlock from '../../user-block/user-block';
 import PageFooter from '../../page-footer/page-footer';
@@ -8,11 +8,13 @@ import GenreList from '../../genre-list/genre-list';
 import BtnShowMore from '../../btnShowMore/btnShowMore';
 import {getFilteredFilms} from '../../../utils';
 import {FilmsCount} from '../../../const';
-import PropTypes from 'prop-types';
-import {filmProp, filmListProp} from '../../film-list/film-list.prop';
 import {getGenre, getFilms, getPromoFilm} from '../../../store/film-data/selectors';
 
-function Main({films, currentGenre, promoFilm}) {
+function Main() {
+  const currentGenre = useSelector(getGenre);
+  const films = useSelector(getFilms);
+  const promoFilm = useSelector(getPromoFilm);
+
   const [showenFilmsCount, setShowenFilmsCount] = useState(FilmsCount.MAIN);
   const filteredFilms = getFilteredFilms(films, currentGenre);
   const showMoreFilmsHandler = () => {
@@ -84,17 +86,4 @@ function Main({films, currentGenre, promoFilm}) {
   );
 }
 
-Main.propTypes = {
-  currentGenre: PropTypes.string.isRequired,
-  films: filmListProp,
-  promoFilm: filmProp,
-};
-
-const mapStateToProps = (state) => ({
-  currentGenre: getGenre(state),
-  films: getFilms(state),
-  promoFilm: getPromoFilm(state),
-});
-
-export {Main};
-export default connect(mapStateToProps)(Main);
+export default Main;

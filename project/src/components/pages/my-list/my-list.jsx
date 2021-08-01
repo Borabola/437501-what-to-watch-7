@@ -1,21 +1,27 @@
 import React, { useEffect } from 'react';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Logo from '../../logo/logo';
 import {fetchFavoriteFilms} from '../../../store/api-actions';
 import UserBlock from '../../user-block/user-block';
 import PageFooter from '../../page-footer/page-footer';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import FilmList from '../../film-list/film-list';
-import {filmPropDefault} from '../../film-list/film-list.prop';
-import PropTypes from 'prop-types';
 import {getFavoriteFilms, getFavoriteLoadedStatus} from '../../../store/film-data/selectors';
 
 
-function MyList({favoriteFilms, isFavoriteLoaded, onLoadFavorite}) {
+function MyList() {
+  const favoriteFilms = useSelector(getFavoriteFilms);
+  const isFavoriteLoaded = useSelector(getFavoriteLoadedStatus);
+
+  const dispatch = useDispatch();
+
+  const onLoadFavorite = () => {
+    dispatch(fetchFavoriteFilms());
+  };
 
   useEffect(() => {
     onLoadFavorite();
-  }, [  onLoadFavorite ]);
+  }, [favoriteFilms]);
 
   if (!isFavoriteLoaded) {
     return (
@@ -36,7 +42,7 @@ function MyList({favoriteFilms, isFavoriteLoaded, onLoadFavorite}) {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmList films={favoriteFilms}  filmsNumber={favoriteFilms.lenght} />
+        {favoriteFilms.lenght && <FilmList films={favoriteFilms}  filmsNumber={favoriteFilms.lenght} />}
       </section>
 
       <PageFooter />
@@ -44,26 +50,4 @@ function MyList({favoriteFilms, isFavoriteLoaded, onLoadFavorite}) {
   );
 }
 
-MyList.defaultProps = {
-  favoriteFilms: null,
-};
-
-MyList.propTypes = {
-  favoriteFilms: filmPropDefault,
-  onLoadFavorite: PropTypes.func.isRequired,
-  isFavoriteLoaded: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  favoriteFilms: getFavoriteFilms(state),
-  isFavoriteLoaded: getFavoriteLoadedStatus(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadFavorite() {
-    dispatch(fetchFavoriteFilms());
-  },
-});
-
-export {MyList};
-export default connect(mapStateToProps, mapDispatchToProps)(MyList);
+export default MyList;

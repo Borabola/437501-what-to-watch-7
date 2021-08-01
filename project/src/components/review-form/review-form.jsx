@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {MAX_RATING} from '../../const';
 import RatingField from '../rating-field/rating-field';
@@ -17,8 +17,10 @@ const errorMessage = 'Please mark the rating of the movie and write a comment fr
 const errorServerMessage = ': Please try to sent your comment again later';
 
 
-function ReviewForm({onSendFormComment, serverSendError}) {
+function ReviewForm() {
   const filmParam = useParams();
+  const serverSendError = useSelector(getError);
+  const dispatch = useDispatch();
 
   const [formData, setFormDate] = useState({
     comment: '',
@@ -56,7 +58,9 @@ function ReviewForm({onSendFormComment, serverSendError}) {
 
   }, [serverSendError]);
 
-
+  const onSendFormComment = (userComment, filmId, userRating)=> {
+    dispatch(sendComments(userComment, filmId, userRating));
+  };
   const validateComment = () => {
     if ((comment.length > ValidComment.MIN_LENGHT) && (comment.length < ValidComment.MAX_LENGTH)) {
       return true;
@@ -131,24 +135,4 @@ function ReviewForm({onSendFormComment, serverSendError}) {
   );
 }
 
-ReviewForm.defaultProps = {
-  serverSendError: null,
-};
-
-ReviewForm.propTypes = {
-  onSendFormComment: PropTypes.func.isRequired,
-  serverSendError: PropTypes.string,
-};
-
-const mapStateToProps = (state) => ({
-  serverSendError: getError(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSendFormComment(comment, id, rating){
-    dispatch(sendComments(comment, id, rating));
-  },
-});
-
-export {ReviewForm};
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);
+export default ReviewForm;
