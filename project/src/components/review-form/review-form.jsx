@@ -5,7 +5,6 @@ import {MAX_RATING} from '../../const';
 import RatingField from '../rating-field/rating-field';
 import {sendComments} from '../../store/api-actions';
 import {getError} from '../../store/film-data/selectors';
-import PropTypes from 'prop-types';
 
 const DEFAULT_RATING = 0;
 const ValidComment = {
