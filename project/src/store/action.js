@@ -16,7 +16,7 @@ export const ActionType = {
 
 
 export const  changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => ({
-  genre,
+  payload: genre,
   type: ActionType.CHANGE_GENRE,
 }));
 

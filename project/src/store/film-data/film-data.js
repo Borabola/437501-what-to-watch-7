@@ -22,7 +22,7 @@ const initialState = {
 const filmData = createReducer(initialState, (builder) => {
   builder
     .addCase(changeGenre, (state, action) => {
-      state.genre = action.genre;
+      state.genre = action.payload;
     })
     .addCase(loadFilms, (state, action) => {
       state.films = action.payload;
