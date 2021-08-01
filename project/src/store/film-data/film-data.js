@@ -1,4 +1,5 @@
-import {ActionType} from '../action';
+import {createReducer} from '@reduxjs/toolkit';
+import {changeGenre, loadFavoriteFilms, loadFilms, loadPromo, loadCurrentFilm, loadSimilarFilms, loadCurrentComments, error} from '../action';
 import {ALL_GENRES} from '../../const';
 
 const initialState = {
@@ -18,80 +19,38 @@ const initialState = {
   isSimilarFilmsLoaded: false,
 };
 
-const filmData = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.GET_FILMS_WITH_GENRE:
-      return {
-        ...state,
-        films: state.films,
-      };
-    case ActionType.CHANGE_GENRE:
-      return {
-        ...state,
-        genre: action.genre,
-      };
-    case ActionType.LOAD_FAVORITE_FILMS:
-      return {
-        ...state,
-        favoriteFilms: action.payload,
-        isFavoriteLoaded: true,
-      };
-    case ActionType.LOAD_FILMS:
-      return {
-        ...state,
-        films: action.payload,
-        isDataLoaded: true,
-      };
-    case ActionType.LOAD_PROMO:
-      return {
-        ...state,
-        promoFilm: action.payload,
-        isPromoLoaded: true,
-      };
-    case ActionType.LOAD_CURRENT_FILM:
-      return {
-        ...state,
-        currentFilm: action.payload,
-        isCurrentFilmLoaded: true,
-      };
-    case ActionType.RESET_CURRENT:
-      return {
-        ...state,
-        currentFilm: {},
-        isCurrentFilmLoaded: false,
-      };
-    case ActionType.LOAD_SIMILAR_FILMS:
-      return {
-        ...state,
-        similarFilms: action.payload,
-        isSimilarFilmsLoaded: true,
-      };
-    case ActionType.RESET_SIMILAR_FILMS:
-      return {
-        ...state,
-        similarFilms: [],
-        isSimilarFilmsLoaded: false,
-      };
-    case ActionType.LOAD_CURRENT_COMMENTS:
-      return {
-        ...state,
-        currentComments: action.payload,
-        isCurrentCommentsLoaded: true,
-      };
-    case ActionType.RESET_CURRENT_COMMENTS:
-      return {
-        ...state,
-        currentComments: [],
-        isCurrentCommentsLoaded: false,
-      };
-    case ActionType.ERROR:
-      return {
-        ...state,
-        error: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+const filmData = createReducer(initialState, (builder) => {
+  builder
+    .addCase(changeGenre, (state, action) => {
+      state.genre = action.genre;
+    })
+    .addCase(loadFilms, (state, action) => {
+      state.films = action.payload;
+      state.isDataLoaded = true;
+    })
+    .addCase(loadFavoriteFilms, (state, action) => {
+      state.favoriteFilms = action.payload;
+      state.isFavoriteLoaded = true;
+    })
+    .addCase(loadPromo, (state, action) => {
+      state.promoFilm = action.payload;
+      state.isPromoLoaded = true;
+    })
+    .addCase(loadCurrentFilm, (state, action) => {
+      state.currentFilm = action.payload;
+      state.isCurrentFilmLoaded = true;
+    })
+    .addCase(loadSimilarFilms, (state, action) => {
+      state.similarFilms = action.payload;
+      state.isSimilarFilmsLoaded = true;
+    })
+    .addCase(loadCurrentComments, (state, action) => {
+      state.currentComments = action.payload;
+      state.isCurrentCommentsLoaded = true;
+    })
+    .addCase(error, (state, action) => {
+      state.error = action.payload;
+    });
+});
 
 export {filmData};

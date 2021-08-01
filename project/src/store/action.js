@@ -1,3 +1,5 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   CHANGE_GENRE: 'film/changeGenre',
   LOAD_FILMS: 'data/loadFilms',
@@ -13,56 +15,45 @@ export const ActionType = {
 };
 
 
-export const  changeGenre = (genre) => ({
+export const  changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => ({
   genre,
   type: ActionType.CHANGE_GENRE,
-});
+}));
 
-export const  loadFilms = (films) => ({
-  type: ActionType.LOAD_FILMS,
+export const  loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({
   payload: films,
-});
+}));
 
-export const  loadPromo = (promoFilm) => ({
-  type: ActionType.LOAD_PROMO,
+export const  loadPromo = createAction(ActionType.LOAD_PROMO, (promoFilm) => ({
   payload: promoFilm,
-});
+}));
 
-export const  loadCurrentFilm = (currentFilm) => ({
-  type: ActionType.LOAD_CURRENT_FILM,
+export const  loadCurrentFilm = createAction(ActionType.LOAD_CURRENT_FILM, (currentFilm) => ({
   payload: currentFilm,
-});
+}));
 
-export const  loadCurrentComments = (currentComments) => ({
-  type: ActionType.LOAD_CURRENT_COMMENTS,
+export const  loadCurrentComments = createAction(ActionType.LOAD_CURRENT_COMMENTS, (currentComments) => ({
   payload: currentComments,
-});
+}));
 
-export const  loadFavoriteFilms = (favoriteFilms) => ({
-  type: ActionType.LOAD_FAVORITE_FILMS,
+export const  loadFavoriteFilms = createAction(ActionType.LOAD_FAVORITE_FILMS, (favoriteFilms) => ({
   payload: favoriteFilms,
-});
+}));
 
-export const  loadSimilarFilms = (films) => ({
-  type: ActionType.LOAD_SIMILAR_FILMS,
+export const  loadSimilarFilms = createAction(ActionType.LOAD_SIMILAR_FILMS, (films) => ({
   payload: films,
-});
+}));
 
-export const  requireAuthorization = (status) => ({
-  type: ActionType.REQUIRED_AUTHORIZATION,
+export const  requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
   payload: status,
-});
+}));
 
-export const  logout = () => ({
-  type: ActionType.LOGOUT,
-});
+export const  logout = createAction(ActionType.LOGOUT);
 
-export const  redirectToRoute = (url) => ({
-  type: ActionType.REDIRECT_TO_ROUTE,
+export const  redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({
   payload: url,
-});
+}));
 
-export const  error = (err) => ({
-  type: ActionType.ERROR,
+export const  error = createAction(ActionType.ERROR, (err) => ({
   payload: err,
-});
+}));
