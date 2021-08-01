@@ -4,16 +4,24 @@ import Logo from '../../logo/logo';
 import {fetchFavoriteFilms} from '../../../store/api-actions';
 import UserBlock from '../../user-block/user-block';
 import PageFooter from '../../page-footer/page-footer';
+import LoadingScreen from '../../loading-screen/loading-screen';
 import FilmList from '../../film-list/film-list';
 import {filmPropDefault} from '../../film-list/film-list.prop';
 import PropTypes from 'prop-types';
+import {getFavoriteFilms, getFavoriteLoadedStatus} from '../../../store/film-data/selectors';
 
 
-function MyList({favoriteFilms, onLoadFavorite}) {
+function MyList({favoriteFilms, isFavoriteLoaded, onLoadFavorite}) {
 
   useEffect(() => {
     onLoadFavorite();
   }, [  onLoadFavorite ]);
+
+  if (!isFavoriteLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <div className="user-page">
@@ -43,10 +51,12 @@ MyList.defaultProps = {
 MyList.propTypes = {
   favoriteFilms: filmPropDefault,
   onLoadFavorite: PropTypes.func.isRequired,
+  isFavoriteLoaded: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  favoriteFilms: DATA.favoriteFilms,
+const mapStateToProps = (state) => ({
+  favoriteFilms: getFavoriteFilms(state),
+  isFavoriteLoaded: getFavoriteLoadedStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

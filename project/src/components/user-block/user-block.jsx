@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {AppRoute} from '../../const';
 import {AuthorizationStatus} from '../../const';
 import {logout} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user/selectors';
 
 function UserBlock({authorizationStatus, onLogout}) {
 
@@ -50,8 +51,8 @@ UserBlock.propTypes = {
   onLogout: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus,
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
 
 });
 

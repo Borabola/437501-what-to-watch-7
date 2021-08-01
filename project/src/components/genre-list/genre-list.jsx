@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {changeGenre} from '../../store/action';
 import {ALL_GENRES} from '../../const';
 import {filmListProp} from '../film-list/film-list.prop';
+import {getGenre} from '../../store/film-data/selectors';
 
 
 function GenreList(props) {
@@ -42,8 +43,8 @@ GenreList.propTypes = {
   onChangeGenreClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  genreFilm: DATA.genre,
+const mapStateToProps = (state) => ({
+  genreFilm: getGenre(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

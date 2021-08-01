@@ -7,6 +7,7 @@ import UserBlock from '../../user-block/user-block';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import {fetchCurrentFilm} from '../../../store/api-actions';
 import {filmPropDefault} from '../../film-list/film-list.prop';
+import {getCurrentFilm, getCurrentFilmLoadedStatus} from '../../../store/film-data/selectors';
 
 import PropTypes from 'prop-types';
 
@@ -73,9 +74,9 @@ AddReview.propTypes = {
   onLoadCurrentFilm: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  currentFilm: DATA.currentFilm,
-  isCurrentFilmLoaded: DATA.isCurrentFilmLoaded,
+const mapStateToProps = (state) => ({
+  currentFilm: getCurrentFilm(state),
+  isCurrentFilmLoaded: getCurrentFilmLoadedStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

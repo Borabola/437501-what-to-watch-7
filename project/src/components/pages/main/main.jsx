@@ -10,6 +10,7 @@ import {getFilteredFilms} from '../../../utils';
 import {FilmsCount} from '../../../const';
 import PropTypes from 'prop-types';
 import {filmProp, filmListProp} from '../../film-list/film-list.prop';
+import {getGenre, getFilms, getPromoFilm} from '../../../store/film-data/selectors';
 
 function Main({films, currentGenre, promoFilm}) {
   const [showenFilmsCount, setShowenFilmsCount] = useState(FilmsCount.MAIN);
@@ -89,10 +90,10 @@ Main.propTypes = {
   promoFilm: filmProp,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  currentGenre: DATA.genre,
-  films: DATA.films,
-  promoFilm: DATA.promoFilm,
+const mapStateToProps = (state) => ({
+  currentGenre: getGenre(state),
+  films: getFilms(state),
+  promoFilm: getPromoFilm(state),
 });
 
 export {Main};

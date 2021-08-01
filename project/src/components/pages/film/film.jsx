@@ -14,6 +14,8 @@ import {filmPropDefault} from '../../film-list/film-list.prop';
 import {fetchCurrentFilm, fetchSimilarFilmList, fetchCurrentComments} from '../../../store/api-actions';
 import {reviewListProp} from '../../tabs/review.prop';
 import PropTypes from 'prop-types';
+import {getAuthorizationStatus} from '../../../store/user/selectors';
+import {getFilms, getCurrentFilm, getCurrentComments, getCurrentFilmLoadedStatus, getCurrentCommentsLoadedStatus, getSimilarFilmsLoadedtatus, getSimilarFilms} from '../../../store/film-data/selectors';
 
 
 function Film({authorizationStatus, currentFilm, comments, onLoad, isCurrentFilmLoaded, isCurrentCommentsLoaded, isSimilarFilmsLoaded, similarFilms}) {
@@ -121,15 +123,15 @@ Film.propTypes = {
   similarFilms: PropTypes.arrayOf(filmPropDefault),
 };
 
-const mapStateToProps = ({DATA, USER}) => ({
-  authorizationStatus: USER.authorizationStatus,
-  films: DATA.films,
-  currentFilm: DATA.currentFilm,
-  comments: DATA.currentComments,
-  isCurrentFilmLoaded: DATA.isCurrentFilmLoaded,
-  isCurrentCommentsLoaded: DATA.isCurrentCommentsLoaded,
-  isSimilarFilmsLoaded: DATA.isSimilarFilmsLoaded,
-  similarFilms: DATA.similarFilms,
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  films: getFilms(state),
+  currentFilm: getCurrentFilm(state),
+  comments: getCurrentComments(state),
+  isCurrentFilmLoaded: getCurrentFilmLoadedStatus(state),
+  isCurrentCommentsLoaded: getCurrentCommentsLoadedStatus(state),
+  isSimilarFilmsLoaded: getSimilarFilmsLoadedtatus(state),
+  similarFilms: getSimilarFilms(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

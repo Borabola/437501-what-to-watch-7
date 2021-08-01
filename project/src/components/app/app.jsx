@@ -13,6 +13,7 @@ import NotFound from '../pages/not-found/not-found';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { connect } from 'react-redux';
 import browserHistory from '../../browser-history';
+import {getLoadedDataStatus, getPromoLoadedStatus, getPromoFilm} from '../../store/film-data/selectors';
 
 function App({isDataLoaded, isPromoLoaded}) {
   if(!isDataLoaded || !isPromoLoaded) {
@@ -60,10 +61,10 @@ App.propTypes = {
   isPromoLoaded: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  isDataLoaded: DATA.isDataLoaded,
-  isPromoLoaded: DATA.isPromoLoaded,
-  promoFilm: DATA.promoFilm,
+const mapStateToProps = (state) => ({
+  isDataLoaded: getLoadedDataStatus(state),
+  isPromoLoaded: getPromoLoadedStatus(state),
+  promoFilm: getPromoFilm(state),
 });
 
 export {App};

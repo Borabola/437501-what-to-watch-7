@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {filmListProp} from '../../film-list/film-list.prop';
+import {getFilms} from '../../../store/film-data/selectors';
 
 
 function Player({films}) {
@@ -49,8 +50,8 @@ Player.propTypes = {
   films: filmListProp,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  films: DATA.films,
+const mapStateToProps = (state) => ({
+  films: getFilms(state),
 });
 
 export {Player};
