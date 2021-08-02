@@ -1,4 +1,4 @@
-import {error, loadCurrentComments, loadCurrentFilm, loadFavoriteFilms, loadFilms, loadPromo, loadSimilarFilms, logout as closeSession, redirectToRoute, requireAuthorization} from './action';
+import {error, loadCurrentComments, loadCurrentFilm, loadFavoriteFilms, loadFilms, loadPromo, loadSimilarFilms, logout as closeSession, redirectToRoute, requireAuthorization, updateFavoriteFilm, updatePromoFavoriteFilm} from './action';
 import {AuthorizationStatus, APIRoute, AppRoute} from './../const';
 import {adaptFilm} from './../adapter';
 
@@ -39,6 +39,18 @@ export const fetchSimilarFilmList = (id) => (dispatch, _getState, api) => (
 export const sendComments = (comment, id, rating) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, {comment, rating})
     .then(() => dispatch(redirectToRoute(`/films/${id}`)))
+    .catch((err) => dispatch(error(err.message)))
+);
+
+export const sendFavoriteFilmStatus = (id, status) => (dispatch, _getState, api) => (
+  api.post(`/favorite/${id}/${status}`)
+    .then((data) => dispatch(updateFavoriteFilm(adaptFilm(data.data))))
+    .catch((err) => dispatch(error(err.message)))
+);
+
+export const sendPromoFavoriteFilmStatus = (id, status) => (dispatch, _getState, api) => (
+  api.post(`/favorite/${id}/${status}`)
+    .then((data) => dispatch(updatePromoFavoriteFilm(adaptFilm(data.data))))
     .catch((err) => dispatch(error(err.message)))
 );
 

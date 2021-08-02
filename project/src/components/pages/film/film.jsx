@@ -4,6 +4,8 @@ import { Link, useParams } from 'react-router-dom';
 import Logo from '../../logo/logo';
 import UserBlock from '../../user-block/user-block';
 import PageFooter from '../../page-footer/page-footer';
+import PlayButton from '../../play-btn/play-btn';
+import MyListButton from '../../my-list-button/my-list-button';
 import FilmList from '../../film-list/film-list';
 import Tabs from '../../tabs/tabs';
 import BtnShowMore from '../../btnShowMore/btnShowMore';
@@ -73,18 +75,8 @@ function Film() {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 18 14" width="18" height="14">
-                    <use xlinkHref="#in-list"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <PlayButton filmId={filmParam.id.toString()}/>
+                <MyListButton film={currentFilm}/>
                 {authorizationStatus === AuthorizationStatus.AUTH &&
                 <Link
                   to={`/films/${filmParam.id}/review`}

@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeGenre, loadFavoriteFilms, loadFilms, loadPromo, loadCurrentFilm, loadSimilarFilms, loadCurrentComments, error} from '../action';
+import {changeGenre, loadFavoriteFilms, loadFilms, loadPromo, loadCurrentFilm, loadSimilarFilms, loadCurrentComments, error, updateFavoriteFilm, updatePromoFavoriteFilm} from '../action';
 import {ALL_GENRES} from '../../const';
 
 const initialState = {
@@ -50,6 +50,12 @@ const filmData = createReducer(initialState, (builder) => {
     })
     .addCase(error, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(updateFavoriteFilm,(state, action) => {
+      state.currentFilm = action.payload;
+    })
+    .addCase(updatePromoFavoriteFilm,(state, action) => {
+      state.promoFilm = action.payload;
     });
 });
 
