@@ -8,13 +8,16 @@ import Film from '../pages/film/film';
 import AddReview from '../pages/add-review/add-review';
 import Player from '../pages/player/player';
 import PrivateRoute from '../private-route/private-route';
-import PropTypes from 'prop-types';
 import NotFound from '../pages/not-found/not-found';
 import LoadingScreen from '../loading-screen/loading-screen';
-import { connect } from 'react-redux';
+import {useSelector} from 'react-redux';
 import browserHistory from '../../browser-history';
+import {getLoadedDataStatus, getPromoLoadedStatus} from '../../store/film-data/selectors';
 
-function App({isDataLoaded, isPromoLoaded}) {
+function App() {
+  const isDataLoaded = useSelector(getLoadedDataStatus);
+  const isPromoLoaded = useSelector(getPromoLoadedStatus);
+
   if(!isDataLoaded || !isPromoLoaded) {
     return (
       <LoadingScreen />
@@ -55,16 +58,4 @@ function App({isDataLoaded, isPromoLoaded}) {
   );
 }
 
-App.propTypes = {
-  isDataLoaded: PropTypes.bool.isRequired,
-  isPromoLoaded: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  isDataLoaded: state.isDataLoaded,
-  isPromoLoaded: state.isPromoLoaded,
-  promoFilm: state.promoFilm,
-});
-
-export {App};
-export default connect(mapStateToProps, null)(App);
+export default App;

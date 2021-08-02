@@ -1,13 +1,33 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React, { useEffect } from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import Logo from '../../logo/logo';
+import {fetchFavoriteFilms} from '../../../store/api-actions';
 import UserBlock from '../../user-block/user-block';
 import PageFooter from '../../page-footer/page-footer';
+import LoadingScreen from '../../loading-screen/loading-screen';
 import FilmList from '../../film-list/film-list';
-import {filmListProp} from '../../film-list/film-list.prop';
+import {getFavoriteFilms, getFavoriteLoadedStatus} from '../../../store/film-data/selectors';
 
 
-function MyList({films}) {
+function MyList() {
+  const favoriteFilms = useSelector(getFavoriteFilms);
+  const isFavoriteLoaded = useSelector(getFavoriteLoadedStatus);
+
+  const dispatch = useDispatch();
+
+  const onLoadFavorite = () => {
+    dispatch(fetchFavoriteFilms());
+  };
+
+  useEffect(() => {
+    onLoadFavorite();
+  }, [favoriteFilms]);
+
+  if (!isFavoriteLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <div className="user-page">
@@ -22,7 +42,7 @@ function MyList({films}) {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmList films={films} />
+        {favoriteFilms.lenght && <FilmList films={favoriteFilms}  filmsNumber={favoriteFilms.lenght} />}
       </section>
 
       <PageFooter />
@@ -30,14 +50,4 @@ function MyList({films}) {
   );
 }
 
-MyList.propTypes = {
-  films: filmListProp,
-};
-
-const mapStateToProps = (state) => ({
-  films: state.films,
-});
-
-
-export {MyList};
-export default connect(mapStateToProps)(MyList);
+export default MyList;

@@ -1,12 +1,19 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import {AppRoute} from '../../const';
 import {AuthorizationStatus} from '../../const';
 import {logout} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user/selectors';
 
-function UserBlock({authorizationStatus, onLogout}) {
+function UserBlock() {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+
+  const dispatch = useDispatch();
+
+  const onLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <ul className="user-block">
@@ -45,21 +52,6 @@ function UserBlock({authorizationStatus, onLogout}) {
   );
 }
 
-UserBlock.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  onLogout: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLogout() {
-    dispatch(logout());
-  },
-});
 
 export {UserBlock};
-export default connect(mapStateToProps, mapDispatchToProps)(UserBlock);
+export default UserBlock;

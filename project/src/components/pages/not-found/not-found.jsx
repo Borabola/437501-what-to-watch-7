@@ -35,7 +35,6 @@ function NotFound() {
         </div>
       </div>
     </section>
-
   );
 }
 

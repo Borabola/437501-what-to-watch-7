@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 function RatingField(props) {
   const {index, ratingValue, onRatingChange, isDisabled} = props;
 
-
   return (
     <>
       <input className="rating__input" id={`star-${index}`} type="radio" name="rating"  defaultValue={index} checked={ratingValue === index} onChange= {onRatingChange} disabled={isDisabled}/>

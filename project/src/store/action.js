@@ -1,55 +1,59 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   CHANGE_GENRE: 'film/changeGenre',
   LOAD_FILMS: 'data/loadFilms',
-  LOAD_PROMO: 'film/loadPromo',
-  LOAD_CURRENT: 'film/loadCurrent',
-  LOAD_CURRENT_COMMENTS: 'comments/loadCurrent',
+  LOAD_PROMO: 'data/loadPromo',
+  LOAD_FAVORITE_FILMS: 'data/loadFavoriteFilms',
+  LOAD_CURRENT_FILM: 'data/loadCurrentFilm',
+  LOAD_CURRENT_COMMENTS: 'data/loadCurrentComments',
   LOAD_SIMILAR_FILMS: 'data/loadSimilarFilms',
-  REDIRECT_TO_ROUTE: 'film/redirectToRoute',
+  REDIRECT_TO_ROUTE: 'application/redirectToRoute',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
   ERROR: 'data/error',
 };
 
-export const ActionCreator = {
-  changeGenre: (genre) => ({
-    genre,
-    type: ActionType.CHANGE_GENRE,
-  }),
-  loadFilms: (films) => ({
-    type: ActionType.LOAD_FILMS,
-    payload: films,
-  }),
-  loadPromo: (promoFilm) => ({
-    type: ActionType.LOAD_PROMO,
-    payload: promoFilm,
-  }),
-  loadCurrentFilm: (currentFilm) => ({
-    type: ActionType.LOAD_CURRENT,
-    payload: currentFilm,
-  }),
-  loadCurrentComments: (currentComments) => ({
-    type: ActionType.LOAD_CURRENT_COMMENTS,
-    payload: currentComments,
-  }),
-  loadSimilarFilms: (films) => ({
-    type: ActionType.LOAD_SIMILAR_FILMS,
-    payload: films,
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
-    payload: url,
-  }),
-  error: (err) => ({
-    type: ActionType.ERROR,
-    payload: err,
-  }),
 
-};
+export const  changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => ({
+  payload: genre,
+  type: ActionType.CHANGE_GENRE,
+}));
+
+export const  loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({
+  payload: films,
+}));
+
+export const  loadPromo = createAction(ActionType.LOAD_PROMO, (promoFilm) => ({
+  payload: promoFilm,
+}));
+
+export const  loadCurrentFilm = createAction(ActionType.LOAD_CURRENT_FILM, (currentFilm) => ({
+  payload: currentFilm,
+}));
+
+export const  loadCurrentComments = createAction(ActionType.LOAD_CURRENT_COMMENTS, (currentComments) => ({
+  payload: currentComments,
+}));
+
+export const  loadFavoriteFilms = createAction(ActionType.LOAD_FAVORITE_FILMS, (favoriteFilms) => ({
+  payload: favoriteFilms,
+}));
+
+export const  loadSimilarFilms = createAction(ActionType.LOAD_SIMILAR_FILMS, (films) => ({
+  payload: films,
+}));
+
+export const  requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
+  payload: status,
+}));
+
+export const  logout = createAction(ActionType.LOGOUT);
+
+export const  redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({
+  payload: url,
+}));
+
+export const  error = createAction(ActionType.ERROR, (err) => ({
+  payload: err,
+}));
