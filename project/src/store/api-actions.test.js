@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '../services/api';
 import {ActionType} from './action';
-import {checkAuth, login, fetchFilmList, fetchPromoFilm, fetchCurrentFilm, fetchFavoriteFilms, fetchCurrentComments, fetchSimilarFilmList, sendComments} from './api-actions';
+import {checkAuth, login, logout, fetchFilmList, fetchPromoFilm, fetchCurrentFilm, fetchFavoriteFilms, fetchCurrentComments, fetchSimilarFilmList, sendComments, sendFavoriteFilmStatus, sendPromoFavoriteFilmStatus} from './api-actions';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../const';
 import {adaptFilm} from './../adapter';
 
@@ -44,6 +44,7 @@ const reviewPostData = {
 };
 
 const {comment, rating} = reviewPostData;
+const AUTH_STATUS = AuthorizationStatus.AUTH;
 
 describe('Async operations', () => {
   beforeAll(() => {
@@ -64,7 +65,7 @@ describe('Async operations', () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.REQUIRED_AUTHORIZATION,
-          payload: AuthorizationStatus.AUTH,
+          payload: AUTH_STATUS,
         });
       });
   });
@@ -85,12 +86,31 @@ describe('Async operations', () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.REQUIRED_AUTHORIZATION,
-          payload: AuthorizationStatus.AUTH,
+          payload: AUTH_STATUS,
         });
 
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.REDIRECT_TO_ROUTE,
           payload: AppRoute.Main,
+        });
+      });
+  });
+
+  it('should make a correct API call to DELETE /logout', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const logoutLoader = logout();
+
+    apiMock
+      .onDelete(APIRoute.LOGOUT)
+      .reply(204);
+
+    return logoutLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOGOUT,
         });
       });
   });
@@ -218,7 +238,7 @@ describe('Async operations', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const id = 1;
-    const postCommentLoader = sendComments(comment, rating, id);
+    const postCommentLoader = sendComments(comment, id, rating);
 
     apiMock
       .onPost(`/comments/${id}`)
@@ -231,6 +251,50 @@ describe('Async operations', () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.REDIRECT_TO_ROUTE,
           payload: (`/films/${id}`),
+        });
+      });
+  });
+
+  it('should make a correct API call for current film to POST /favorite/: film_id/: status', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const id = 1;
+    const status = 1;
+    const postFavoriteFilmStatusLoader = sendFavoriteFilmStatus( id, status);
+
+    apiMock
+      .onPost(`/favorite/${id}/${status}`)
+      .reply(200, filmData);
+
+    return postFavoriteFilmStatusLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.UPDATE_FAVIRITE_FILM,
+          payload: (adaptFilm(filmData)),
+        });
+      });
+  });
+
+  it('should make a correct API call for promo film to POST /favorite/: film_id/: status', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const id = 1;
+    const status = 1;
+    const postPromoFavoriteFilmStatusLoader = sendPromoFavoriteFilmStatus( id, status);
+
+    apiMock
+      .onPost(`/favorite/${id}/${status}`)
+      .reply(200, filmData);
+
+    return postPromoFavoriteFilmStatusLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.UPDATE_PROMO_FAVIRITE_FILM,
+          payload: (adaptFilm(filmData)),
         });
       });
   });
