@@ -20,7 +20,8 @@ function MyListButton({film, isPromo}) {
   };
 
   const onMyListClick = () => {
-    isPromo ? dispatch(sendPromoFavoriteFilmStatus(film.id, +!film.isFavorite)) : dispatch(sendFavoriteFilmStatus(film.id, +!film.isFavorite));
+    const favoriteStatus = film.isFavorite ? 0 : 1;
+    isPromo ? dispatch(sendPromoFavoriteFilmStatus(film.id, favoriteStatus)) : dispatch(sendFavoriteFilmStatus(film.id, favoriteStatus));
   };
 
   return (

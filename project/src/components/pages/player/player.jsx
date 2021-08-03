@@ -1,8 +1,7 @@
 import React, {useRef, useState} from 'react';
 import { Link, useParams } from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {getCurrentFilmById} from '../../../store/film-data/selectors';
-import {redirectToRoute} from '../../../store/action';
 import {getVideoTimeFormating} from '../../../utils';
 
 
@@ -12,7 +11,7 @@ function Player() {
   const playerRef = useRef(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [currentVideoTime, setCurrentVideoTime] = useState(0);
-  const dispatch = useDispatch();
+  const [videoProgress, setVideoProgress] = useState(0);
 
   const currentFilm = useSelector(getCurrentFilmById(filmParam.id));
 
@@ -27,19 +26,22 @@ function Player() {
   };
 
   const fullScreenBtnHandler = (element) => {
-    if (element.fullscreen ) {
+    if (videoRef.current.fullscreen ) {
       if (document.exitFullscreen) {
         document.exitFullscreen();
       }
     }
     else {
-      if (element.requestFullscreen) {
-        element.requestFullscreen();
+      if (videoRef.current.requestFullscreen) {
+        videoRef.current.requestFullscreen();
       }
     }
   };
 
-  const timeChangeHandler = (evt) => setCurrentVideoTime(evt.target.currentTime);
+  const timeChangeHandler = (evt) => {
+    setCurrentVideoTime(evt.target.currentTime);
+    setVideoProgress(currentVideoTime/currentFilm.runTime*100);
+  };
 
   return (
     <div className="player" ref={playerRef}>
@@ -50,8 +52,8 @@ function Player() {
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value={`${currentVideoTime/currentFilm.runTime*100}`} max="100"></progress>
-            <div className="player__toggler" style={{ left: `${currentVideoTime/currentFilm.runTime*100}%`, color: 'white' }}>Toggler</div>
+            <progress className="player__progress" value={videoProgress} max="100"></progress>
+            <div className="player__toggler" style={{ left: `${videoProgress}%`, color: 'white' }}>Toggler</div>
           </div>
           <div className="player__time-value">{getVideoTimeFormating(currentFilm.runTime - currentVideoTime)}</div>
         </div>
@@ -76,7 +78,7 @@ function Player() {
 
           <div className="player__name">{currentFilm.name}</div>
 
-          <button type="button" className="player__full-screen" onClick={() => fullScreenBtnHandler(videoRef.current)}>
+          <button type="button" className="player__full-screen" onClick={() => fullScreenBtnHandler()}>
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
             </svg>

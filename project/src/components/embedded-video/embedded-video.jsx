@@ -14,6 +14,8 @@ function EmbeddedVideo({filmVideo, filmPoster, isPlaying}) {
         videoRef.current.onplay = null;
         videoRef.current.onpause = null;
         videoRef.current = null;
+        filmVideo = null;
+        filmPoster = null;
       }
     };
   }, [filmVideo]);
