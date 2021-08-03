@@ -21,6 +21,10 @@ function FilmList({films, filmsNumber}) {
   );
 }
 
+FilmList.defaultProps = {
+  filmsNumber: PropTypes.number,
+};
+
 FilmList.propTypes = {
   films: filmListProp,
   filmsNumber: PropTypes.number.isRequired,

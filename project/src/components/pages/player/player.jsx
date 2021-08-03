@@ -1,22 +1,20 @@
 import React, {useRef, useState} from 'react';
+import { Link, useParams } from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
-import { useParams } from 'react-router-dom';
-import {getFilms} from '../../../store/film-data/selectors';
+import {getCurrentFilmById} from '../../../store/film-data/selectors';
 import {redirectToRoute} from '../../../store/action';
 import {getVideoTimeFormating} from '../../../utils';
 
 
 function Player() {
   const filmParam = useParams();
-  const films = useSelector(getFilms);
   const videoRef = useRef(null);
   const playerRef = useRef(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [currentVideoTime, setCurrentVideoTime] = useState(0);
   const dispatch = useDispatch();
 
-
-  const currentFilm = films.find((film) => film.id === filmParam.id);
+  const currentFilm = useSelector(getCurrentFilmById(filmParam.id));
 
   const playBtnHandler = () => {
     if (videoRef.current.paused || videoRef.current.ended) {
@@ -30,31 +28,24 @@ function Player() {
 
   const fullScreenBtnHandler = (element) => {
     if (element.fullscreen ) {
-      if (document.exitFullscreen) {document.exitFullscreen();}
-      else if (document.mozCancelFullScreen) {document.mozCancelFullScreen();}
-      else if (document.webkitCancelFullScreen) {document.webkitCancelFullScreen();}
-      else if (document.msExitFullscreen) {document.msExitFullscreen();}
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
     }
     else {
-      if ( element.requestFullscreen) { element.requestFullscreen();}
-      else if ( element.mozRequestFullScreen)  {element.mozRequestFullScreen();}
-      else if ( element.webkitRequestFullScreen) { element.webkitRequestFullScreen();}
-      else if ( element.msRequestFullscreen)  {element.msRequestFullscreen();}
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      }
     }
   };
 
   const timeChangeHandler = (evt) => setCurrentVideoTime(evt.target.currentTime);
 
-  const  exitButtonHandler = (id) => {
-    playerRef.current = null;
-    dispatch(redirectToRoute(`/films/${id}`));
-  };
-
   return (
     <div className="player" ref={playerRef}>
       <video src={currentFilm.filmVideo} className="player__video" poster={currentFilm.filmPoster} ref={videoRef} onTimeUpdate={(evt) => timeChangeHandler(evt)} ></video>
 
-      <button type="button" className="player__exit" onClick={() => exitButtonHandler(`${currentFilm.id}`)}>Exit</button>
+      <Link to={`/films/${currentFilm.id}`} className="player__exit">Exit</Link>
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -83,7 +74,7 @@ function Player() {
               </>}
           </button>
 
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{currentFilm.name}</div>
 
           <button type="button" className="player__full-screen" onClick={() => fullScreenBtnHandler(videoRef.current)}>
             <svg viewBox="0 0 27 27" width="27" height="27">

@@ -1,4 +1,5 @@
 import {NameSpace} from '../root-reducer';
+import { createSelector } from 'reselect';
 
 export const getError = (state) => state[NameSpace.DATA].error;
 export const getFilms = (state) => state[NameSpace.DATA].films;
@@ -14,3 +15,7 @@ export const getPromoLoadedStatus = (state) => state[NameSpace.DATA].isPromoLoad
 export const getCurrentFilmLoadedStatus = (state) => state[NameSpace.DATA].isCurrentFilmLoaded;
 export const getCurrentCommentsLoadedStatus = (state) => state[NameSpace.DATA].isCurrentCommentsLoaded;
 export const getSimilarFilmsLoadedtatus = (state) => state[NameSpace.DATA].isSimilarFilmsLoaded;
+export const getCurrentFilmById = (paramId) => createSelector(
+  getFilms,
+  (films) => films.find((film) => film.id === paramId),
+);
