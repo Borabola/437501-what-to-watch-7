@@ -21,7 +21,7 @@ function MyList() {
 
   useEffect(() => {
     onLoadFavorite();
-  }, [favoriteFilms]);
+  }, []);
 
   if (!isFavoriteLoaded) {
     return (
@@ -42,7 +42,7 @@ function MyList() {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        {favoriteFilms.lenght && <FilmList films={favoriteFilms}  filmsNumber={favoriteFilms.lenght} />}
+        {<FilmList films={favoriteFilms}  filmsNumber={favoriteFilms.lenght} />}
       </section>
 
       <PageFooter />

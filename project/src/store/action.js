@@ -10,6 +10,8 @@ export const ActionType = {
   LOAD_SIMILAR_FILMS: 'data/loadSimilarFilms',
   REDIRECT_TO_ROUTE: 'application/redirectToRoute',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  UPDATE_FAVIRITE_FILM: 'data/updateFaviriteFilm',
+  UPDATE_PROMO_FAVIRITE_FILM: 'data/updatePromoFaviriteFilm',
   LOGOUT: 'user/logout',
   ERROR: 'data/error',
 };
@@ -53,7 +55,12 @@ export const  logout = createAction(ActionType.LOGOUT);
 export const  redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({
   payload: url,
 }));
-
+export const updateFavoriteFilm = createAction(ActionType.UPDATE_FAVIRITE_FILM, (film) => ({
+  payload: film,
+}));
+export const updatePromoFavoriteFilm = createAction(ActionType.UPDATE_PROMO_FAVIRITE_FILM, (film) => ({
+  payload: film,
+}));
 export const  error = createAction(ActionType.ERROR, (err) => ({
   payload: err,
 }));

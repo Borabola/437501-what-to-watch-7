@@ -7,8 +7,6 @@ function LoadingScreen() {
       <div className="film-card__bg">
       </div>
 
-      <h1 className="visually-hidden">WTW</h1>
-
       <header className="page-header film-card__head">
 
 

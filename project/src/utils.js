@@ -28,6 +28,21 @@ const getTimeFormate = (number) => {
   return result.trim();
 };
 
+const getVideoTimeFormating = (time) => {
+  const h = Math.floor(time / 3600);
+  const m = Math.floor((time % 3600) / 60);
+  const s = Math.round(time % 60);
+
+  const minutes = `${m > 9 ? Math.max(m, 0) : `0${Math.max(0, m)}`}:${s > 9 ? Math.max(0, s) : `0${Math.max(0, s)}`}`;
+  const hours = `${h > 9 ? Math.max(h, 0) : `0${Math.max(0, h)}`}:${minutes}`;
+
+  if(h < 1) {
+    return minutes;
+  }
+
+  return hours;
+};
+
 const getFilteredFilms = (films, genre) => {
   if (genre === ALL_GENRES) {
     return films;
@@ -36,4 +51,4 @@ const getFilteredFilms = (films, genre) => {
   return films.filter((film) => film.genre === genre);
 };
 
-export {getFilteredFilms, getTimeFormate, RatingToText};
+export {getFilteredFilms, getVideoTimeFormating, getTimeFormate, RatingToText};

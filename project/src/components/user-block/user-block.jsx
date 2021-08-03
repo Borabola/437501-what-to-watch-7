@@ -52,6 +52,4 @@ function UserBlock() {
   );
 }
 
-
-export {UserBlock};
 export default UserBlock;
