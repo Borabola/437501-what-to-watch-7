@@ -1,16 +1,12 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import {Router, Switch} from 'react-router-dom';
+import {Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
+import MyList from './my-list';
 import {ALL_GENRES, AuthorizationStatus} from '../../../const';
-import AddReview from './add-review';
 import * as Redux from 'react-redux';
-
-let fakeApp = null;
-let history = null;
-let store = null;
 
 const film = {
   id: '1',
@@ -34,42 +30,37 @@ const film = {
   isFavorite: false,
 };
 
-describe('Component:AddReview', () => {
+let fakeApp = null;
+let history = null;
+let store = null;
 
+describe('Component: My list', () => {
   beforeAll(() => {
     history = createMemoryHistory();
 
     const createFakeStore = configureStore({});
     store = createFakeStore({
-      DATA: {
-        genre: ALL_GENRES,
-        currentFilm: film,
-        isCurrentFilmLoaded: true,
-        api: jest.fn()},
-      USER: {authorizationStatus: AuthorizationStatus.AUTH},
+      DATA: {genre: ALL_GENRES, isDataLoaded: true, isPromoLoaded: true, isFavoriteLoaded: true, films: [film, film], favoriteFilms: [film]},
+      USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
     });
 
     fakeApp = (
       <Provider store={store}>
         <Router history={history}>
-          <Switch>
-            <AddReview />
-          </Switch>
+          <MyList />
         </Router>
       </Provider>
     );
   });
 
-  it('there must be a correct render', () => {
+  it('should display My List page', () => {
     const dispatch = jest.fn();
     const useDispatch = jest.spyOn(Redux, 'useDispatch');
     useDispatch.mockReturnValue(dispatch);
 
     render(fakeApp);
 
-    screen.getAllByText(/The Grand Budapest Hotel/i).forEach((item) => {
-      expect(item).toBeInTheDocument();
-    });
-    screen.getByAltText(/The Grand Budapest Hotel poster/i);
+    expect(screen.getByText(/The Grand Budapest Hotel/i)).toBeInTheDocument();
+    expect(screen.getByText(/My List/i)).toBeInTheDocument();
   });
 });

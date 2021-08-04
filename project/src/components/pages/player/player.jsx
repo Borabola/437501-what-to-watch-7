@@ -65,20 +65,20 @@ function Player() {
                 <svg viewBox="0 0 14 21" width="14" height="21">
                   <use xlinkHref="#pause"></use>
                 </svg>
-                <span>Pause</span>
+                <span data-testid="pause">Pause</span>
               </>
               :
               <>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
-                <span>Play</span>
+                <span data-testid="play">Play</span>
               </>}
           </button>
 
           <div className="player__name">{currentFilm.name}</div>
 
-          <button type="button" className="player__full-screen" onClick={() => fullScreenBtnHandler()}>
+          <button type="button" className="player__full-screen" data-testid="full-screen" onClick={() => fullScreenBtnHandler()}>
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
             </svg>

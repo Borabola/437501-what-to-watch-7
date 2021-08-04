@@ -114,6 +114,22 @@ describe('Application Routing', () => {
     expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
   });
 
+  it('should render "SingIn" when user navigate to "My List" without authorization', () => {
+    history.push(AppRoute.MY_LIST);
+    render(fakeAppNoAuth);
+
+    expect(screen.getByLabelText(/Email address/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
+  });
+
+  it('should render "My List" when user navigate to "My List" with authorization', () => {
+    history.push(AppRoute.MY_LIST);
+    render(fakeAppNoAuth);
+
+    expect(screen.getByLabelText(/Email address/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
+  });
+
 
   it('should render "NotFoundPage" when user navigate to non-existent route', () => {
     history.push('/page-not-found');

@@ -55,9 +55,8 @@ describe('Component: GenreItem', () => {
 
     const createFakeStore = configureStore({});
     store = createFakeStore({
-      USER: {authorizationStatus: AuthorizationStatus.AUTH, user: {}},
       DATA: {isDataLoaded: true, films: [film, film], promoFilm: film},
-      APPLICATION: {genre: ALL_GENRES, api: jest.fn()},
+      USER: {authorizationStatus: AuthorizationStatus.AUTH},
     });
 
     fakeApp = (
