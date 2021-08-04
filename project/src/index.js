@@ -12,9 +12,7 @@ import {AuthorizationStatus} from './const';
 import { redirect } from './store/middlewares/redirect';
 import browserHistory from './browser-history';
 
-export const api = createAPI(
-  () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)),
-);
+const api = createAPI(requireNoAuthCallback);
 
 const store = configureStore({
   reducer: rootReducer,
@@ -25,6 +23,10 @@ const store = configureStore({
       },
     }).concat(redirect),
 });
+
+function requireNoAuthCallback() {
+  store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
+}
 
 store.dispatch(checkAuth());
 store.dispatch(fetchFilmList(api));
