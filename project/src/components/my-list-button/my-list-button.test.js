@@ -10,7 +10,6 @@ import {ALL_GENRES} from '../../const';
 
 let history = null;
 let store = null;
-//let storeForNoAuth = null;
 let fakeApp = null;
 
 const film = {

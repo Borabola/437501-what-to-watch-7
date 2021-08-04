@@ -1,5 +1,5 @@
 import React from 'react';
-import {RatingToText} from '../../utils';
+import {convertRatingToText} from '../../utils';
 import {filmPropDefault} from '../film-list/film-list.prop';
 
 function OverviewTab({currentFilm}) {
@@ -8,7 +8,7 @@ function OverviewTab({currentFilm}) {
       <div className="film-rating">
         <div className="film-rating__score">{currentFilm.rating}</div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">{RatingToText(currentFilm.rating)}</span>
+          <span className="film-rating__level">{convertRatingToText(currentFilm.rating)}</span>
           <span className="film-rating__count">{currentFilm.scoresCount} ratings</span>
         </p>
       </div>

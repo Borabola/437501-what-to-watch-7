@@ -33,13 +33,8 @@ function ReviewForm() {
   });
 
   const {rating, comment, isCommentDirty, isCommentValide, isRating, isFormValide, isSending, serverError} = formData;
-  const validateForm = () => {
-    if (isCommentValide && isRating) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  const validateForm = () => isCommentValide && isRating;
+
   useEffect(() => {
     if (!isCommentDirty && !isRating) {
       setFormDate({

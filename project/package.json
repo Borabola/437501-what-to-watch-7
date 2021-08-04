@@ -43,8 +43,8 @@
     ]
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.14.5",
-    "@react-mock/localstorage": "^0.1.2",
+    "@babel/preset-react": "7.14.5",
+    "@react-mock/localstorage": "0.1.2",
     "@testing-library/jest-dom": "5.11.0",
     "@testing-library/react": "11.2.0",
     "@testing-library/react-hooks": "5.1.0",
