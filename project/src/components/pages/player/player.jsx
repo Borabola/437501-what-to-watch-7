@@ -1,22 +1,19 @@
 import React, {useRef, useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import { useParams } from 'react-router-dom';
-import {getFilms} from '../../../store/film-data/selectors';
-import {redirectToRoute} from '../../../store/action';
+import { Link, useParams } from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {getCurrentFilmById} from '../../../store/film-data/selectors';
 import {getVideoTimeFormating} from '../../../utils';
 
 
 function Player() {
   const filmParam = useParams();
-  const films = useSelector(getFilms);
   const videoRef = useRef(null);
   const playerRef = useRef(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [currentVideoTime, setCurrentVideoTime] = useState(0);
-  const dispatch = useDispatch();
+  const [videoProgress, setVideoProgress] = useState(0);
 
-
-  const currentFilm = films.find((film) => film.id === filmParam.id);
+  const currentFilm = useSelector(getCurrentFilmById(filmParam.id));
 
   const playBtnHandler = () => {
     if (videoRef.current.paused || videoRef.current.ended) {
@@ -29,38 +26,34 @@ function Player() {
   };
 
   const fullScreenBtnHandler = (element) => {
-    if (element.fullscreen ) {
-      if (document.exitFullscreen) {document.exitFullscreen();}
-      else if (document.mozCancelFullScreen) {document.mozCancelFullScreen();}
-      else if (document.webkitCancelFullScreen) {document.webkitCancelFullScreen();}
-      else if (document.msExitFullscreen) {document.msExitFullscreen();}
+    if (videoRef.current.fullscreen ) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
     }
     else {
-      if ( element.requestFullscreen) { element.requestFullscreen();}
-      else if ( element.mozRequestFullScreen)  {element.mozRequestFullScreen();}
-      else if ( element.webkitRequestFullScreen) { element.webkitRequestFullScreen();}
-      else if ( element.msRequestFullscreen)  {element.msRequestFullscreen();}
+      if (videoRef.current.requestFullscreen) {
+        videoRef.current.requestFullscreen();
+      }
     }
   };
 
-  const timeChangeHandler = (evt) => setCurrentVideoTime(evt.target.currentTime);
-
-  const  exitButtonHandler = (id) => {
-    playerRef.current = null;
-    dispatch(redirectToRoute(`/films/${id}`));
+  const timeChangeHandler = (evt) => {
+    setCurrentVideoTime(evt.target.currentTime);
+    setVideoProgress(currentVideoTime/currentFilm.runTime*100);
   };
 
   return (
     <div className="player" ref={playerRef}>
       <video src={currentFilm.filmVideo} className="player__video" poster={currentFilm.filmPoster} ref={videoRef} onTimeUpdate={(evt) => timeChangeHandler(evt)} ></video>
 
-      <button type="button" className="player__exit" onClick={() => exitButtonHandler(`${currentFilm.id}`)}>Exit</button>
+      <Link to={`/films/${currentFilm.id}`} className="player__exit">Exit</Link>
 
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value={`${currentVideoTime/currentFilm.runTime*100}`} max="100"></progress>
-            <div className="player__toggler" style={{ left: `${currentVideoTime/currentFilm.runTime*100}%`, color: 'white' }}>Toggler</div>
+            <progress className="player__progress" value={videoProgress} max="100"></progress>
+            <div className="player__toggler" style={{ left: `${videoProgress}%`, color: 'white' }}>Toggler</div>
           </div>
           <div className="player__time-value">{getVideoTimeFormating(currentFilm.runTime - currentVideoTime)}</div>
         </div>
@@ -72,20 +65,20 @@ function Player() {
                 <svg viewBox="0 0 14 21" width="14" height="21">
                   <use xlinkHref="#pause"></use>
                 </svg>
-                <span>Pause</span>
+                <span data-testid="pause">Pause</span>
               </>
               :
               <>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
-                <span>Play</span>
+                <span data-testid="play">Play</span>
               </>}
           </button>
 
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{currentFilm.name}</div>
 
-          <button type="button" className="player__full-screen" onClick={() => fullScreenBtnHandler(videoRef.current)}>
+          <button type="button" className="player__full-screen" data-testid="full-screen" onClick={() => fullScreenBtnHandler()}>
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
             </svg>

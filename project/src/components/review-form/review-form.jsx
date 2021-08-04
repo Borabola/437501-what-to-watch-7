@@ -33,6 +33,7 @@ function ReviewForm() {
   });
 
   const {rating, comment, isCommentDirty, isCommentValide, isRating, isFormValide, isSending, serverError} = formData;
+  const validateForm = () => isCommentValide && isRating;
 
   useEffect(() => {
     if (!isCommentDirty && !isRating) {
@@ -62,13 +63,6 @@ function ReviewForm() {
   };
   const validateComment = () => {
     if ((comment.length > ValidComment.MIN_LENGHT) && (comment.length < ValidComment.MAX_LENGTH)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-  const validateForm = () => {
-    if (isCommentValide && isRating) {
       return true;
     } else {
       return false;

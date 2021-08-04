@@ -42,7 +42,7 @@ function MyList() {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        {<FilmList films={favoriteFilms}  filmsNumber={favoriteFilms.lenght} />}
+        {(favoriteFilms.length > 0) && <FilmList films={favoriteFilms}  filmsNumber={favoriteFilms.length} />}
       </section>
 
       <PageFooter />

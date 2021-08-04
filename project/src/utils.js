@@ -1,6 +1,6 @@
 import {ALL_GENRES, MINUTE, Ratings} from './const.js';
 
-const RatingToText = (rating) =>{
+const convertRatingToText = (rating) =>{
   if(rating > 0 && rating < 3){
     return Ratings.BAD;
   } else if(rating >= 3 && rating < 5) {
@@ -51,4 +51,4 @@ const getFilteredFilms = (films, genre) => {
   return films.filter((film) => film.genre === genre);
 };
 
-export {getFilteredFilms, getVideoTimeFormating, getTimeFormate, RatingToText};
+export {getFilteredFilms, getVideoTimeFormating, getTimeFormate, convertRatingToText};

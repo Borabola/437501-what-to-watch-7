@@ -11,16 +11,17 @@ function MyListButton({film, isPromo}) {
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const dispatch = useDispatch();
 
+  const onMyListClick = () => {
+    const favoriteStatus = film.isFavorite ? 0 : 1;
+    isPromo ? dispatch(sendPromoFavoriteFilmStatus(film.id, favoriteStatus)) : dispatch(sendFavoriteFilmStatus(film.id, favoriteStatus));
+  };
+
   const myListHandler = () => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
       onMyListClick();
     } else {
       dispatch(redirectToRoute(AppRoute.SIGN_IN));
     }
-  };
-
-  const onMyListClick = () => {
-    isPromo ? dispatch(sendPromoFavoriteFilmStatus(film.id, +!film.isFavorite)) : dispatch(sendFavoriteFilmStatus(film.id, +!film.isFavorite));
   };
 
   return (

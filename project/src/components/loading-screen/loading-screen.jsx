@@ -8,8 +8,6 @@ function LoadingScreen() {
       </div>
 
       <header className="page-header film-card__head">
-
-
       </header>
 
       <div className="film-card__wrap">
@@ -17,7 +15,6 @@ function LoadingScreen() {
 
           <div className="film-card__desc">
             <div className="loader">Loading...</div>
-
           </div>
         </div>
       </div>
