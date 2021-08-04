@@ -95,7 +95,6 @@ describe('Application Routing', () => {
     history.push(AppRoute.ROOT);
     render(fakeApp);
 
-    //expect(screen.getByText(/Comedy/i)).toBeInTheDocument();
     expect(screen.getByText(/Play/i)).toBeInTheDocument();
     expect(screen.getByText(/My list/i)).toBeInTheDocument();
     expect(screen.getByText(/Catalog/i)).toBeInTheDocument();

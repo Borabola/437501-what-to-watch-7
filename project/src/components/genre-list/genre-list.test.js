@@ -3,7 +3,7 @@ import {render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import GenreList from './genre-list';
 import configureStore from 'redux-mock-store';
-import {ALL_GENRES, AuthorizationStatus} from '../../const';
+import {AuthorizationStatus} from '../../const';
 
 const film = {
   id: '1',

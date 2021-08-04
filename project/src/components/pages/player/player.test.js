@@ -79,7 +79,7 @@ describe('Component: Player', () => {
             <Route exact path={'/player/1'} render={() => <Player/>}/>
             <Route>
               <NotFound />
-           </Route>
+            </Route>
           </Switch>
         </Router>
       </Provider>,
@@ -107,10 +107,6 @@ describe('Component: Player', () => {
     userEvent.click(screen.getByText(/Exit/i));
     history.push('/films/1');
     expect(screen.getByText(/The Grand Budapest Hotel/i)).toBeInTheDocument();
-    /*screen.getAllByText(/The Grand Budapest Hotel/i).forEach((item) => {
-      expect(item).toBeInTheDocument();
-    });*/
-
   });
 
   it('should expand the player to full screen', () => {

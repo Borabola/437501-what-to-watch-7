@@ -37,7 +37,6 @@ const film = {
 describe('Component: MyListButton', () => {
   beforeAll(() => {
     history = createMemoryHistory();
-    //api = createApi(jest.fn());
 
     const createFakeStore = configureStore({});
     store = createFakeStore({
